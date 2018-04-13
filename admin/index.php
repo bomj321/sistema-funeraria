@@ -4,10 +4,10 @@ include('header.php');
 <main>
     <div class="container">        
             <div class="row" id="main">
-                <form class="col s6 offset-s3" id="form_inicio" method="POST" action="registro_action">
+                <form class="col s6 offset-s3" id="form_inicio" method="POST" action="registro_action.php">
                 <div class="row">
                     <div class="input-field col s12">
-                      <input v-on:keyup="escribir(email)" v-model="email.input" id="email" type="email" class="validate email">
+                      <input name="email" v-on:keyup="escribir(email)" v-model="email.input" id="email" type="email" class="validate email">
                       <label for="email">Email</label>
                       <template v-if="email.mensaje">
                           <p v-text="email.mensaje"></p>
@@ -17,7 +17,7 @@ include('header.php');
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input v-on:keyup="escribir(password)" v-model="password.input" id="password" type="password" class="validate password">
+                        <input name="password" v-on:keyup="escribir(password)" v-model="password.input" id="password" type="password" class="validate password">
                         <label for="password">Password</label>
                          <template v-if="password.mensaje">
                           <p v-text="password.mensaje"></p>
@@ -30,6 +30,7 @@ include('header.php');
                 </form>
             </div>        
     </div>
+
 </main>
 <?php
 include('footer.php');

@@ -1,16 +1,20 @@
+<?php
+session_start();
+include('connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/materialize.css">
-	<link rel="stylesheet" href="css/toastr.css">
-	<link rel="stylesheet" href="css/app.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/materialize.css">
+  <link rel="stylesheet" href="css/toastr.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-	<header>
-		<div class="row">                
+  <header>
+    <div class="row">                
               
                       <nav>
                         <div class="nav-wrapper">
@@ -30,6 +34,6 @@
                             <li><a href="mobile.html">Mobile</a></li>
                           </ul>         
            </div>
-	</header>
-	
+  </header>
+  
 
