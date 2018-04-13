@@ -2,21 +2,26 @@
 include('header.php');
 ?>
 <main>
-    <div class="container">
-        
-            <div class="row">
-                <form class="col s6 offset-s3">
+    <div class="container">        
+            <div class="row" id="main">
+                <form class="col s6 offset-s3" id="form_inicio" method="POST" action="registro_action">
                 <div class="row">
                     <div class="input-field col s12">
-                      <input id="password" type="password" class="validate">
-                      <label for="password">Password</label>
+                      <input v-on:keyup="escribir(email)" v-model="email.input" id="email" type="email" class="validate email">
+                      <label for="email">Email</label>
+                      <template v-if="email.mensaje">
+                          <p v-text="email.mensaje"></p>
+                      </template>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12">
-                      <input id="email" type="email" class="validate">
-                      <label for="email">Email</label>
+                        <input v-on:keyup="escribir(password)" v-model="password.input" id="password" type="password" class="validate password">
+                        <label for="password">Password</label>
+                         <template v-if="password.mensaje">
+                          <p v-text="password.mensaje"></p>
+                      </template>
                     </div>
                 </div>                  
                       <button class="btn waves-effect waves-light" type="submit" name="action">Entrar al Sistema
@@ -26,7 +31,6 @@ include('header.php');
             </div>        
     </div>
 </main>
-
 <?php
 include('footer.php');
 ?>

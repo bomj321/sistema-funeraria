@@ -1,4 +1,4 @@
-
+/*ESTILOS DE MATERIALIZE.css (Ver la pagina)*/
   body {
     display: flex;
     min-height: 100vh;
@@ -8,4 +8,12 @@
   main {
     flex: 1 0 auto;
   }
-      
+
+/*ESTILOS DE MATERIALIZE.css (Ver la pagina)*/
+
+/*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA (USAR ID)*/
+#form_inicio{
+	margin-top: 5rem;
+}
+
+/*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA*/
