@@ -12,11 +12,11 @@ include('connect.php');
                 echo " 
                     <script>
                     alert('Error en el login por Favor Intente de Nuevo');
-                    window.location.href='recuperar.php';           
+                    window.location.href='index.php';           
                     </script>            
                 ";
                  /* Cerrando conexion*/
-                mysqli_close($connection);
+                
             }else{
                 echo "
                     <script>
@@ -25,4 +25,5 @@ include('connect.php');
                     </script>
                 ";
             }
+            mysqli_close($connection);
 ?>

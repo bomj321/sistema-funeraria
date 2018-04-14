@@ -1,8 +1,9 @@
-//NAVBAR DEL MATERIALIZE.CSS
+//JQUERY DE MATERIALIZE
   $(document).ready(function(){
     $('.sidenav').sidenav();
+	$('.carousel').carousel();        
   });
-//NAVBAR DEL MATERIALIZE.CSS
+//JQUERY DE MATERIALIZE
 
 
 

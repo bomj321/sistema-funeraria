@@ -11,9 +11,53 @@
 
 /*ESTILOS DE MATERIALIZE.css (Ver la pagina)*/
 
+
+/*ESTILOS PARA LOS DIFERENTES COMPONENTES*/
+.page-footer{
+	background-color: #0288d1;
+}
+
+nav{
+	background-color: #0288d1;
+}
+.btn{
+		background-color: #0288d1;
+
+}
+h1, h2, h3, h4, h5, h6{
+	text-align: center;
+	color: #0288d1;
+}
+p{
+	color: #0288d1;
+}
+.carousel{
+	margin-top: -5rem;
+}
+
+/*ESTILOS PARA LOS DIFERENTES COMPONENTES*/
+
+
+
+
+
+
+
+
+
+
 /*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA (USAR ID)*/
 #form_inicio{
 	margin-top: 5rem;
+}
+
+/*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA*/
+
+
+
+/*ESTILOS A LOS DIFERENTES NAVBAR DE LA PAGINA (USAR ID)*/
+#aside{
+	border: 1px solid black;
 }
 
 /*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA*/
