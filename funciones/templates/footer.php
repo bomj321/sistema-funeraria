@@ -1,7 +1,7 @@
 <footer class="page-footer">            
-            	<div class="row">
-           			 © 2018 Sistema de Funerarias. Realizado por: Ortega y Villalobos
-            	</div>                     
+	<div class="row">
+		© 2018 Sistema de Funerarias. Realizado por: Ortega y Villalobos
+	</div>                     
 </footer>
 
 <script src="js/jquery.js"></script>
