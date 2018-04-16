@@ -11,28 +11,26 @@
 </head>
 <body>
 	<header>
-		<div class="row">                
-              
-                      <nav>
-                        <div class="nav-wrapper">
-                          <a href="#!" class="brand-logo">Logo</a>
-                          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                          <ul class="right hide-on-med-and-down">
-                            <li><a href="admin/index.php">Entrar al Sistema</a></li>
-                            <li><a href="#">Components</a></li>
-                            <li><a href="#">Javascript</a></li>
-                            <li><a href="#">Mobile</a></li>
-                          </ul>
-                        </div>
-                      </nav>
-
-                          <ul class="sidenav" id="mobile-demo">
-                          <li><a href="admin/index.php">Entrar al Sistema</a></li>
-                            <li><a href="#">Components</a></li>
-                            <li><a href="#">Javascript</a></li>
-                            <li><a href="#">Mobile</a></li>
-                          </ul>         
-           </div>
+		<div class="row">              
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo">Logo</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="admin/index.php">Entrar al Sistema</a></li>
+            <li><a href="#">Planes</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Mobile</a></li>
+          </ul>
+        </div>
+      </nav>
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="admin/index.php">Entrar al Sistema</a></li>
+        <li><a href="#">Planes</a></li>
+        <li><a href="#">Servicios</a></li>
+        <li><a href="#">Mobile</a></li>
+      </ul>         
+    </div>
 	</header>
 	
 

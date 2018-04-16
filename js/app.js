@@ -1,8 +1,8 @@
 $(document).ready(function(){
-  //NAVBAR DEL MATERIALIZE.CSS
+    //NAVBAR DEL MATERIALIZE.CSS
     $('.sidenav').sidenav();
 
-
+    //Carousel index.php
     $('.carousel.carousel-slider').carousel({
       fullWidth: true,
       indicators: true},setTimeout(autoplay, 3500));
