@@ -1,11 +1,11 @@
 <?php
 session_start();
 include('connect.php');
-        $femail = $_POST['email'];
-        $_SESSION['confemail']=$femail;
+        $usuario = $_POST['usuario'];
+        $_SESSION['usuario']=$usuario;
         $password = $_POST['password'];
         $_SESSION['password']=$password;         
-                $sql = "SELECT * FROM usuarios WHERE email= '$femail' AND pass='$password'";
+                $sql = "SELECT * FROM usuario_admin WHERE usuario= '$usuario' AND pass='$password'";
                     $resultado= mysqli_query($connection, $sql);
                         $row=mysqli_fetch_array($resultado);
             if(mysqli_num_rows($resultado) == 0) {

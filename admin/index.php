@@ -7,8 +7,8 @@ include('header.php');
                 <form class="col s6 offset-s3" id="form_inicio" method="POST" action="registro_action.php">
                 <div class="row">
                     <div class="input-field col s12">
-                      <input name="email" v-on:keyup="escribir(email)" v-model="email.input" id="email" type="email" class="validate email">
-                      <label for="email">Email</label>
+                      <input name="usuario" v-on:keyup="escribir(email)" v-model="email.input" id="email" type="text" class="validate email">
+                      <label for="email">Ingrese su Usuario</label>
                       <template v-if="email.mensaje">
                           <p v-text="email.mensaje"></p>
                       </template>
