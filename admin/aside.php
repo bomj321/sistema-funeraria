@@ -8,8 +8,8 @@
                 <li><a class="waves-effect" href="#!">Pagos de Servicios</a></li>
                 <li><a class="waves-effect" href="#!">Pagos de Contratos</a></li>
                 <li><a class="waves-effect" href="stock.php">Control de Stock</a></li>
-                <li><a class="waves-effect" href="nuevoplan.php">Registrar Plan</a></li>
                 <li><a class="waves-effect" href="servicio.php">Registrar Servicio</a></li>
+                <li><a class="waves-effect" href="nuevoplan.php">Registrar Plan</a></li>
 
 
 

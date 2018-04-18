@@ -6,9 +6,13 @@ include('connect.php');
                 $can= $_POST['cantidad'];
                 $com= $_POST['comentario'];               
                
+mysqli_set_charset($connection, "utf8");
+		$sql="UPDATE stock SET objeto=?, cantidad=?, comentario=? WHERE id=?";
+		$resultado=mysqli_prepare($connection, $sql);
+		$ok=mysqli_stmt_bind_param($resultado, "sisi", $obj, $can, $com, $id);
+		$ok=mysqli_stmt_execute($resultado);
 
-       $sql = "UPDATE stock SET objeto='$obj', cantidad='$can', comentario='$com' WHERE id='$id'";
-		mysqli_query($connection, $sql);
-            mysqli_close($connection);
+       
+mysqli_stmt_close($resultado);       
 
 ?>

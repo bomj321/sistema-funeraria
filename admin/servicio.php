@@ -29,8 +29,9 @@ include('header.php');
                             </div>
 
                             <div class="input-field col s6">
-                              <input name="costo_servicio" id="costo_servicio" type="text" class="validate" required="true">
+                              <input onkeypress="return solonumeros(event)" onpaste="false" name="costo_servicio" id="costo_servicio" type="text" class="validate" required="true">
                               <label for="costo_servicio">Costo del Servicio</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>                           
 
                             

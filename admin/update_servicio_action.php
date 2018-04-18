@@ -6,8 +6,13 @@ include('connect.php');
                 $costs= $_POST['costo'];
                
 
-       $sql = "UPDATE Servicios SET descripcion_servicio='$descs', servicio_activo= '1', costo='$costs'  WHERE id_servicios='$ids'";
-		mysqli_query($connection, $sql);
-            mysqli_close($connection);
+mysqli_set_charset($connection, "utf8");
+		$sql="UPDATE Servicios SET descripcion_servicio= ?, servicio_activo= '1', costo= ?  WHERE id_servicios= ?";
+		$resultado=mysqli_prepare($connection, $sql);
+		$ok=mysqli_stmt_bind_param($resultado, "sii", $descs, $costs, $ids);
+		$ok=mysqli_stmt_execute($resultado);
+
+       
+mysqli_stmt_close($resultado);
 
 ?>

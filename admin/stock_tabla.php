@@ -1,7 +1,6 @@
 <?php 
 include('connect.php');
 //--------------------if--------------------
-
         if(isset($_GET["pagina"])){
 
                 if($_GET["pagina"]==1){
@@ -32,7 +31,7 @@ include('connect.php');
 $sql_limite = "SELECT * FROM stock";
 $resultado_limite= mysqli_query($connection, $sql_limite); 
 mysqli_fetch_array($resultado_limite);
- $num_filas = mysqli_num_rows($resultado_limite);
+$num_filas = mysqli_num_rows($resultado_limite);
 $total_paginas=ceil($num_filas/$tamaño_paginas);
 
 

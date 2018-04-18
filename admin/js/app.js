@@ -9,7 +9,7 @@
 
 
 
-//TODO PARA VUEJS
+///////////////////////////////////TODO PARA VUEJS
 new Vue({
 		el:'#main',
 		data:{
@@ -20,9 +20,7 @@ new Vue({
 			password:{
 				input: '',
 				mensaje: ''
-			}	
-			
-
+			}
 		}, 
 		methods:{
 				escribir: function(data){
@@ -35,8 +33,83 @@ new Vue({
 
 	});
 
-//TODO PARA VUEJS
 
+
+/////////////////////////////////////TODO PARA VUEJS
+
+////////////////////////////////////////////////////////JAVASCRIPT VALIDACIONES
+
+function solonumeros(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  var texto = " Solo se aceptan Numeros";
+  var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_costo').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_costo').innerHTML= texto2;
+
+  }
+}
+
+function solonumeros2(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  var texto = " Solo se aceptan Numeros";
+  var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_costos').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_costos').innerHTML= texto2;
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////JAVASCRIPT VALIDACIONES
 
 
 //AJAX DE LA PAGINA
@@ -85,7 +158,7 @@ function enviarDatosStock(){
   		//mostrar resultados en esta capa
 		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
-		LimpiarCampos();
+		LimpiarCampos1();
 		toastr.success('Item Registrado!!!'); //mensaje
 	}else if(ajax.readyState==0){
 		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
@@ -95,9 +168,8 @@ function enviarDatosStock(){
 	//enviando los valores a registro.php para que inserte los datos
 	ajax.send("objeto="+obj+"&cantidad="+can+"&comentario="+com)
 }
- //"nombre="+nom+"&costo="+cost+"&cuota="+cuo+"&flores="+flo+"&ataud="+ata+"&refrigerio="+ref+"&habitacion="+hab+"&transporte="+tran
 //función para limpiar los campos
-function LimpiarCampos(){
+function LimpiarCampos1(){
   document.nuevo_servicio.objeto.value="";
   document.nuevo_servicio.cantidad.value="";
   document.nuevo_servicio.comentario.value=""; 
@@ -136,10 +208,10 @@ function actualizarDatosStock(){
 		//divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
 		
-		toastr.success('Registro Actualizado'); //mensaje
+		toastr.success('Stock Actualizado'); //mensaje
 		setTimeout(function () {
    		window.location.href = "stock.php"; //will redirect to your blog page (an ex: blog.html)
-		}, 5500); //will call the function after 2 secs.
+		}, 1500); //will call the function after 2 secs.
 	}else if(ajax.readyState==0){
 		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
 	}
@@ -177,7 +249,7 @@ function enviarDatosServicio(){
   		//mostrar resultados en esta capa
 		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
-		LimpiarCampos();
+		LimpiarCampos2();
 		toastr.success('Servicio Registrado!!!'); //mensaje
 	}else if(ajax.readyState==0){
 		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
@@ -188,7 +260,7 @@ function enviarDatosServicio(){
 	ajax.send("descripcion="+descs+"&costo="+costs)
 }
 //función para limpiar los campos
-function LimpiarCampos(){
+function LimpiarCampos2(){
   document.nuevo_servicio.descripcion_servicio.value="";
   document.nuevo_servicio.costo_servicio.value="";
   document.nuevo_servicio.descripcion_servicio.focus();
@@ -231,13 +303,6 @@ function actualizarDatosServicio(){
 	//enviando los valores a registro.php para que inserte los datos
 	ajax.send("id_servicio="+id+"&descripcion="+decs+"&costo="+costs)
 }
-
-
-///////////////////////////////DESACTIVAR SERVICIO
-
-
-
-
 
 
 

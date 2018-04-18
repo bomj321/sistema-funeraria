@@ -4,10 +4,12 @@ include('connect.php');
                 $descs= $_POST['descripcion'];
                 $costs= $_POST['costo'];
                               
-               
-
-        $sql = "INSERT INTO Servicios (descripcion_servicio,servicio_activo,costo) VALUES ('$descs', '1','$costs')";
-                $servicio= mysqli_query($connection, $sql);
-
-                include('servicio_tabla.php');
+              mysqli_set_charset($connection, "utf8");
+        $sql="INSERT INTO Servicios (descripcion_servicio,servicio_activo,costo) VALUES (?,'1',?)";
+        $resultado=mysqli_prepare($connection, $sql);
+        $ok=mysqli_stmt_bind_param($resultado, "si", $descs, $costs);
+        $ok=mysqli_stmt_execute($resultado);        
+                
+       
+        include('servicio_tabla.php');
 ?>

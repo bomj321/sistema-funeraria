@@ -29,8 +29,9 @@ include('header.php');
                             </div>
 
                             <div class="input-field col s3">
-                              <input name="costo" id="costo" type="text" class="validate" required="true">
+                              <input onkeypress="return solonumeros(event)" onpaste="false" name="costo" id="costo" type="text" class="validate" required="true">
                               <label for="costo">Costo del Plan</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
 
                             <div class="input-field col s3">
@@ -39,8 +40,9 @@ include('header.php');
                             </div> 
 
                             <div class="input-field col s3">
-                              <input name="cuota" id="cuota" type="text" class="validate" required="true">
+                              <input  onkeypress="return solonumeros2(event)" onpaste="false" name="cuota" id="cuota" type="number" class="validate" required="true">
                               <label for="cuota">Cuotas</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
                             </div> 
 
                             </div>
@@ -53,7 +55,7 @@ include('header.php');
                                 <!--CONSULTA PARA EL SELECT-->
                                 <?php 
                                 include('connect.php');
-                                $sql = "SELECT * FROM Servicios";
+                                $sql = "SELECT * FROM Servicios WHERE servicio_activo ='1'";
                                 $resultado= mysqli_query($connection, $sql);
                                  ?>
 
@@ -83,15 +85,10 @@ include('header.php');
                            <button class="btn waves-effect waves-light" type="submit" name="action">Registrar
                               <i class="material-icons right">send</i>
                           </button>
-
-
-
+                        </form>
                         <?php 
                             include('planes_tabla.php');
                          ?>
-
-                         
-                        </form>
 
                       </div>
         

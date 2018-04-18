@@ -10,7 +10,7 @@ include('header.php');
                       <input name="usuario" v-on:keyup="escribir(email)" v-model="email.input" id="email" type="text" class="validate email">
                       <label for="email">Ingrese su Usuario</label>
                       <template v-if="email.mensaje">
-                          <p v-text="email.mensaje"></p>
+                          <p   v-text="email.mensaje"></p>
                       </template>
                     </div>
                 </div>

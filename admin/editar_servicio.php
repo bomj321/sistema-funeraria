@@ -36,8 +36,9 @@ $fila=mysqli_fetch_array($resultado);
                             </div>
 
                             <div class="input-field col s6">
-                              <input name="costo_servicio" id="costo_servicio" type="text" class="validate" required="true" value="<?php echo $fila['costo'];?>">
+                              <input onkeypress="return solonumeros(event)" onpaste="false" name="costo_servicio" id="costo_servicio" type="text" class="validate" required="true" value="<?php echo $fila['costo'];?>">
                               <label for="costo_servicio">Costo del Servicio</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>                      
  
                            <button class="btn waves-effect waves-light" type="submit" name="action">Actualizar-Stock
