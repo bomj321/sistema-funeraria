@@ -14,7 +14,7 @@ if ($tamaño_imagen<=1000000) {
         move_uploaded_file($_FILES['image']['tmp_name'],$carpeta.$nombre_imagen);
 
       }else{
-        echo"alert('Tipo de Imagen Erronea');
+                echo"alert('Tipo de Imagen Erronea');
                 window.location.href='nuevoplan.php';
         ";
      }
@@ -25,21 +25,64 @@ if ($tamaño_imagen<=1000000) {
                 alert('Tamaño Demasiado Grande');
                 window.location.href='nuevoplan.php';
         ";
-
-
     }
     //RUTA IMAGEN
                 $nom= $_POST['nombre'];
                 $cost= $_POST['costo'];
                 $cuo= $_POST['cuota'];
-                $flo= $_POST['flores'];
-                $ata= $_POST['ataud'];
-                $ref= $_POST['refrigerio'];
-                $hab= $_POST['habitacion'];
-                $tran= $_POST['transporte'];
-
-        $sql = "INSERT INTO planes (nombre,costo,cuotas,ataud,comida,habitacion,transporte,flores,imagen) VALUES ('$nom', '$cost', '$cuo', '$ata', '$ref', '$hab', '$tran', '$flo', '$nombre_imagen')";
+                $des= $_POST['descripcion'];
+                $servicios= $_POST['servicios'];               
+                
+        $sql = "INSERT INTO planes (nombre,plan_activo,descripcion,precio_plan,cuotas,image) VALUES ('$nom','1','$des','$cost', '$cuo', '$nombre_imagen')";
                 $generalidades= mysqli_query($connection, $sql);
+                
+                  $idgenerado =mysqli_insert_id($connection);
+                
+
+            foreach($servicios as $serviciostotal){
+              $sql2 ="INSERT INTO planes_has_services (planes_id_planes, servicio_id_servicios) VALUES ( '$idgenerado','$serviciostotal')"; 
+                  $servicios_mysql= mysqli_query($connection, $sql2);
+              }
+                if (!$servicios_mysql){
+
+  echo "
+                      <script>
+                    alert('Servicios no subidos');
+                    </script>
+
+                  ";
+
+}
+
+else{
+
+  echo "
+                      <script>
+                    alert('Servicios  subidos');
+                    </script>
+
+                  ";
+
+}
+
+                if (!$generalidades) {
+                  echo "
+                      <script>
+                    alert('Error en el registro, contacta al administrador');
+                    window.location.href='nuevoplan.php';           
+                    </script>
+
+                  ";
+                }else{
+                  echo "
+                       <script>
+                    alert('Registrado Correctamente');
+                    window.location.href='nuevoplan.php';           
+                    </script>
+
+                  ";
+
+                }
                 mysqli_close($connection);
                 
 ?>

@@ -34,43 +34,51 @@ include('header.php');
                             </div>
 
                             <div class="input-field col s3">
-                              <input name="cuota" id="cuota" type="text" class="validate" required="true">
-                              <label for="cuota">Cuotas</label>
-                            </div>
+                              <input name="descripcion" id="descripcion" type="text" class="validate" required="true">
+                              <label for="descripcion">Descripcion</label>
+                            </div> 
 
                             <div class="input-field col s3">
-                              <input name="flores" id="flores" type="text" class="validate" required="true">
-                              <label for="flores">Arreglos Florales</label>
-                            </div>
-                          </div>
-                          
-                          <div class="row">
-                                <div class="input-field col s3">
-                                  <input name="ataud" id="ataud" type="text" class="validate" required="true">
-                                  <label for="ataud">Ataud</label>
-                                </div>
+                              <input name="cuota" id="cuota" type="text" class="validate" required="true">
+                              <label for="cuota">Cuotas</label>
+                            </div> 
 
-                            
-                                <div class="input-field col s3">
-                                  <input name="refrigerio" id="refrigerio" type="text" class="validate" required="true">
-                                  <label for="refrigerio">Refrigerio</label>
-                                </div>
-
-                                <div class="input-field col s3">
-                                  <input name="habitacion" id="habitacion" type="text" class="validate" required="true">
-                                  <label for="habitacion">Habitacion</label>
-                                </div>
-
-                                <div class="input-field col s3">
-                                  <input name="transporte" id="transporte" type="text" class="validate" required="true">
-                                  <label for="transporte"> Transporte</label>
-                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s6">
                                   <input name="image" id="image" type="file" class="validate" required="true">
                                 </div>
+
+                                <!--CONSULTA PARA EL SELECT-->
+                                <?php 
+                                include('connect.php');
+                                $sql = "SELECT * FROM Servicios";
+                                $resultado= mysqli_query($connection, $sql);
+                                 ?>
+
+
+                                <!---->
+
+                                <div class="input-field col s6">
+                                  <select multiple name="servicios[]">
+                                    <?php 
+                                     while($fila =mysqli_fetch_array($resultado))
+                                        {
+            
+                                    ?>
+
+                                    <option value="<?php echo $fila['id_servicios']?>"><?php echo $fila['descripcion_servicio']?></option>
+
+                                    <?php 
+                                      }
+                                     ?>
+
+                                  </select>
+                                  <label>Selecciona los Servicios</label>
+                                </div>
+
+
                             </div> 
                            <button class="btn waves-effect waves-light" type="submit" name="action">Registrar
                               <i class="material-icons right">send</i>

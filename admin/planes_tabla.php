@@ -55,15 +55,11 @@ $resultado= mysqli_query($connection, $sql);
           <tr>
               <th>Id</th>
               <th>Nombre</th>
-              <th>Costo</th>
-              <th>Cuotas</th>
-              <th>Ataud</th>
-              <th>Comida</th>
-              <th>Habitacion</th>
-              <th>Transporte</th>
-              <th>Flores</th>
+              <th>Descripcion</th>
+              <th>Precio</th>
+              <th>Cuotas</th>              
               <th>Imagen</th>
-              <th>Acciones</th>
+              <th >Acciones</th>
           </tr>
         </thead>
 
@@ -71,19 +67,35 @@ $resultado= mysqli_query($connection, $sql);
         	<?php 
         		while($fila =mysqli_fetch_array($resultado))
                       {
+            // Variable del Boton
+            $planestado =$fila['plan_activo'];
         	 ?>
           <tr>
-            <td><?php echo $fila['idPlanes'];?></td>
+            <td><?php echo $fila['id_planes'];?></td>
             <td><?php echo $fila['nombre'];?></td>
-            <td><?php echo $fila['costo'];?></td>
-            <td><?php echo $fila['cuotas'];?></td>
-            <td><?php echo $fila['ataud'];?></td>
-            <td><?php echo $fila['comida'];?></td>
-            <td><?php echo $fila['habitacion'];?></td>
-            <td><?php echo $fila['transporte'];?></td>
-            <td><?php echo $fila['flores'];?></td>
-            <td><img style="width: 50px; height: 50px;" src="img/<?php echo $fila['imagen'];?>"></td>
-            <td><button>Editar</button></td></tr>
+            <td><?php echo $fila['descripcion'];?></td>
+            <td><?php echo $fila['precio_plan'];?>$</td>
+            <td><?php echo $fila['cuotas'];?></td>            
+            <td><img style="width: 80px; height: 80px;" src="img/<?php echo $fila['image'];?>"></td>
+            <td>
+              <a href=""><i class="material-icons">border_color</i></a>
+
+                <?php 
+                  if($planestado =='1'){
+                 ?>
+                    <a href=""><i class="material-icons desactivar">do_not_disturb_alt</i></a>
+
+                 <?php 
+                  }else{
+                  ?>
+                    <a href=""><i class="material-icons activar">check</i></a>
+
+                  <?php 
+                    }
+                   ?>
+                
+            </td>   
+          </tr>
             <?php
                   }
              ?>
@@ -93,12 +105,10 @@ $resultado= mysqli_query($connection, $sql);
       </table>
 
 <ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
     <?php for($i=1; $i<=$total_paginas; $i++){ ?>
     <li class="active"><a href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
     <?php  }
     ?>   
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
   </ul>
 
       

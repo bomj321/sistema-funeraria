@@ -38,6 +38,11 @@ p{
 	margin-top: -5rem;
 }
 
+main ul li{
+
+	margin-bottom: 2rem;
+}
+
 /*ESTILOS PARA LOS DIFERENTES COMPONENTES*/
 
 
@@ -64,3 +69,12 @@ p{
 }
 
 /*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA*/
+
+
+/*ESTILOS PARA LOS ICONOS*/
+
+.material-icons.desactivar { color: red; }
+.material-icons.activar { color: green; }
+
+
+/*ESTILOS PARA LOS ICONOS*/

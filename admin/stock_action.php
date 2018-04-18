@@ -1,15 +1,13 @@
  <?php 
 session_start();
 include('connect.php');
-                $ser= $_POST['servicio'];
+                $obj= $_POST['objeto'];
                 $can= $_POST['cantidad'];
-                $cos= $_POST['costo'];
                 $com= $_POST['comentario'];               
                
 
-        $sql = "INSERT INTO stock (servicio,cantidad,costo,comentario) VALUES ('$ser', '$can', '$cos', '$com')";
+        $sql = "INSERT INTO stock (objeto,cantidad,comentario) VALUES ('$obj', '$can','$com')";
                 $servicio= mysqli_query($connection, $sql);
 
                 include('stock_tabla.php');
-mysqli_close($connection);
 ?>
