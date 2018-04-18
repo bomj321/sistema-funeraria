@@ -11,6 +11,15 @@ $(document).ready(function(){
       $('.carousel.carousel-slider').carousel('next');
       setTimeout(autoplay, 3500);
     }
+    
+    //parallax
+    $('.parallax').parallax();
+
+    //efecto de la imagen al pasar el mouse
+    $('.materialboxed').materialbox();
+
+    //productos
+    $('.tabs').tabs();
 
 
 
