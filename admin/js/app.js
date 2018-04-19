@@ -425,6 +425,32 @@ function enviarRegistroSistema(){
 
 
 
+////////////////////////////////////////////////////////SUBIR PLAN
+function enviarNuevoPlan(){
+var parametros = new FormData($("#form_nuevo_plan")[0]);
+$.ajax({
+    data: parametros,
+    url:"nuevo_plan_action.php",
+    type:"POST",
+    contentType:false,
+    processData:false,
+    beforesend: function(){
+
+    },
+    success: function(data){
+      $('#planes').html(data);
+    toastr.options.progressBar = true;
+    toastr.warning('Registrando plan espere...');
+    toastr.options.progressBar = false;
+     setTimeout(function () {
+      toastr.success('Plan Registrado!!!');
+    }, 4800);
+
+    }
+});
+
+
+}
 
 
 
@@ -449,8 +475,7 @@ function enviarRegistroSistema(){
 
 
 
-
-
+////////////////////////////////////////////////////////SUBIR PLAN
 
 ////AJAX DE LA PAGINA
 

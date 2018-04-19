@@ -48,7 +48,7 @@ $total_paginas=ceil($num_filas/$tamaño_paginas);
 
 //$resultado_servicios= mysqli_query($connection, $sql_servicios); 
 
-$sql = "SELECT * FROM planes LIMIT $empezar_desde, $tamaño_paginas";
+$sql = "SELECT * FROM planes ORDER BY  id_planes desc LIMIT $empezar_desde, $tamaño_paginas ";
 $resultado= mysqli_query($connection, $sql); 
 
  ?>

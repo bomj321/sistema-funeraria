@@ -67,35 +67,12 @@ $servicios= $_POST['servicios'];
               }
                 
 
-                if (!$ok) {
+               
+        include('planes_tabla.php');
 
                   ?>
                     
-                    <script type="text/javascript">
-                          alert('Registro Erroneo, intentalo de nuevo'); //mensaje                   
-                          window.location.href='nuevoplan.php'; //will redirect to your blog page (an ex: blog.html)
                     
-                    </script>
-                  
-                  <?php
-
-                }else{
-                  ?>                    
-                    <script type="text/javascript">
-                    alert('Registro Completo'); //mensaje                    
-                    window.location.href='nuevoplan.php'; //will redirect to your blog page (an ex: blog.html)
-                  
-                              
-                    </script>
-                    
-
-
-                  
-  <?php
-                }
-                
-  ?>
-
 
 
 

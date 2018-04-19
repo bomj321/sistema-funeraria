@@ -22,7 +22,7 @@ include('header.php');
                             <div class="row">
                               <h4>Registro de Nuevo Plan</h4>
                             </div>
-                        <form method="POST"  class="col s12" action="nuevo_plan_action.php" enctype="multipart/form-data">
+                        <form id="form_nuevo_plan" name="nuevo_plan" method="POST" enctype="multipart/form-data"  class="col s12" action="" onsubmit="enviarNuevoPlan(); return false">
 
                           <div class="row">                            
                             <div class="input-field col s12 m3">
@@ -53,7 +53,7 @@ include('header.php');
                                  <div class="file-field input-field col s12 m6">
                                      <div class="btn">
                                     <span>File</span>
-                                    <input type="file" name="image">
+                                    <input id="file" type="file" name="image">
                                   </div>
                                     <div class="file-path-wrapper">
                                       <input class="file-path validate" type="text">
@@ -71,7 +71,7 @@ include('header.php');
                                 <!---->
 
                                 <div class="input-field col s12 m6">
-                                  <select multiple name="servicios[]">
+                                  <select  id="select_multiple" multiple name="servicios[]">
                                     <?php 
                                      while($fila =mysqli_fetch_array($resultado))
                                         {
@@ -94,7 +94,7 @@ include('header.php');
                         </form>
                       </div>
 
-                      <div id="servicio" class="row">
+                      <div id="planes" class="row">
                         <div class="col s12 m12">
                             <?php 
                                   include('planes_tabla.php');
