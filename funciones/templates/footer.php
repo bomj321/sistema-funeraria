@@ -1,6 +1,6 @@
-	<footer class="page-footer">
-<h4>footer</h4>
-	</footer>
+<footer class="page-footer">
+	<h4>footer</h4>
+</footer>
 
 <script src="js/jquery.js"></script>
 <script src="js/materialize.js"></script>
