@@ -59,12 +59,12 @@ $resultado= mysqli_query($connection, $sql);
           <tr>
               <th>Id</th>
               <th>Nombre</th>
-              <th>Descripcion</th>
+              <th>edad</th>
               <th>Precio</th>
-              <th>Cuotas</th>              
-              <th>Imagen</th>
-              <th>Servicios a ofrecer</th>              
-              <th >Acciones</th>
+              <th>DNI</th>              
+              <th>Servicios</th>              
+              <th>Estado</th>
+              <th>Acciones</th>
           </tr>
         </thead>
 

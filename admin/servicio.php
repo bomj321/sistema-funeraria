@@ -37,7 +37,7 @@ include('header.php');
                             
                           </div>                     
  
-                           <button class="btn waves-effect waves-light" type="submit" name="action">Registrar-Servicio
+                           <button class="btn waves-effect waves-light  green darken-3" type="submit" name="action">Registrar-Servicio
                               <i class="material-icons right">send</i>
                           </button>
         

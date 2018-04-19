@@ -97,6 +97,35 @@ function solonumeros2(e){
   }
 }
 
+function sololetras(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key).toLowerCase();
+  var texto = " Solo se aceptan letras";
+  var texto2 = "";
+  numeros =" abcdefghijklmñnopqrstuvwxyz";
+  especiales =[8,37,39,46,164]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_letra').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_letra').innerHTML= texto2;
+
+  }
+}
+
 
 
 
@@ -328,10 +357,16 @@ function registrarNuevoUsuario(){
       //mostrar resultados en esta capa
       //llamar a funcion para limpiar los inputs
     LimpiarCampos3();
-    toastr.success('Usuario Registrado!!!'); //mensaje
+    toastr.options.progressBar = true;
+    toastr.warning('Registrando espere...');
+    toastr.options.progressBar = false;
+     setTimeout(function () {
+      toastr.success('Usuario Registrado!!!');
+    }, 4800); 
+
     setTimeout(function () {
       window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
-    }, 1500); //will call the function after 2 secs.
+    }, 6000); 
   }else if(ajax.readyState==0){
     toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
   }
@@ -372,7 +407,7 @@ function enviarRegistroSistema(){
       //mostrar resultados en esta capa
       //llamar a funcion para limpiar los inputs
     toastr.options.progressBar = true;
-    toastr.success('Espere por Favor....'); //mensaje
+    toastr.warning('Espere por Favor....'); //mensaje
     setTimeout(function () {
       window.location.href = "sistema.php"; //will redirect to your blog page (an ex: blog.html)
     }, 4000); //will call the function after 2 secs.

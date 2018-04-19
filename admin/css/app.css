@@ -75,6 +75,8 @@ main ul li{
 
 .material-icons.desactivar { color: red; }
 .material-icons.activar { color: green; }
+.material-icons.word{ color: blue; }
+.material-icons.pdf{ color: red; }
 
 
 /*ESTILOS PARA LOS ICONOS*/

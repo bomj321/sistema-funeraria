@@ -25,23 +25,23 @@ include('header.php');
                         <form method="POST"  class="col s12" action="nuevo_plan_action.php" enctype="multipart/form-data">
 
                           <div class="row">                            
-                            <div class="input-field col s3">
+                            <div class="input-field col s12 m3">
                               <input  name="nombre" id="name" type="text" class="validate" required="true">
                               <label for="name">Nombre del Plan</label>
                             </div>
 
-                            <div class="input-field col s3">
+                            <div class="input-field col s12 m3">
                               <input onkeypress="return solonumeros(event)" onpaste="false" name="costo" id="costo" type="text" class="validate" required="true">
                               <label for="costo">Costo del Plan</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
 
-                            <div class="input-field col s3">
+                            <div class="input-field col s12 m3">
                               <input name="descripcion" id="descripcion" type="text" class="validate" required="true">
                               <label for="descripcion">Descripcion</label>
                             </div> 
 
-                            <div class="input-field col s3">
+                            <div class="input-field col s12 m3">
                               <input  onkeypress="return solonumeros2(event)" onpaste="false" name="cuota" id="cuota" type="number" class="validate" required="true">
                               <label for="cuota">Cuotas</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
@@ -50,9 +50,15 @@ include('header.php');
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s6">
-                                  <input name="image" id="image" type="file" class="validate" required="true">
-                                </div>
+                                 <div class="file-field input-field col s12 m6">
+                                     <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="image">
+                                  </div>
+                                    <div class="file-path-wrapper">
+                                      <input class="file-path validate" type="text">
+                                    </div>
+                                  </div>
 
                                 <!--CONSULTA PARA EL SELECT-->
                                 <?php 
@@ -64,7 +70,7 @@ include('header.php');
 
                                 <!---->
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6">
                                   <select multiple name="servicios[]">
                                     <?php 
                                      while($fila =mysqli_fetch_array($resultado))
@@ -82,7 +88,7 @@ include('header.php');
                                   <label>Selecciona los Servicios</label>
                                 </div>
                             </div> 
-                           <button class="btn waves-effect waves-light" type="submit" name="action">Registrar
+                           <button class="btn waves-effect waves-light  green darken-3" type="submit" name="action">Registrar
                               <i class="material-icons right">send</i>
                           </button>
                         </form>
