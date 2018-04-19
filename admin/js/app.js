@@ -159,9 +159,10 @@ function enviarDatosStock(){
 		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
 		LimpiarCampos1();
+    toastr.options.progressBar = true;
 		toastr.success('Item Registrado!!!'); //mensaje
 	}else if(ajax.readyState==0){
-		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
 	}
  }
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -213,7 +214,7 @@ function actualizarDatosStock(){
    		window.location.href = "stock.php"; //will redirect to your blog page (an ex: blog.html)
 		}, 1500); //will call the function after 2 secs.
 	}else if(ajax.readyState==0){
-		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
 	}
  }
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -250,9 +251,10 @@ function enviarDatosServicio(){
 		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
 		LimpiarCampos2();
+    toastr.options.progressBar = true;
 		toastr.success('Servicio Registrado!!!'); //mensaje
 	}else if(ajax.readyState==0){
-		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
 	}
  }
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -296,13 +298,121 @@ function actualizarDatosServicio(){
    		window.location.href = "servicio.php"; //will redirect to your blog page (an ex: blog.html)
 		}, 1500); //will call the function after 2 secs.
 	}else if(ajax.readyState==0){
-		toastr.success('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
 	}
  }
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	//enviando los valores a registro.php para que inserte los datos
 	ajax.send("id_servicio="+id+"&descripcion="+decs+"&costo="+costs)
 }
+
+
+////////////////////////////////////////////////////////AJAX PARA REGISTRAR USUARIO
+function registrarNuevoUsuario(){
+ 
+  //recogemos los valores de los inputs
+  usuario=document.nuevo_usuario.usuario.value;
+  password=document.nuevo_usuario.password.value;
+  
+  //instanciamos el objetoAjax
+  ajax=objetoAjax();
+ 
+  //uso del metodo POST
+  //archivo que realizará la operacion
+  //registro.php
+  ajax.open("POST", "registrar_usuario_action.php",true);
+  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
+  ajax.onreadystatechange=function() {
+    //la función responseText tiene todos los datos pedidos al servidor
+    if (ajax.readyState==4) {
+      //mostrar resultados en esta capa
+      //llamar a funcion para limpiar los inputs
+    LimpiarCampos3();
+    toastr.success('Usuario Registrado!!!'); //mensaje
+    setTimeout(function () {
+      window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
+    }, 1500); //will call the function after 2 secs.
+  }else if(ajax.readyState==0){
+    toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+  }
+ }
+  ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  //enviando los valores a registro.php para que inserte los datos
+  ajax.send("usuario="+usuario+"&password="+password)
+}
+//función para limpiar los campos
+function LimpiarCampos3(){
+  document.nuevo_usuario.usuario.value="";
+  document.nuevo_usuario.password.value="";
+  document.nuevo_usuario.usuario.focus();
+}
+//////////////////////////////////////////////////////AJAX PARA REGISTRAR USUARIO
+
+
+////////////////////////////////////////////////////////AJAX PARA INICIO EN EL SISTEMA
+
+
+function enviarRegistroSistema(){
+ 
+  //recogemos los valores de los inputs
+  usuario=document.registro_sistema.usuario.value;
+  password=document.registro_sistema.password.value;
+  
+  //instanciamos el objetoAjax
+  ajax=objetoAjax();
+ 
+  //uso del metodo POST
+  //archivo que realizará la operacion
+  //registro.php
+  ajax.open("POST", "registrar_action.php",true);
+  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
+  ajax.onreadystatechange=function() {
+    //la función responseText tiene todos los datos pedidos al servidor
+    if (ajax.readyState==4) {
+      //mostrar resultados en esta capa
+      //llamar a funcion para limpiar los inputs
+    toastr.options.progressBar = true;
+    toastr.success('Espere por Favor....'); //mensaje
+    setTimeout(function () {
+      window.location.href = "sistema.php"; //will redirect to your blog page (an ex: blog.html)
+    }, 4000); //will call the function after 2 secs.
+  }else if(ajax.readyState==0){
+    toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+  }
+ }
+  ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  //enviando los valores a registro.php para que inserte los datos
+  ajax.send("usuario="+usuario+"&password="+password)
+}
+//función para limpiar los campos
+////////////////////////////////////////////////////////AJAX PARA INICIO EN EL SISTEMA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

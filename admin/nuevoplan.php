@@ -2,7 +2,7 @@
 include('header.php');
 ?>
 <main>
-  
+  <div class="container">
         <div class="row">
                  <div class="col s3" >
                             <?php
@@ -19,7 +19,9 @@ include('header.php');
                     </div>  
 
                       <div class="row">
-                        <h4>Registro de Nuevo Plan</h4>
+                            <div class="row">
+                              <h4>Registro de Nuevo Plan</h4>
+                            </div>
                         <form method="POST"  class="col s12" action="nuevo_plan_action.php" enctype="multipart/form-data">
 
                           <div class="row">                            
@@ -79,22 +81,25 @@ include('header.php');
                                   </select>
                                   <label>Selecciona los Servicios</label>
                                 </div>
-
-
                             </div> 
                            <button class="btn waves-effect waves-light" type="submit" name="action">Registrar
                               <i class="material-icons right">send</i>
                           </button>
                         </form>
-                        <?php 
-                            include('planes_tabla.php');
-                         ?>
+                      </div>
 
+                      <div id="servicio" class="row">
+                        <div class="col s12 m12">
+                            <?php 
+                                  include('planes_tabla.php');
+                               ?>
+                          </div>
                       </div>
         
                    
                 </div>
-    </div>
+        </div>
+    </div>    
 </main>
 <?php
 include('footer.php');

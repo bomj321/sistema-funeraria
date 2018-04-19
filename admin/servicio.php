@@ -2,7 +2,7 @@
 include('header.php');
 ?>
 <main>
-  
+  <div class="container">
         <div class="row">
                  <div class="col s3" >
                             <?php
@@ -42,16 +42,15 @@ include('header.php');
                           </button>
         
                         </form>
-                        
-				<div id="servicio"><?php include('servicio_tabla.php');?></div>
-						 
                       </div>
-
-                      
-        
-                   
+                        <div id="servicio" class="row">
+                             <div class="col s12">
+                                <?php include('servicio_tabla.php');?>
+                              </div>
+                        </div> 
                 </div>
-    </div>
+        </div>
+  </div>  
 </main>
 <?php
 include('footer.php');

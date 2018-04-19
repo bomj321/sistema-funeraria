@@ -1,4 +1,5 @@
- <ul id="slide-out" class="sidenav">    
+
+ <ul id="slide-out" class="sidenav ">    
                       
                 <li><a class="subheader">Sistema Funeraria</a></li>
                 <li><a class="waves-effect" href="contrato.php">Nuevo Contrato</a></li>
@@ -15,4 +16,4 @@
 
 
 </ul>
-   <a href="#" data-target="slide-out" class="sidenav-trigger"><button class="btn waves-effect waves-light">Desplegar Menu</button></a>  
+   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class=" large material-icons">playlist_add</i></a>  

@@ -82,7 +82,7 @@ $resultado= mysqli_query($connection, $sql);
             <td><?php echo $fila['descripcion'];?></td>
             <td><?php echo $fila['precio_plan'];?>$</td>
             <td><?php echo $fila['cuotas'];?></td>
-            <td><img style="width: 80px; height: 80px;" src="img/<?php echo $fila['image'];?>"></td>
+            <td><img style="width: 3rem; height: 3rem;" src="img/<?php echo $fila['image'];?>"></td>
 
 
             <td>
