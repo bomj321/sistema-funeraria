@@ -4,10 +4,10 @@ include('header.php');
 <main>
     <div class="container">        
           <div class="row" id="main">
-              <form name="registro_sistema" class="col s6 offset-s3" id="form_inicio" action="" onsubmit="enviarRegistroSistema(); return false">
+              <form method="POST" class="col s6 offset-s3" id="form_inicio" action="registro_action.php">
                 <div class="row">
                     <div class="input-field col s12 m12">
-                      <input name="usuario" v-on:keyup="escribir(email)" v-model="email.input" id="email" type="text" class="validate email">
+                      <input name="usuario" v-on:keyup="escribir(email)" v-model="email.input" id="usuario_inicio" type="text" class="validate email">
                       <label for="email">Ingrese su Usuario</label>
                       <template v-if="email.mensaje">
                           <p   v-text="email.mensaje"></p>
@@ -16,7 +16,7 @@ include('header.php');
                 </div>
                 <div class="row">
                       <div class="input-field col s12 m12">
-                          <input name="password" v-on:keyup="escribir(password)" v-model="password.input" id="password" type="password" class="validate password">
+                          <input name="password" v-on:keyup="escribir(password)" v-model="password.input" id="password_inicio" type="password" class="validate password">
                           <label for="password">Password</label>
                            <template v-if="password.mensaje">
                             <p v-text="password.mensaje"></p>
@@ -33,7 +33,8 @@ include('header.php');
                            </button>
                            <a  href="registrar_usuario.php" class="btn waves-effect waves-light green darken-2">Registrar Usuario</a>
                        </div>
-                  </div>                
+                  </div>  
+                  <div id="usuariomostrar"></div>              
               </form>
         </div>        
     </div>

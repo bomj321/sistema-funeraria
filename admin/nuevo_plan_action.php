@@ -36,13 +36,13 @@ if ($tamaño_imagen<=1000000) {
                 $cost= $_POST['costo'];
                 $cuo= $_POST['cuota'];
                 $des= $_POST['descripcion'];
-
+                $activo = 1;
 
 
         mysqli_set_charset($connection, "utf8");
-        $sql="INSERT INTO planes (nombre,plan_activo,descripcion,precio_plan,cuotas,image) VALUES (?,'1',?,?,?,?)";
+        $sql="INSERT INTO planes (nombre,plan_activo,descripcion,precio_plan,cuotas,image) VALUES (?,?,?,?,?,?)";
         $resultado=mysqli_prepare($connection, $sql);
-        $ok=mysqli_stmt_bind_param($resultado, "ssiis", $nom, $des, $cost, $cuo, $nombre_imagen);
+        $ok=mysqli_stmt_bind_param($resultado, "sisiis", $nom,$activo , $des, $cost, $cuo, $nombre_imagen);
         $ok=mysqli_stmt_execute($resultado);        
                 
         $idgenerado =mysqli_insert_id($connection);

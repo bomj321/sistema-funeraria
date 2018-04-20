@@ -1,16 +1,37 @@
 <?php
 session_start();
 include('connect.php');
-        $usuario = $_POST['usuario'];
+       
+
+        $usuario = mysqli_real_escape_string($connection,$_POST['usuario']);
+        $password = mysqli_real_escape_string($connection,$_POST['password']);
         $_SESSION['usuario']=$usuario;
-        $password = $_POST['password'];
         $_SESSION['password']=$password;
 
+        $comprobar = "SELECT * FROM usuario_admin WHERE usuario= '$usuario' AND pass= '$password'";
+        $comprobacion = $connection->query($comprobar);
+        $row=$comprobacion->fetch_assoc();
+       
 
-        mysqli_set_charset($connection, "utf8");
-        $sql="SELECT * FROM usuario_admin WHERE usuario= ? AND pass=?";
-        $resultado=mysqli_prepare($connection, $sql);
-        $ok=mysqli_stmt_bind_param($resultado, "ss", $usuario, $password);
-        $ok=mysqli_stmt_execute($resultado);
-        mysqli_stmt_close($resultado);
+
+        if(mysqli_num_rows($comprobacion)==0) {
+              echo "
+                        <script>
+                        alert('Error en el Usuario');
+                                window.location.href='index.php';
+                        </script>
+
+              ";
+        }else{
+
+                echo "
+                        <script>
+                        alert('Registro Completo');
+                                window.location.href='sistema.php';
+                        </script>
+
+              ";
+        }
+               mysqli_connect($connection);
+
 ?>

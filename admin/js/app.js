@@ -187,8 +187,7 @@ function enviarDatosStock(){
   		//mostrar resultados en esta capa
 		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
-		LimpiarCampos1();
-    toastr.options.progressBar = true;
+		LimpiarCampos1();    
 		toastr.success('Item Registrado!!!'); //mensaje
 	}else if(ajax.readyState==0){
 		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
@@ -279,8 +278,7 @@ function enviarDatosServicio(){
   		//mostrar resultados en esta capa
 		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
-		LimpiarCampos2();
-    toastr.options.progressBar = true;
+		LimpiarCampos2();    
 		toastr.success('Servicio Registrado!!!'); //mensaje
 	}else if(ajax.readyState==0){
 		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
@@ -387,38 +385,7 @@ function LimpiarCampos3(){
 ////////////////////////////////////////////////////////AJAX PARA INICIO EN EL SISTEMA
 
 
-function enviarRegistroSistema(){
- 
-  //recogemos los valores de los inputs
-  usuario=document.registro_sistema.usuario.value;
-  password=document.registro_sistema.password.value;
-  
-  //instanciamos el objetoAjax
-  ajax=objetoAjax();
- 
-  //uso del metodo POST
-  //archivo que realizará la operacion
-  //registro.php
-  ajax.open("POST", "registrar_action.php",true);
-  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
-  ajax.onreadystatechange=function() {
-    //la función responseText tiene todos los datos pedidos al servidor
-    if (ajax.readyState==4) {
-      //mostrar resultados en esta capa
-      //llamar a funcion para limpiar los inputs
-    toastr.options.progressBar = true;
-    toastr.warning('Espere por Favor....'); //mensaje
-    setTimeout(function () {
-      window.location.href = "sistema.php"; //will redirect to your blog page (an ex: blog.html)
-    }, 4000); //will call the function after 2 secs.
-  }else if(ajax.readyState==0){
-    toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
-  }
- }
-  ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-  //enviando los valores a registro.php para que inserte los datos
-  ajax.send("usuario="+usuario+"&password="+password)
-}
+
 //función para limpiar los campos
 ////////////////////////////////////////////////////////AJAX PARA INICIO EN EL SISTEMA
 
@@ -428,28 +395,37 @@ function enviarRegistroSistema(){
 ////////////////////////////////////////////////////////SUBIR PLAN
 function enviarNuevoPlan(){
 var parametros = new FormData($("#form_nuevo_plan")[0]);
-$.ajax({
-    data: parametros,
-    url:"nuevo_plan_action.php",
-    type:"POST",
-    contentType:false,
-    processData:false,
-    beforesend: function(){
+      $.ajax({
+          data: parametros,
+          url:"nuevo_plan_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
 
-    },
-    success: function(data){
-      $('#planes').html(data);
-    toastr.options.progressBar = true;
-    toastr.warning('Registrando plan espere...');
-    toastr.options.progressBar = false;
-     setTimeout(function () {
-      toastr.success('Plan Registrado!!!');
-    }, 4800);
+          },
+          success: function(data){
+                
+            $('#planes').html(data);
+          toastr.options.progressBar = true;
+          toastr.warning('Registrando plan espere...');
+          toastr.options.progressBar = false;
+           setTimeout(function () {
+            toastr.success('Plan Registrado!!!');
+          }, 4800);
+           LimpiarCampos6();
+          }
+      });
+}
 
-    }
-});
-
-
+function LimpiarCampos6(){
+  document.nuevo_plan.nombre.value="";
+  document.nuevo_plan.costo.value="";
+  document.nuevo_plan.descripcion.value="";
+  document.nuevo_plan.cuota.value="";
+  document.nuevo_plan.image.value="";
+  document.nuevo_plan.servicios.value="";
+  document.nuevo_plan.nombre.focus();
 }
 
 

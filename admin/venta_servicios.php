@@ -16,22 +16,29 @@ include('header.php');
                                   include('advertencias.php');
                               ?>
                      
-
+                  <div class="divider pink"></div>
                         <div class="row">                      
-                              <form name="buscar_recibo">
-                                  
-                                        <div class=" input-field col s12 m12">                              
+                              <form name="buscar_recibo" class=" col s12 m12">
+                                  <div class="row">  
+                                      <div class=" input-field col s12 m8">                              
                                           <input id="buscar" type="text" class="validate" required="">
                                           <label for="buscar">Ingrese nombre o DNI</label>
-                                          <button class="btn waves-effect waves-light">Buscar Recibo</button>
-                                        </div>
-                                                             
+                                      </div>
+                                  
+                                  <div class=" col s12 m4" style="margin-top: 1.8rem;">
+                                      <button type="submit" class="btn waves-effect waves-light">
+                                          Buscar Recibo
+                                          <i class="material-icons right">send</i>
+                                      </button>
+                                  </div>
+
+                                   </div>                          
                               </form>
                           </div>
 
                       <div class="row">
                         <h4>Venta de Servicios</h4>
-                        <form name="venta_servicio" class="col s12" action="" onsubmit="enviarDatosServicio(); return false" style="margin-bottom: 3rem;">
+                        <form name="venta_servicio" class="col s12 m12" action="" onsubmit="enviarDatosServicio(); return false" style="margin-bottom: 3rem;">
                           
                           <div class="row">
                             <div class="input-field col s12 m4">
@@ -91,9 +98,7 @@ include('header.php');
 
                                   </select>
                                   <label>Selecciona los Servicios</label>
-                                </div> 
-
-
+                                </div>
                           </div>
                             
 

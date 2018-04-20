@@ -26,8 +26,8 @@ include('header.php');
 
                           <div class="row">                            
                             <div class="input-field col s12 m3">
-                              <input  name="nombre" id="name" type="text" class="validate" required="true">
-                              <label for="name">Nombre del Plan</label>
+                              <input  name="nombre" id="nombre" type="text" class="validate" required="true">
+                              <label for="nombre">Nombre del Plan</label>
                             </div>
 
                             <div class="input-field col s12 m3">
