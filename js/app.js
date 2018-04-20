@@ -21,6 +21,10 @@ $(document).ready(function(){
     //productos
     $('.tabs').tabs();
 
+    //btn contactanos
+    $('.fixed-action-btn').floatingActionButton();
+    $('.modal').modal();
+
 
 
 //Cierre de Jquery
