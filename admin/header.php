@@ -9,7 +9,7 @@ include('connect.php');
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <title>Document</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="css/materialize.css">
+  <link rel="stylesheet" href="css/materialize.css" media="screen">
   <link rel="stylesheet" href="css/toastr.css">
   <link rel="stylesheet" href="css/app.css">
 </head>

@@ -10,29 +10,6 @@
 
 
 ///////////////////////////////////TODO PARA VUEJS
-new Vue({
-		el:'#main',
-		data:{
-			email:{
-				input: '',
-				mensaje: ''
-			},
-			password:{
-				input: '',
-				mensaje: ''
-			}
-		}, 
-		methods:{
-				escribir: function(data){
-					if(!(data.input).trim()){
-						data.mensaje = "El campo se encuentra en blanco";
-					}
-				}
-		}
-
-
-	});
-
 
 
 /////////////////////////////////////TODO PARA VUEJS
@@ -122,6 +99,64 @@ function sololetras(e){
 
   }else{
           document.getElementById('mensaje_letra').innerHTML= texto2;
+
+  }
+}
+
+function sololetras2(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key).toLowerCase();
+  var texto = " Solo se aceptan letras";
+  var texto2 = "";
+  numeros =" abcdefghijklmñnopqrstuvwxyz";
+  especiales =[8,37,39,46,164]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_letra2').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_letra2').innerHTML= texto2;
+
+  }
+}
+
+function sololetras3(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key).toLowerCase();
+  var texto = " Solo se aceptan letras";
+  var texto2 = "";
+  numeros =" abcdefghijklmñnopqrstuvwxyz";
+  especiales =[8,37,39,46,164]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_letra3').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_letra3').innerHTML= texto2;
 
   }
 }
@@ -354,7 +389,7 @@ function registrarNuevoUsuario(){
     if (ajax.readyState==4) {
       //mostrar resultados en esta capa
       //llamar a funcion para limpiar los inputs
-    LimpiarCampos3();
+    LimpiarCamposNuevoUsuario();
     toastr.options.progressBar = true;
     toastr.warning('Registrando espere...');
     toastr.options.progressBar = false;
@@ -374,7 +409,8 @@ function registrarNuevoUsuario(){
   ajax.send("usuario="+usuario+"&password="+password)
 }
 //función para limpiar los campos
-function LimpiarCampos3(){
+function LimpiarCamposNuevoUsuario(){
+
   document.nuevo_usuario.usuario.value="";
   document.nuevo_usuario.password.value="";
   document.nuevo_usuario.usuario.focus();
@@ -382,17 +418,9 @@ function LimpiarCampos3(){
 //////////////////////////////////////////////////////AJAX PARA REGISTRAR USUARIO
 
 
-////////////////////////////////////////////////////////AJAX PARA INICIO EN EL SISTEMA
 
 
-
-//función para limpiar los campos
-////////////////////////////////////////////////////////AJAX PARA INICIO EN EL SISTEMA
-
-
-
-
-////////////////////////////////////////////////////////SUBIR PLAN
+/////////////////////////////////////////////////////////////////SUBIR PLAN
 function enviarNuevoPlan(){
 var parametros = new FormData($("#form_nuevo_plan")[0]);
       $.ajax({
@@ -402,56 +430,56 @@ var parametros = new FormData($("#form_nuevo_plan")[0]);
           contentType:false,
           processData:false,
           beforesend: function(){
-
+            toastr.options.progressBar = true;
+            toastr.warning('Registrando plan espere...');
           },
-          success: function(data){
-                
-            $('#planes').html(data);
-          toastr.options.progressBar = true;
-          toastr.warning('Registrando plan espere...');
+          success: function(data){                
+            $('#planes').html(data);          
           toastr.options.progressBar = false;
            setTimeout(function () {
             toastr.success('Plan Registrado!!!');
-          }, 4800);
-           LimpiarCampos6();
+          }, 1000);
+           LimpiarCamposNuevoPlan();
           }
       });
 }
 
-function LimpiarCampos6(){
-  document.nuevo_plan.nombre.value="";
-  document.nuevo_plan.costo.value="";
-  document.nuevo_plan.descripcion.value="";
-  document.nuevo_plan.cuota.value="";
-  document.nuevo_plan.image.value="";
-  document.nuevo_plan.servicios.value="";
-  document.nuevo_plan.nombre.focus();
+function LimpiarCamposNuevoPlan(){
+    $("#form_nuevo_plan")[0].reset();
+
 }
 
 
+////////////////////////////////////////////////////////////////SUBIR PLAN
 
 
+/////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
+function ventaDeServicios(){ 
+  var parametros = new FormData($("#venta_servicio_ventas")[0]);
+      $.ajax({
+          data: parametros,
+          url:"venta_servicios_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Registrando plan espere...');
+          },
+          success: function(data){
+            toastr.options.progressBar = false;           
+            toastr.success('Plan Registrado!!!');          
+            LimpiarVentaDeServicios();
+          }
+      });
+}
+
+function LimpiarVentaDeServicios(){
+      $("#venta_servicio_ventas")[0].reset();
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////SUBIR PLAN
+/////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
 
 ////AJAX DE LA PAGINA
 

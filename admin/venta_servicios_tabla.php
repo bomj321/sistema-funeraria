@@ -36,17 +36,7 @@ mysqli_fetch_array($resultado_limite);
  $num_filas = mysqli_num_rows($resultado_limite);
 $total_paginas=ceil($num_filas/$tamaño_paginas);
 
-
-
-
-//$sql_servicios = "SELECT * FROM ((Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
-//INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID) LIMIT $empezar_desde, $tamaño_paginas";
-
-//$sql_servicios ="SELECT * FROM planes_has_services INNER JOIN servicios ON planes_has_services.planes_id_planes = planes.id_planes
-//LIMIT $empezar_desde, $tamaño_paginas";
-
-
-//$resultado_servicios= mysqli_query($connection, $sql_servicios); 
+ 
 
 $sql = "SELECT * FROM planes LIMIT $empezar_desde, $tamaño_paginas";
 $resultado= mysqli_query($connection, $sql); 
@@ -70,10 +60,8 @@ $resultado= mysqli_query($connection, $sql);
 
         <tbody>
         	<?php 
-        		while($fila =mysqli_fetch_array($resultado))
-                      {
-            // Variable del Boton
-            //$planestado =$fila['plan_activo'];
+        		while($fila =mysqli_fetch_array($resultado))                      {
+            
             $planid =$fila['id_planes'];
         	 ?>
           <tr>
