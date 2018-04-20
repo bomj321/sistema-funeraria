@@ -1,37 +1,26 @@
 <?php
-session_start();
-include('connect.php');
-       
+        $usuario= $_POST['usuario'];
+        $password= $_POST['password'];
+        try {
+        require_once('connect.php');
+        $stmt = $connection->prepare("SELECT * FROM `usuario_admin` WHERE `usuario` = ?;");
+        $stmt->bind_param("s", $usuario);
+        $stmt->execute();
+        $stmt->bind_result($id, $usuario, $password_usuario);
+        $stmt->fetch(); 
+        if ( password_verify($password, $password_usuario) ) { //no esta funcionando password_verify
+                echo "bien";
+                echo $password_usuario;
 
-        $usuario = mysqli_real_escape_string($connection,$_POST['usuario']);
-        $password = mysqli_real_escape_string($connection,$_POST['password']);
-        $_SESSION['usuario']=$usuario;
-        $_SESSION['password']=$password;
-
-        $comprobar = "SELECT * FROM usuario_admin WHERE usuario= '$usuario' AND pass= '$password'";
-        $comprobacion = $connection->query($comprobar);
-        $row=$comprobacion->fetch_assoc();
-       
-
-
-        if(mysqli_num_rows($comprobacion)==0) {
-              echo "
-                        <script>
-                        alert('Error en el Usuario');
-                                window.location.href='index.php';
-                        </script>
-
-              ";
         }else{
-
-                echo "
-                        <script>
-                        alert('Registro Completo');
-                                window.location.href='sistema.php';
-                        </script>
-
-              ";
+                echo "contraseñas incorrectas";
+                $verificar = password_verify($password, $password_usuario);
+                echo $verificar;
         }
-               mysqli_connect($connection);
-
+        $stmt->close();
+        $connection->close();
+        }
+        catch (Exception $e)
+        { echo"Error:" . $e->getMessage();} 
 ?>
+
