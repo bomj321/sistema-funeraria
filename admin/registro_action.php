@@ -16,6 +16,7 @@
                 echo "contraseñas incorrectas";
                 $verificar = password_verify($password, $password_usuario);
                 echo $verificar;
+                
         }
         $stmt->close();
         $connection->close();
