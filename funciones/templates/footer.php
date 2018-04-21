@@ -13,8 +13,7 @@
 				<a href="#" class="grey-text text-lighten-3"><i class="material-icons medium">add</i></a>								
 			</div>
 			<div class="col l4 s4">
-				<a class="grey-text text-lighten-3">
-				<i class="fa fa-dropbox"></i> materialize social</a>							
+				<a href="#" class="grey-text text-lighten-3"><i class="material-icons medium">add</i></a>								
 			</div>
 		</div>
 		<div class="footer-copyright">

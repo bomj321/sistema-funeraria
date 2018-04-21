@@ -25,8 +25,6 @@ $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('.modal').modal();
 
-
-
 //Cierre de Jquery
   });
 
