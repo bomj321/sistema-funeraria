@@ -5,11 +5,11 @@ function peticion_ajax(){
 }
 $usuario= $_POST['usuario'];
 $password= $_POST['password'];
-$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+$pass_cifrado=password_hash($password, PASSWORD_DEFAULT, array("cost"=>12));
 
 $sql="INSERT INTO usuario_admin (usuario,pass) VALUES (?,?)";
 $resultado=mysqli_prepare($connection, $sql);
-$ok=mysqli_stmt_bind_param($resultado, "ss", $usuario, $hashed_password);
+$ok=mysqli_stmt_bind_param($resultado, "ss", $usuario, $pass_cifrado);
 $ok=mysqli_stmt_execute($resultado);
 mysqli_stmt_close($resultado);
 ?>
