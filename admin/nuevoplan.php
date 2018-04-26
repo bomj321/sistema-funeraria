@@ -93,6 +93,8 @@ include('header.php');
                           </button>
                         </form>
                       </div>
+
+                      
                       <div id="planes" class="row">
                         <div class="col s12 m12">
                             <?php 

@@ -9,10 +9,7 @@
 
 
 
-///////////////////////////////////TODO PARA VUEJS
 
-
-/////////////////////////////////////TODO PARA VUEJS
 
 ////////////////////////////////////////////////////////JAVASCRIPT VALIDACIONES
 
@@ -413,7 +410,6 @@ function LimpiarCamposNuevoUsuario(){
 
   document.nuevo_usuario.usuario.value="";
   document.nuevo_usuario.password.value="";
-  document.nuevo_usuario.usuario.focus();
 }
 //////////////////////////////////////////////////////AJAX PARA REGISTRAR USUARIO
 
@@ -421,7 +417,7 @@ function LimpiarCamposNuevoUsuario(){
 
 
 /////////////////////////////////////////////////////////////////SUBIR PLAN
-function enviarNuevoPlan(){
+function enviarNuevoPlan(){  
 var parametros = new FormData($("#form_nuevo_plan")[0]);
       $.ajax({
           data: parametros,
@@ -467,8 +463,11 @@ function ventaDeServicios(){
             toastr.warning('Registrando plan espere...');
           },
           success: function(data){
-            toastr.options.progressBar = false;           
-            toastr.success('Plan Registrado!!!');          
+            $('#servicio_venta').html(data);
+            toastr.options.progressBar = false;
+            setTimeout(function () {
+            toastr.success('Venta Registrada!!!');
+          }, 1000);         
             LimpiarVentaDeServicios();
           }
       });
@@ -479,7 +478,44 @@ function LimpiarVentaDeServicios(){
 }
 
 
+
 /////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
+
+
+
+////////////////////////////////////////////////////////////////BUSCAR VENTA DE SERVICIOS
+$(obtener_registros());
+
+function obtener_registros(ventas)
+{
+  $.ajax({
+    url : 'buscar_venta_servicio.php',
+    type : 'POST',
+    dataType : 'html',
+    data : { ventas: ventas },
+    })
+
+  .done(function(resultado){
+    $("#servicio_venta").html(resultado);
+  })
+}
+
+$(document).on('keyup', '#buscar_recibo_input', function()
+{
+  var valorBusqueda=$(this).val();
+  if (valorBusqueda!="")
+  {
+    obtener_registros(valorBusqueda);
+  }
+  else
+    {
+      obtener_registros();
+    }
+});
+
+
+
+/////////////////////////////////////////////////////////////////BUSCAR VENTA DE SERVICIOS
 
 ////AJAX DE LA PAGINA
 

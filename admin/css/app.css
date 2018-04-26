@@ -77,6 +77,9 @@ main ul li{
 .material-icons.activar { color: green; }
 .material-icons.word{ color: blue; }
 .material-icons.pdf{ color: red; }
+.material-icons.pagar{ color: #66bb6a; }
+.material-icons.nopagar{ color: black; }
+
 
 
 /*ESTILOS PARA LOS ICONOS*/

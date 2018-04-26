@@ -36,17 +36,7 @@ mysqli_fetch_array($resultado_limite);
  $num_filas = mysqli_num_rows($resultado_limite);
 $total_paginas=ceil($num_filas/$tamaño_paginas);
 
-
-
-
-//$sql_servicios = "SELECT * FROM ((Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
-//INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID) LIMIT $empezar_desde, $tamaño_paginas";
-
-//$sql_servicios ="SELECT * FROM planes_has_services INNER JOIN servicios ON planes_has_services.planes_id_planes = planes.id_planes
-//LIMIT $empezar_desde, $tamaño_paginas";
-
-
-//$resultado_servicios= mysqli_query($connection, $sql_servicios); 
+ 
 
 $sql = "SELECT * FROM planes ORDER BY  id_planes desc LIMIT $empezar_desde, $tamaño_paginas ";
 $resultado= mysqli_query($connection, $sql); 
@@ -99,7 +89,7 @@ $resultado= mysqli_query($connection, $sql);
                    
 
             </td>
-            <td><a href="eliminar_plan_action.php?id=<?php echo $fila['id_planes'];?>"><i class="material-icons desactivar">do_not_disturb_alt</i></a>                
+            <td><a href="eliminar_plan_action.php?id=<?php echo $fila['id_planes'];?>"><i class="material-icons desactivar">delete</i></a>                
             </td>   
           </tr>
             <?php

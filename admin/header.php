@@ -1,5 +1,6 @@
 <?php
-session_start();
+session_start();?>
+<?php  
 include('connect.php');
 ?>
 <!DOCTYPE html>

@@ -7,14 +7,14 @@ include('connect.php');
                 $estado_civil= $_POST['civil_usuario'];
                 $dni_usuario= $_POST['dni_usuario'];                
                 $comentario_usuario= $_POST['comentario_usuario'];
-                
+                $pagado_usuario = 0;
                 
 
 
         mysqli_set_charset($connection, "utf8");
-        $sql="INSERT INTO User_servicios_indiduales (nombre,edad,estado_civil,dni,comentario) VALUES (?,?,?,?,?)";
+        $sql="INSERT INTO User_servicios_indiduales (nombre,edad,estado_civil,dni,comentario,pagado) VALUES (?,?,?,?,?,?)";
         $resultado=mysqli_prepare($connection, $sql);
-        $ok=mysqli_stmt_bind_param($resultado, "sisis", $usu,$edad , $estado_civil, $dni_usuario, $comentario_usuario);
+        $ok=mysqli_stmt_bind_param($resultado, "sisisi", $usu,$edad , $estado_civil, $dni_usuario, $comentario_usuario,$pagado_usuario);
         $ok=mysqli_stmt_execute($resultado);        
                 
         $idgenerado =mysqli_insert_id($connection);
@@ -57,7 +57,8 @@ include('connect.php');
               }
                 
 
-               
+               include('venta_servicios_tabla.php');
+        
 
                   ?>
                     

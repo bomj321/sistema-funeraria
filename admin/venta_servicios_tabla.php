@@ -9,7 +9,7 @@ include('connect.php');
 
                     echo " 
                     <script>
-                    window.location.href='nuevoplan.php';           
+                    window.location.href='control_venta_servicios.php';           
                     </script>            
                 ";
 
@@ -26,11 +26,11 @@ include('connect.php');
 
 
 //Cuantos registro se muestran por paginas
-        $tamaño_paginas=4;
+        $tamaño_paginas=10;
         $empezar_desde=($pagina-1)* $tamaño_paginas;
         //-------------------Fin if ---------------------
 
-$sql_limite = "SELECT * FROM planes";
+$sql_limite = "SELECT * FROM User_servicios_indiduales";
 $resultado_limite= mysqli_query($connection, $sql_limite); 
 mysqli_fetch_array($resultado_limite);
  $num_filas = mysqli_num_rows($resultado_limite);
@@ -38,7 +38,7 @@ $total_paginas=ceil($num_filas/$tamaño_paginas);
 
  
 
-$sql = "SELECT * FROM planes LIMIT $empezar_desde, $tamaño_paginas";
+$sql = "SELECT * FROM User_servicios_indiduales ORDER BY  idUser desc LIMIT $empezar_desde, $tamaño_paginas";
 $resultado= mysqli_query($connection, $sql); 
 
  ?>
@@ -49,11 +49,10 @@ $resultado= mysqli_query($connection, $sql);
           <tr>
               <th>Id</th>
               <th>Nombre</th>
-              <th>edad</th>
-              <th>Precio</th>
-              <th>DNI</th>              
-              <th>Servicios</th>              
-              <th>Estado</th>
+              <th>Comentario</th>
+              <th>DNI</th>                                          
+              <th>Servicios</th>  
+              <th>Total</th>
               <th>Acciones</th>
           </tr>
         </thead>
@@ -62,21 +61,28 @@ $resultado= mysqli_query($connection, $sql);
         	<?php 
         		while($fila =mysqli_fetch_array($resultado))                      {
             
-            $planid =$fila['id_planes'];
+            $planid =$fila['idUser'];
         	 ?>
           <tr>
-            <td><?php echo $fila['id_planes'];?></td>
+            <td><?php echo $fila['idUser'];?></td>
             <td><?php echo $fila['nombre'];?></td>
-            <td><?php echo $fila['descripcion'];?></td>
-            <td><?php echo $fila['precio_plan'];?>$</td>
-            <td><?php echo $fila['cuotas'];?></td>
-            <td><img style="width: 3rem; height: 3rem;" src="img/<?php echo $fila['image'];?>"></td>
+            <td><?php echo $fila['comentario'];?></td>
+            <td><?php echo $fila['dni'];?></td>         
+
+
 
 
             <td>
                 <?php 
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = Servicios.id_servicios && planes_has_services.planes_id_planes= $planid ";
+                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
                     $resultado_servicios= mysqli_query($connection, $sql_servicios);
+
+
+
+                    $sql_total_servicios ="SELECT SUM(costo) AS value_sum FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
+                    $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
+                    $row = mysqli_fetch_assoc($resultado_total_servicios);
+                    $sum = $row['value_sum'];   
 
                     while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                 ?> 
@@ -85,10 +91,18 @@ $resultado= mysqli_query($connection, $sql);
                    }
                  ?>
                    
-
             </td>
-            <td><a href="eliminar_plan_action.php?id=<?php echo $fila['id_planes'];?>"><i class="material-icons desactivar">do_not_disturb_alt</i></a>                
+
+            <td><?php echo $sum;?>$</td>
+
+            <td><a href="pdf_servicios.php?id=<?php echo $fila['idUser'];?>"><i class="material-icons pdf">picture_as_pdf</i></a>
+
+            <a href="word_servicios.php?id=<?php echo $fila['idUser'];?>"><i class="material-icons word">insert_drive_file</i></a>
+
+            <a href="imprimir_servicios.php?id=<?php echo $fila['idUser'];?>"><i class="material-icons desactivar">assignment_returned</i></a> 
+
             </td>   
+
           </tr>
             <?php
                   }
