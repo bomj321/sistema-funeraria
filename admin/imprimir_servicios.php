@@ -16,7 +16,7 @@ $usuarioid = $_GET['id'];
 <body id="print" onload="javascript:printlayer('servicios')">
 
           <?php 
-          $sql = "SELECT * FROM User_servicios_indiduales WHERE idUser = '$usuarioid'";
+          $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
       $resultado= mysqli_query($connection, $sql); 
             $fila =mysqli_fetch_array($resultado);
             

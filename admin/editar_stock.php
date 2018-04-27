@@ -33,17 +33,24 @@ $fila=mysqli_fetch_array($resultado);
                             <div class="row">
                             <input name="id" id="id" type="hidden" class="validate" required="true" value="<?php echo $fila['id']; ?>">
 
-                              <div class="input-field col s4">
+                              <div class="input-field col s3">
                                 <input name="objeto" id="objeto" type="text" class="validate" required="true" value="<?php echo $fila['objeto'];?>">
                                 <label for="objeto">Objeto</label>
                               </div>
 
-                              <div class="input-field col s4">
-                                <input name="cantidad" id="cantidad" type="text" class="validate" required="true" value="<?php echo $fila['cantidad'];?>">
+                              <div class="input-field col s3">
+                                <input onkeypress="return solonumeros(event)" name="cantidad" id="cantidad" type="text" class="validate" required="true" value="<?php echo $fila['cantidad'];?>">
                                 <label for="cantidad">Cantidad Existente</label>
-                              </div>                           
+                                <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
+                              </div>  
 
-                              <div class="input-field col s4">
+                              <div class="input-field col s12 m3">
+                                <input onkeypress="return solonumeros2(event)" onpaste="false" name="precio" id="precio" type="text" class="validate" required="true" value="<?php echo $fila['precio'];?>">
+                                <label for="precio">Precio Unitario</label>
+                                <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
+                              </div>                          
+
+                              <div class="input-field col s3">
                                 <input name="comentario" id="comentario" type="text" class="validate" required="true" value="<?php echo $fila['comentario']; ?>">
                                 <label for="comentario">Comentario</label>
                               </div>

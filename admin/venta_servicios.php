@@ -20,7 +20,7 @@ include('header.php');
 
                 <div class="row">
                   <h4>Venta de Servicios</h4>
-                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" class="col s12 m12" action="venta_servicios_action.php" style="margin-bottom: 3rem;">
+                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" onsubmit="ventaDeServicios(); return false" class="col s12 m12" action="venta_servicios_action.php" style="margin-bottom: 3rem;">
                            
                           <div class="row">
                             <div class="input-field col s12 m4">
@@ -95,12 +95,16 @@ include('header.php');
                               <p>Id</p>
                             </div>
 
-                            <div class="col s6 m6" style="text-align: center;">
+                            <div class="col s3 m3" style="text-align: center;">
                               <p>Productos</p>
                             </div>
 
+                            <div class="col s3 m3" style="text-align: center;">
+                              <p>Cantidad Existente</p>
+                            </div>
+
                             <div class="col s5 m5" style="text-align: center;">
-                              <p>Cantidad</p>
+                              <p>Cantidad a Vender</p>
                             </div>
                           </div>
 
@@ -120,15 +124,20 @@ include('header.php');
                                       $fila_producto =mysqli_fetch_array($resultado_producto)           
                                   ?>
                               <div class=" input-field col s1 m1">                                
-                                <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][id]">
+                                <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_id" type="text" class="validate" name="producto[<?= $i ?>][id]">
                               </div>
 
-                              <div class=" input-field col s6 m6">                                
+                              <div class=" input-field col s3 m3">                                
                                 <input  value="<?php echo $fila_producto['objeto']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][nombre]">
 
                               </div>
+
+                              <div class=" input-field col s3 m3" >
+                                <input  id="first_cantidad_stock" value="<?php echo $fila_producto['cantidad']?>" type="text" class="validate" readonly="readonly" name="producto[<?= $i ?>][cantidad_stock]">
+                              </div>
+
                               <div class=" input-field col s5 m5" >
-                                <input  id="first_name" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
+                                <input  id="first_cantidad_vender" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
                               </div>
                                <?php 
                                

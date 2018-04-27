@@ -20,7 +20,7 @@ $usuarioid = $_GET['id'];
 
 
         	<?php 
-        	$sql = "SELECT * FROM User_servicios_indiduales WHERE idUser = '$usuarioid'";
+        	$sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
 			$resultado= mysqli_query($connection, $sql); 
         		$fila =mysqli_fetch_array($resultado);
             
@@ -37,7 +37,7 @@ $usuarioid = $_GET['id'];
               $sum = $row['value_sum'];   
         	 ?>
 	<div style="text-align:center;">
-			<table width="40%" border="1" cellspacing="0" cellpadding="0">
+			<table width="40%"  cellspacing="0" cellpadding="0">
 				<tr>
 					<td>Nombre del usuario: <?php echo $fila['nombre'];?></td>
 						

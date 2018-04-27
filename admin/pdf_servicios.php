@@ -16,7 +16,7 @@ $codigoHTML='
 <body>
 <div style="text-align:center;">
 <table width="40%" border="1" cellspacing="0" cellpadding="0">'; 
-$sql = "SELECT * FROM User_servicios_indiduales WHERE idUser = '$usuarioid'";
+$sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
 			$resultado= mysqli_query($connection, $sql); 
         		$fila =mysqli_fetch_array($resultado);
             
@@ -28,9 +28,20 @@ $sql = "SELECT * FROM User_servicios_indiduales WHERE idUser = '$usuarioid'";
 
 
              $sql_total_servicios ="SELECT SUM(costo) AS value_sum FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
-             $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
-             $row = mysqli_fetch_assoc($resultado_total_servicios);
-              $sum = $row['value_sum']; 
+                    $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
+                    $row_servicio = mysqli_fetch_assoc($resultado_total_servicios);
+                    $sum_servicio = $row_servicio['value_sum'];
+
+               $sql_productos = "SELECT * FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid ";
+                    $resultado_productos= mysqli_query($connection, $sql_productos);
+
+
+
+                    $sql_total_productos ="SELECT SUM(precio) AS value_sum FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
+                    $resultado_total_productos= mysqli_query($connection, $sql_total_productos);
+                    $row_producto = mysqli_fetch_assoc($resultado_total_productos);
+                    $sum_producto = $row_producto['value_sum'];
+                    $sum = $sum_servicio + $sum_producto;   
 $codigoHTML.='  
     <tr>
         <td>Nombre del usuario: '.$fila['nombre'].'</td>                                                    
@@ -41,7 +52,7 @@ $codigoHTML.='
     </tr>
 
 	<tr>
-        <td>Total de la factura: '.$row['value_sum'].'$</td>                                                    
+        <td>Total de la factura: '.$sum.'$</td>                                                    
     </tr>
 
     <tr>
@@ -56,12 +67,41 @@ $codigoHTML.='
                  </tr>';
                 
                    }
-                 
 
-    
+    $codigoHTML.='
+    <tr>
+        <td style="margin-bottom:-10px;">Productos Adquiridos:</td>                                                    
+    </tr>';
+
+    while ( $fila_producto =mysqli_fetch_array($resultado_productos)){
+            $codigoHTML.='   
+                 <tr >
+                    <td style="margin-bottom: -10px;">-'.$fila_producto['objeto'].' '.$fila_producto['precio'].'$</td>
+                 </tr>';
+                
+                   }
+
+
+            $codigoHTML.='
+                        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center"> 
+                <tr> 
+                    <td width=150 valign="top"> 
+                    1
+                    </td> 
+                    <td width=10></td> 
+                    <td width=484 valign="top"> 
+                    2 
+                    </td> 
+                    <td width=10></td> 
+                    <td width=124 align=center valign="top"> 
+                    3
+                    </td> 
+                </tr> 
+                </table>';
 
 
 $codigoHTML.='
+
 </table>
 </div>
 </body>

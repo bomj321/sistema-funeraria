@@ -164,12 +164,6 @@ function sololetras3(e){
 
 
 
-
-
-
-
-
-
 ////////////////////////////////////////////////////////JAVASCRIPT VALIDACIONES
 
 
@@ -203,6 +197,7 @@ function enviarDatosStock(){
   //recogemos los valores de los inputs
   obj=document.nuevo_servicio.objeto.value;
   can=document.nuevo_servicio.cantidad.value;
+  pre=document.nuevo_servicio.precio.value;
   com=document.nuevo_servicio.comentario.value;
   
   //instanciamos el objetoAjax
@@ -227,14 +222,14 @@ function enviarDatosStock(){
  }
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	//enviando los valores a registro.php para que inserte los datos
-	ajax.send("objeto="+obj+"&cantidad="+can+"&comentario="+com)
+	ajax.send("objeto="+obj+"&cantidad="+can+"&comentario="+com+"&precio="+pre)
 }
 //función para limpiar los campos
 function LimpiarCampos1(){
   document.nuevo_servicio.objeto.value="";
   document.nuevo_servicio.cantidad.value="";
+  document.nuevo_servicio.precio.value="";
   document.nuevo_servicio.comentario.value=""; 
-  document.nuevo_servicio.objeto.focus();
 }
 
 
@@ -253,6 +248,7 @@ function actualizarDatosStock(){
   id=document.nuevo_servicio.id.value;
   obj=document.nuevo_servicio.objeto.value;
   can=document.nuevo_servicio.cantidad.value;
+  pre=document.nuevo_servicio.precio.value;
   com=document.nuevo_servicio.comentario.value;
   //instanciamos el objetoAjax
   ajax=objetoAjax();
@@ -279,7 +275,7 @@ function actualizarDatosStock(){
  }
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	//enviando los valores a registro.php para que inserte los datos
-	ajax.send("id="+id+"&objeto="+obj+"&cantidad="+can+"&comentario="+com)
+	ajax.send("id="+id+"&objeto="+obj+"&cantidad="+can+"&comentario="+com+"&precio="+pre)
 }
  
 
@@ -460,7 +456,7 @@ function ventaDeServicios(){
           processData:false,
           beforesend: function(){
             toastr.options.progressBar = true;
-            toastr.warning('Registrando plan espere...');
+            toastr.warning('Registrando venta Espere...');
           },
           success: function(data){
             $('#servicio_venta').html(data);
@@ -468,7 +464,12 @@ function ventaDeServicios(){
             setTimeout(function () {
             toastr.success('Venta Registrada!!!');
           }, 1000);         
-            LimpiarVentaDeServicios();
+            //LimpiarVentaDeServicios();
+ setTimeout(function () {
+              location.reload();
+          }, 2000);
+
+                        
           }
       });
 }

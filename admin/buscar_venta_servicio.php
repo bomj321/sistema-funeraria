@@ -29,7 +29,8 @@ $tabla.='
               <th>Nombre</th>
               <th>Comentario</th>
               <th>DNI</th>                                          
-              <th>Servicios</th>  
+              <th>Servicios</th>
+              <th>Productos</th>  
               <th>Total</th>
               <th>Acciones</th>
           </tr>
@@ -55,8 +56,8 @@ $tabla.='
 
                     $sql_total_servicios ="SELECT SUM(costo) AS value_sum FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
                     $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
-                    $row = mysqli_fetch_assoc($resultado_total_servicios);
-                    $sum = $row['value_sum'];   
+                    $row_servicio = mysqli_fetch_assoc($resultado_total_servicios);
+                    $sum_servicio = $row_servicio['value_sum'];   
 
                     while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                  $tabla.='
@@ -66,6 +67,29 @@ $tabla.='
                 
            $tabla.='        
             </td>
+
+            <td>';
+                
+                    $sql_productos = "SELECT * FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid ";
+                    $resultado_productos= mysqli_query($connection, $sql_productos);
+
+
+
+                    $sql_total_productos ="SELECT SUM(precio) AS value_sum FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
+                    $resultado_total_productos= mysqli_query($connection, $sql_total_productos);
+                    $row_producto = mysqli_fetch_assoc($resultado_total_productos);
+                    $sum_producto = $row_producto['value_sum'];
+                    $sum = $sum_servicio + $sum_producto;   
+
+                    while ( $fila_producto =mysqli_fetch_array($resultado_productos)){              
+                 $tabla.='
+                  <li style="font-size: 0.8rem;">'.$fila_producto['objeto'].'</li>';
+                
+                   }
+                
+           $tabla.='        
+            </td>
+
 		
             <td>'.$sum.'$</td>
 

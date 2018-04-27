@@ -49,6 +49,7 @@ $resultado= mysqli_query($connection, $sql);
               <th>Id</th>
               <th>Item</th>
               <th>Cantidad</th>
+              <th>Precio</th>
               <th>Comentario</th>
               <th colspan="2" >Acciones</th>
           </tr>
@@ -63,6 +64,7 @@ $resultado= mysqli_query($connection, $sql);
             <td><?php echo $fila['id'];?></td>
             <td><?php echo $fila['objeto'];?></td>
             <td><?php echo $fila['cantidad'];?></td>
+            <td><?php echo $fila['precio'];?>$</td>
             <td><?php echo $fila['comentario'];?></td>
             <td><a href="editar_stock.php?id=<?php echo $fila['id'];?>"><i class="material-icons">border_color</i></a></td></tr>
             <?php
