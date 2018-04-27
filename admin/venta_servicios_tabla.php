@@ -30,7 +30,7 @@ include('connect.php');
         $empezar_desde=($pagina-1)* $tamaño_paginas;
         //-------------------Fin if ---------------------
 
-$sql_limite = "SELECT * FROM User_servicios_indiduales";
+$sql_limite = "SELECT * FROM User_servicios_individuales";
 $resultado_limite= mysqli_query($connection, $sql_limite); 
 mysqli_fetch_array($resultado_limite);
  $num_filas = mysqli_num_rows($resultado_limite);
@@ -38,7 +38,7 @@ $total_paginas=ceil($num_filas/$tamaño_paginas);
 
  
 
-$sql = "SELECT * FROM User_servicios_indiduales ORDER BY  idUser desc LIMIT $empezar_desde, $tamaño_paginas";
+$sql = "SELECT * FROM User_servicios_individuales ORDER BY  idUser desc LIMIT $empezar_desde, $tamaño_paginas";
 $resultado= mysqli_query($connection, $sql); 
 
  ?>

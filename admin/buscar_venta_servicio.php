@@ -7,14 +7,14 @@ include('connect.php');
 
  
 $tabla="";
-$sql = "SELECT * FROM User_servicios_indiduales ORDER BY  idUser desc ";
+$sql = "SELECT * FROM User_servicios_individuales ORDER BY  idUser desc ";
 
 
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['ventas']))
 {
 	$buscar=$connection->real_escape_string($_POST['ventas']);
-	$sql="SELECT * FROM User_servicios_indiduales WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY  idUser desc  ";
+	$sql="SELECT * FROM User_servicios_individuales WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY  idUser desc  ";
 } 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);

@@ -20,7 +20,7 @@ include('header.php');
 
                 <div class="row">
                   <h4>Venta de Servicios</h4>
-                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" class="col s12 m12" action="" onsubmit="ventaDeServicios(); return false" style="margin-bottom: 3rem;">
+                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" class="col s12 m12" action="venta_servicios_action.php" style="margin-bottom: 3rem;">
                            
                           <div class="row">
                             <div class="input-field col s12 m4">
@@ -81,8 +81,61 @@ include('header.php');
                                   </select>
                                   <label>Selecciona los Servicios</label>
                                 </div>
+                          </div> 
+
+                          <div class="row">
+                            <div class="col s12 m12" >
+                              <h4>Selecciona los Productos</h4>
+                            </div>
+                          </div>                           
+
+
+                          <div class="row">
+                             <div class="col s1 m1" style="text-align: center;">
+                              <p>Id</p>
+                            </div>
+
+                            <div class="col s6 m6" style="text-align: center;">
+                              <p>Productos</p>
+                            </div>
+
+                            <div class="col s5 m5" style="text-align: center;">
+                              <p>Cantidad</p>
+                            </div>
                           </div>
-                            
+
+                          <!--CONSULTA PARA LOS PRODUCTOS-->
+                                <?php 
+                                $sql_producto = "SELECT * FROM stock WHERE cantidad > 0";
+                                $resultado_producto= mysqli_query($connection, $sql_producto);
+                                 ?>
+
+
+                                <!--CONSULTA PARA LOS PRODUCTOS-->
+
+                          <div class="row">
+                            <?php 
+                                     for($i=1;$i<=mysqli_num_rows($resultado_producto); $i++)
+                                      {
+                                      $fila_producto =mysqli_fetch_array($resultado_producto)           
+                                  ?>
+                              <div class=" input-field col s1 m1">                                
+                                <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][id]">
+                              </div>
+
+                              <div class=" input-field col s6 m6">                                
+                                <input  value="<?php echo $fila_producto['objeto']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][nombre]">
+
+                              </div>
+                              <div class=" input-field col s5 m5" >
+                                <input  id="first_name" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
+                              </div>
+                               <?php 
+                               
+                                  }
+                                ?>
+                          </div>
+                             
 
  
                            <button class="btn waves-effect waves-light  green darken-3" type="submit" name="action">Registrar Venta

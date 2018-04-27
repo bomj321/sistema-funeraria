@@ -12,7 +12,7 @@ include('connect.php');
 
 
         mysqli_set_charset($connection, "utf8");
-        $sql="INSERT INTO User_servicios_indiduales (nombre,edad,estado_civil,dni,comentario,pagado) VALUES (?,?,?,?,?,?)";
+        $sql="INSERT INTO User_servicios_individuales (nombre,edad,estado_civil,dni,comentario,pagado) VALUES (?,?,?,?,?,?)";
         $resultado=mysqli_prepare($connection, $sql);
         $ok=mysqli_stmt_bind_param($resultado, "sisisi", $usu,$edad , $estado_civil, $dni_usuario, $comentario_usuario,$pagado_usuario);
         $ok=mysqli_stmt_execute($resultado);        
@@ -36,11 +36,25 @@ include('connect.php');
               
               }
 
+            $productos= $_POST['producto'];
+/////////////////////////////////INSERT PARA LOS PRODUCTOS     
+  ///
+              foreach ($productos as $productostotales) {
+                mysqli_set_charset($connection, "utf8");
+                $sql3 = "INSERT INTO user_has_products(stock_id_stock, products_id_user) VALUES (?,?)";
+                $resultado3=mysqli_prepare($connection, $sql3);
+                mysqli_stmt_bind_param($resultado3, "ii",$productostotales['id'], $idgenerado );
+                $ok3=mysqli_stmt_execute($resultado3);
+                mysqli_stmt_close($resultado3);
+    
+    
+                }
+
               if (!$ok) {
               	echo "
 						<script>
 
-							alert('Error');
+							alert('Error en la insercion de datos de Usuario');
 						</script>
 
               	";
@@ -50,14 +64,18 @@ include('connect.php');
               	echo "
 						<script>
 
-							alert('Error2');
+							alert('Error en la insercion de servicios vendidos');
 						</script>
 
               	";
               }
+              if (!$ok3) {
+                echo "error";               
+                echo $productos[1]['id'];
+              }
                 
 
-               include('venta_servicios_tabla.php');
+              // include('venta_servicios_tabla.php');
         
 
                   ?>
