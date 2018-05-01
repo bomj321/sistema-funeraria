@@ -90,29 +90,19 @@ include('header.php');
                           </div>                           
 
 
-                          <div class="row">
-                             <div class="col s1 m1" style="text-align: center;">
-                              <p>Id</p>
-                            </div>
-
-                            <div class="col s3 m3" style="text-align: center;">
-                              <p>Productos</p>
-                            </div>
-
-                            <div class="col s1 m2" style="text-align: center;">
-                              <p>Precio Unitario</p>
-                            </div>
-
-                            <div class="col s4 m3" style="text-align: center;">
-                              <p>Cantidad Existente</p>
-                            </div>
-
-                            <div class="col s3 m3" style="text-align: center;">
-                              <p>Cantidad a Vender</p>
-                            </div>
-                          </div>
-
-                          <!--CONSULTA PARA LOS PRODUCTOS-->
+              <div class="row">
+                <table class="responsive-table">
+                  <thead>
+                      <tr>
+                          <th>Id</th>
+                          <th>Productos</th>
+                          <th>Precio Unitario</th>
+                          <th>Cantidad Existente</th>                                          
+                          <th>Cantidad a Vender</th>
+                      </tr>
+                </thead> 
+                <tbody>
+                    <!--CONSULTA PARA LOS PRODUCTOS-->
                                 <?php 
                                 $sql_producto = "SELECT * FROM stock WHERE cantidad > 0";
                                 $resultado_producto= mysqli_query($connection, $sql_producto);
@@ -120,39 +110,42 @@ include('header.php');
 
 
                                 <!--CONSULTA PARA LOS PRODUCTOS-->
-
-                          <div class="row">
-                            <?php 
+                       <?php 
                                      for($i=1;$i<=mysqli_num_rows($resultado_producto); $i++)
                                       {
                                       $fila_producto =mysqli_fetch_array($resultado_producto)           
-                                  ?>
-                              <div class=" input-field col s1 m1">                                
-                                <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_id" type="text" class="validate" name="producto[<?= $i ?>][id]">
-                              </div>
+                        ?>
+                  <tr>
+                      <td>
+                        <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_id" type="text" class="validate" name="producto[<?= $i ?>][id]">
+                      </td>
 
-                              <div class=" input-field col s3 m3">                                
-                                <input  value="<?php echo $fila_producto['objeto']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][nombre]">
+                      <td>
+                        <input  value="<?php echo $fila_producto['objeto']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][nombre]">
+                      </td>
 
-                              </div>
+                      <td>
+                        <input  value="<?php echo $fila_producto['precio']?>$" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][precio]">
+                      </td>
 
-                              <div class=" input-field col s1 m2">                                
-                                <input  value="<?php echo $fila_producto['precio']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][precio]">
+                      <td>
+                       <input  id="first_cantidad_stock" value="<?php echo $fila_producto['cantidad']?>" type="text" class="validate" readonly="readonly" name="producto[<?= $i ?>][cantidad_stock]">
+                     </td>
 
-                              </div>
+                      <td>
+                        <input  id="first_cantidad_vender" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
+                      </td>
 
-                              <div class=" input-field col s4 m3" >
-                                <input  id="first_cantidad_stock" value="<?php echo $fila_producto['cantidad']?>" type="text" class="validate" readonly="readonly" name="producto[<?= $i ?>][cantidad_stock]">
-                              </div>
-
-                              <div class=" input-field col s3 m3" >
-                                <input  id="first_cantidad_vender" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
-                              </div>
-                               <?php 
+                  </tr>
+                        <?php 
                                
                                   }
-                                ?>
-                          </div>
+                        ?>
+                </tbody>
+            </table>
+        </div>
+
+                         
                              
 
  

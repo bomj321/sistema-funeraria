@@ -50,10 +50,10 @@ $resultado= mysqli_query($connection, $sql);
               <th>Id</th>
               <th>Nombre</th>
               <th>Descripcion</th>
-              <th>Precio</th>
-              <th>Cuotas</th>              
+              <th>Precio</th>                            
               <th>Imagen</th>
-              <th>Servicios a ofrecer</th>              
+              <th>Servicios a ofrecer</th>
+              <th>Productos a ofrecer</th>              
               <th >Acciones</th>
           </tr>
         </thead>
@@ -70,8 +70,7 @@ $resultado= mysqli_query($connection, $sql);
             <td><?php echo $fila['id_planes'];?></td>
             <td><?php echo $fila['nombre'];?></td>
             <td><?php echo $fila['descripcion'];?></td>
-            <td><?php echo $fila['precio_plan'];?>$</td>
-            <td><?php echo $fila['cuotas'];?></td>
+            <td><?php echo $fila['precio_plan'];?>$</td>            
             <td><img style="width: 3rem; height: 3rem;" src="img/<?php echo $fila['image'];?>"></td>
 
 
@@ -82,7 +81,22 @@ $resultado= mysqli_query($connection, $sql);
 
                     while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                 ?> 
-                  <li style="font-size: 0.8rem;"><?php echo $fila_servicio['descripcion_servicio'];?></li>
+                  <li style="font-size: 0.8rem; text-align: center;"><?php echo $fila_servicio['descripcion_servicio'];?></li>
+                <?php 
+                   }
+                 ?>
+                   
+
+            </td>
+
+            <td>
+                <?php 
+                    $sql_products = "SELECT * FROM stock INNER JOIN planes_has_products ON planes_has_products.products_id_products = stock.id && planes_has_products.planes_id_planes_products= $planid ";
+                    $resultado_products= mysqli_query($connection, $sql_products);
+
+                    while ( $fila_products =mysqli_fetch_array($resultado_products)){              
+                ?> 
+                  <li style="font-size: 0.8rem; text-align: center;"><?php echo $fila_products['objeto'];?>(<?php echo $fila_products['cantidad_comprada'];?>)</li>
                 <?php 
                    }
                  ?>

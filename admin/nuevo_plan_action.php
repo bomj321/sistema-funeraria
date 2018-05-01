@@ -33,16 +33,15 @@ if ($tamaño_imagen<=1000000) {
     }
     //RUTA IMAGEN
                 $nom= $_POST['nombre'];
-                $cost= $_POST['costo'];
-                $cuo= $_POST['cuota'];
+                $cost= $_POST['costo'];                
                 $des= $_POST['descripcion'];
                 $activo = 1;
 
 
         mysqli_set_charset($connection, "utf8");
-        $sql="INSERT INTO planes (nombre,plan_activo,descripcion,precio_plan,cuotas,image) VALUES (?,?,?,?,?,?)";
+        $sql="INSERT INTO planes (nombre,descripcion,precio_plan,plan_activo,image) VALUES (?,?,?,?,?)";
         $resultado=mysqli_prepare($connection, $sql);
-        $ok=mysqli_stmt_bind_param($resultado, "sisiis", $nom,$activo , $des, $cost, $cuo, $nombre_imagen);
+        $ok=mysqli_stmt_bind_param($resultado, "ssiis", $nom,$des,$cost,$activo,$nombre_imagen);
         $ok=mysqli_stmt_execute($resultado);        
                 
         $idgenerado =mysqli_insert_id($connection);
@@ -65,8 +64,43 @@ $servicios= $_POST['servicios'];
                 mysqli_stmt_close($resultado2);
               
               }
-                
 
+ $productos= $_POST['producto'];               
+/////////////////////////////////INSERT PARA LOS PRODUCTOS     
+  ////////////////////////////////SEGUNDO FOREACH
+                foreach ($productos as $productostotales) {
+
+                $sql5="SELECT objeto,cantidad FROM stock WHERE id= ? ";
+                  $resultado5=mysqli_prepare($connection, $sql5);
+                  mysqli_stmt_bind_param($resultado5, "i", $productostotales['id']);    
+                  $ok5=mysqli_stmt_execute($resultado5);
+                  mysqli_stmt_bind_result($resultado5, $nombre, $cantidad);
+                  mysqli_stmt_store_result($resultado5);
+                  $fila5= mysqli_stmt_num_rows($resultado5);
+
+
+
+            if (!empty($productostotales['cantidad'])) {
+                  mysqli_set_charset($connection, "utf8");
+                $sql3 = "INSERT INTO planes_has_products(planes_id_planes_products, products_id_products,cantidad_comprada) VALUES (?,?,?)";
+                $resultado3=mysqli_prepare($connection, $sql3);
+                mysqli_stmt_bind_param($resultado3, "iii", $idgenerado,$productostotales['id'], $productostotales['cantidad']);
+                $ok3=mysqli_stmt_execute($resultado3);
+                mysqli_stmt_close($resultado3);
+
+                 if (!$ok3) {
+                echo "
+
+                <script>
+
+               alert('Error en la insercion de Productos vendidos');
+              </script>";               
+                
+              }
+                }
+
+                }
+////////////////////////////////SEGUNDO FOREACH
                
         include('planes_tabla.php');
 

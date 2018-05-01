@@ -518,5 +518,75 @@ $(document).on('keyup', '#buscar_recibo_input', function()
 
 /////////////////////////////////////////////////////////////////BUSCAR VENTA DE SERVICIOS
 
+
+////////////////////////////////////////////////////////////////AGREGAR FAMILIARES
+$(obtener_familiares_directos());
+
+function obtener_familiares_directos(familiares_directos)
+{
+  $.ajax({
+    url : 'familiares_contrato_directos.php',
+    type : 'POST',
+    dataType : 'html',
+    data : { familiares_directos: familiares_directos },
+    })
+
+  .done(function(resultado){
+    $("#familiares_contrato_directos").html(resultado);
+  })
+}
+
+$(document).on('keyup', '#familiares_numero_directos', function()
+{
+  var valorBusqueda=$(this).val();
+  if (valorBusqueda!="")
+  {
+    obtener_familiares_directos(valorBusqueda);
+  }
+  else
+    {
+      obtener_familiares_directos();
+    }
+});
+
+
+
+/////////////////////////////////////////////////////////////////AGREGAR FAMILIARES
+///
+///////////////////////////////////////////////////////////////////AGREGAR FAMILIARES INDIRECTOS
+$(obtener_familiares_indirectos());
+
+function obtener_familiares_indirectos(familiares_indirectos)
+{
+  $.ajax({
+    url : 'familiares_contrato_indirectos.php',
+    type : 'POST',
+    dataType : 'html',
+    data : { familiares_indirectos: familiares_indirectos },
+    })
+
+  .done(function(resultado){
+    $("#familiares_contrato_indirectos").html(resultado);
+  })
+}
+
+$(document).on('keyup', '#familiares_numero_indirectos', function()
+{
+  var valorBusqueda=$(this).val();
+  if (valorBusqueda!="")
+  {
+    obtener_familiares_indirectos(valorBusqueda);
+  }
+  else
+    {
+      obtener_familiares_indirectos();
+    }
+});
+
+
+
+/////////////////////////////////////////////////////////////////AGREGAR FAMILIARES INDIRECTOS
+
+
 ////AJAX DE LA PAGINA
 

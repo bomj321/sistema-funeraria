@@ -83,7 +83,7 @@ $tabla.='
 
                     while ( $fila_producto =mysqli_fetch_array($resultado_productos)){              
                  $tabla.='
-                  <li style="font-size: 0.8rem;">'.$fila_producto['objeto'].'</li>';
+                  <li style="font-size: 0.8rem;">'.$fila_producto['objeto'].'('.$fila_producto['cantidad_comprada'].')</li>';
                 
                    }
                 
