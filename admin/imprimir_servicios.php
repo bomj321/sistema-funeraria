@@ -23,48 +23,133 @@ $usuarioid = $_GET['id'];
             $planid =$fila['idUser'];
 
             $sql_servicios = "SELECT * FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
-                    $resultado_servicios= mysqli_query($connection, $sql_servicios);
+               $resultado_servicios= mysqli_query($connection, $sql_servicios);
 
 
 
              $sql_total_servicios ="SELECT SUM(costo) AS value_sum FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
-             $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
-             $row = mysqli_fetch_assoc($resultado_total_servicios);
-              $sum = $row['value_sum'];   
+                    $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
+                    $row_servicio = mysqli_fetch_assoc($resultado_total_servicios);
+                    $sum_servicio = $row_servicio['value_sum'] ;
+
+               $sql_productos = "SELECT * FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid ";
+                    $resultado_productos= mysqli_query($connection, $sql_productos);
+
+
+                    $sql_total_productos ="SELECT SUM(precio_total) AS value_sum FROM user_has_products INNER JOIN stock ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
+                    $resultado_total_productos= mysqli_query($connection, $sql_total_productos);
+                    $row_producto = mysqli_fetch_assoc($resultado_total_productos);
+                    $sum_producto = $row_producto['value_sum'] ;
+                    $sum = $sum_servicio + $sum_producto ;   
            ?>
-  <div style="text-align:center; margin-left: 600px;" id="servicios">
-      <table width="40%"  cellspacing="0" cellpadding="0">
-        <tr>
-          <td>Nombre del usuario: <?php echo $fila['nombre'];?></td>
-            
-        </tr>
+  <div  id="servicios">
+      <table align="center" width="500" height="600" > 
+                <tr> 
 
-        <tr>
-          <td>DNI del usuario: <?php echo $fila['dni'];?></td>            
+                    <td colspan="1"> 
+                       Nombre del Usuario:
+                    </td> 
+                
+                
+                    <td style="text-align:center"> 
+                       <?php echo $fila['nombre']; ?>
+                    </td>
+                     
+                </tr>
+                     
+                <tr> 
+                    
+                    <td colspan="1"> 
+                        DNI:
+                    </td> 
 
-        </tr>
+                     
 
-        <tr>
-          <td>Total de la factura: <?php echo $sum;?>$</td>
-        </tr>
+                    <td style="text-align:center"> 
+                       <?php echo $fila['dni']; ?> 
+                    </td> 
+                    
+                </tr>
+
+                <tr > 
+                    <td colspan="3" style="border-top:2px solid;"> 
+                    <h4>Productos Adquiridos</h4>
+                       
+                    </td> 
+                </tr>
 
 
-        <tr>
-          <td style="margin-bottom:-10px;">Servicios Adquiridos:</td>       
-        </tr>
+    <?php  while ( $fila_producto =mysqli_fetch_array($resultado_productos)){
+$precio_total_productos = $fila_producto['cantidad_comprada'] * $fila_producto['precio'];?>
 
 
-                 <?php 
-          while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){
-         ?>
-                 <tr >
-                  <td style="margin-bottom: -10px;">- <?php echo $fila_servicio['descripcion_servicio'];?> <?php echo $fila_servicio['costo'];?>$</td>
-                 </tr>
-                 <?php 
-                   }
-                 ?>
-      </table>
+                <tr> 
+                    <td colspan="1"> 
+                       <?php echo $fila_producto['objeto'];?> (<?php echo $fila_producto['cantidad_comprada'];?>)
+                    </td>
+                
+                    <td style="text-align:center"> 
+                       <?php echo $precio_total_productos; ?>$
+                    </td>
+
+                    
+                </tr>
+<?php  
+}
+?>
+                <tr> 
+                    <td colspan="3" style="border-top:2px solid;"> 
+                       <h4>Servicios Adquiridos</h4>
+                    </td> 
+                </tr>
+
+<?php 
+    while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){
+ ?>
+                <tr> 
+                    <td> 
+                       <?php echo $fila_servicio['descripcion_servicio']; ?>
+                    </td> 
+               
+                
+                    <td style="text-align:center"> 
+                       <?php echo $fila_servicio['costo']; ?>$
+                    </td> 
+                </tr>
+                
+<?php
+ }
+
+   ?>
+                <tr > 
+                    <td > 
+                       Total:
+                    </td> 
+               
+                
+                    <td style="border-top:1px solid; text-align:center"> 
+                       <?php echo $sum?>$
+                    </td> 
+                </tr>
+               
+
+
+</table>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <script type="text/javascript">
   function printlayer(Imprimeme){
       var impresion=document.getElementById(Imprimeme).innerHTML;
@@ -73,7 +158,7 @@ $usuarioid = $_GET['id'];
       winprint.document.open();
       
       winprint.document.write('<html><head><style type="text/css">');
-      winprint.document.write('table{width:40%;  margin-left: 300px;}');
+      winprint.document.write('#table{align:"center" width:"800" height:"600"}');
       winprint.document.write('</style></head><body onload="window.print();">');
       
       winprint.document.write(impresion);

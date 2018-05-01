@@ -95,11 +95,11 @@ include('connect.php');
       
               ////////////////////////////////SEGUNDO FOREACH
                 foreach ($productos as $productostotales) {
-                $sql5="SELECT objeto,cantidad FROM stock WHERE id= ? AND cantidad >= ?";
+                $sql5="SELECT objeto,cantidad,precio FROM stock WHERE id= ? AND cantidad >= ?";
                   $resultado5=mysqli_prepare($connection, $sql5);
                   mysqli_stmt_bind_param($resultado5, "ii", $productostotales['id'], $productostotales['cantidad']);    
                   $ok5=mysqli_stmt_execute($resultado5);
-                  mysqli_stmt_bind_result($resultado5, $nombre, $cantidad);
+                  mysqli_stmt_bind_result($resultado5, $nombre, $cantidad, $precio_articulo);
                   mysqli_stmt_store_result($resultado5);
                   $fila5= mysqli_stmt_num_rows($resultado5);
 
@@ -127,10 +127,11 @@ include('connect.php');
 
 
             if (!empty($productostotales['cantidad'])) {
+                  $precio_total=$productostotales['cantidad'] * $precio_articulo;
                       mysqli_set_charset($connection, "utf8");
-                $sql3 = "INSERT INTO user_has_products(stock_id_stock, products_id_user,cantidad_comprada) VALUES (?,?,?)";
+                $sql3 = "INSERT INTO user_has_products(stock_id_stock, products_id_user,cantidad_comprada,precio_total) VALUES (?,?,?,?)";
                 $resultado3=mysqli_prepare($connection, $sql3);
-                mysqli_stmt_bind_param($resultado3, "iii",$productostotales['id'], $idgenerado,$productostotales['cantidad'] );
+                mysqli_stmt_bind_param($resultado3, "iiii",$productostotales['id'], $idgenerado,$productostotales['cantidad'], $precio_total );
                 $ok3=mysqli_stmt_execute($resultado3);
                 mysqli_stmt_close($resultado3);
 

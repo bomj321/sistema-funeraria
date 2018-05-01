@@ -72,10 +72,10 @@ $tabla.='
                 
                     $sql_productos = "SELECT * FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid ";
                     $resultado_productos= mysqli_query($connection, $sql_productos);
+                    
 
 
-
-                    $sql_total_productos ="SELECT SUM(precio) AS value_sum FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
+                    $sql_total_productos ="SELECT SUM(precio_total) AS value_sum FROM user_has_products INNER JOIN stock ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
                     $resultado_total_productos= mysqli_query($connection, $sql_total_productos);
                     $row_producto = mysqli_fetch_assoc($resultado_total_productos);
                     $sum_producto = $row_producto['value_sum'];

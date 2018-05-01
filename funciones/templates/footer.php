@@ -18,7 +18,7 @@
 		</div>
 		<div class="footer-copyright">
 		<div class="container">
-			© 2018 Copyright - Funearia
+			© 2018 Copyright - Informáticos Azuanos, SRL
 		</div>
 	</div>
 </footer>

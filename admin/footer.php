@@ -1,6 +1,6 @@
 <footer class="page-footer" >            
             	<div class="row">
-           			 © 2018 Sistema de Funerarias. Realizado por: Ortega y Villalobos
+           			 © 2018 Informáticos Azuanos, SRL
             	</div>                     
 </footer>
 

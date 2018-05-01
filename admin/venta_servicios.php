@@ -99,11 +99,15 @@ include('header.php');
                               <p>Productos</p>
                             </div>
 
-                            <div class="col s3 m3" style="text-align: center;">
+                            <div class="col s1 m2" style="text-align: center;">
+                              <p>Precio Unitario</p>
+                            </div>
+
+                            <div class="col s4 m3" style="text-align: center;">
                               <p>Cantidad Existente</p>
                             </div>
 
-                            <div class="col s5 m5" style="text-align: center;">
+                            <div class="col s3 m3" style="text-align: center;">
                               <p>Cantidad a Vender</p>
                             </div>
                           </div>
@@ -132,11 +136,16 @@ include('header.php');
 
                               </div>
 
-                              <div class=" input-field col s3 m3" >
+                              <div class=" input-field col s1 m2">                                
+                                <input  value="<?php echo $fila_producto['precio']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][precio]">
+
+                              </div>
+
+                              <div class=" input-field col s4 m3" >
                                 <input  id="first_cantidad_stock" value="<?php echo $fila_producto['cantidad']?>" type="text" class="validate" readonly="readonly" name="producto[<?= $i ?>][cantidad_stock]">
                               </div>
 
-                              <div class=" input-field col s5 m5" >
+                              <div class=" input-field col s3 m3" >
                                 <input  id="first_cantidad_vender" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
                               </div>
                                <?php 
