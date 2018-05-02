@@ -3,7 +3,7 @@
                       
                 <li><a class="subheader">Sistema Funeraria</a></li>
                 <li><a class="waves-effect" href="contrato.php">Nuevo Contrato</a></li>
-                <li><a class="waves-effect" href="#!">Control de los Contratos</a></li>
+                <li><a class="waves-effect" href="buscar_contratos.php">Control de los Contratos</a></li>
                 <li><a class="waves-effect" href="#!">Activar/Desactivar Contrato</a></li>
                 <li><a class="waves-effect" href="#!">Pagos de Contratos</a></li>
                 <li><a class="waves-effect" href="venta_servicios.php">Venta de Servicios</a></li>

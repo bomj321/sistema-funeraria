@@ -71,6 +71,106 @@ function solonumeros2(e){
   }
 }
 
+/////FUNCION SOLO NUMEROS 3
+
+function solonumeros3(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  var texto = " Solo se aceptan Numeros";
+  var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_costos3').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_costos3').innerHTML= texto2;
+
+  }
+}
+
+/////FUNCION SOLO NUMEROS 3
+
+/////////////////////////////FUNCION SOLO NUMEROS 4
+
+function solonumeros4(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  var texto = " Solo se aceptan Numeros";
+  var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_costos4').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_costos4').innerHTML= texto2;
+
+  }
+}
+
+///////////////////////////////////////FUNCION SOLO NUMEROS 4
+
+
+////////////////////////////FUNCION SOLO NUMEROS 5
+
+function solonumeros5(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  var texto = " Solo se aceptan Numeros";
+  var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_costos5').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_costos5').innerHTML= texto2;
+
+  }
+}
+
+///////////////////////////////////////FUNCION SOLO NUMEROS 5
+
 function sololetras(e){
   key = e.keyCode || e.which;
   teclado= String.fromCharCode(key).toLowerCase();

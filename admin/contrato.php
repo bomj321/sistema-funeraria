@@ -21,46 +21,55 @@ include('header.php');
                     
                       <div class="row">
                         <h4>Registro de Usuario/Contratos</h4>
-                        <form class="col s12">
+                        <form method="POST" action="venta_contrato_action.php" class="col s12">
                           <div class="row">
                             <div class="input-field col s12 m3">
-                              <input  id="name" type="text" class="validate">
+                              <input  name="nombre_contrato" onkeypress="return sololetras(event)" id="name" type="text" class="validate" required="true">
                               <label for="name">Nombre </label>
-                            </div>
-                            <div class="input-field col s12 m3">
-                              <input id="estado" type="text" class="validate">
-                              <label for="estado">Estado Civil</label>
-                            </div>
-                            <div class="input-field col s12 m3">
-                              <input id="edad" type="text" class="validate">
-                              <label for="edad">Edad</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra"></p>
                             </div>
 
                             <div class="input-field col s12 m3">
-                              <input id="costo" type="text" class="validate">
+                              <input name="civil_contrato" onkeypress="return sololetras2(event)" id="estado" type="text" class="validate" required="true">
+                              <label for="estado">Estado Civil</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra2"></p>
+                            </div>
+
+                            <div class="input-field col s12 m3">
+                              <input name="edad_contrato" onkeypress="return solonumeros2(event)" id="edad" type="text" class="validate" required="true">
+                              <label for="edad">Edad</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
+                            </div>
+
+                            <div class="input-field col s12 m3">
+                              <input name="costo_contrato" onkeypress="return solonumeros5(event)" id="costo" type="text" class="validate" required="true">
                               <label for="costo">Costo del Contrato</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos5"></p>
                             </div>
                           </div>
                           
                           <div class="row">
                             <div class="input-field col s12 m3">
-                              <input id="dni" type="text" class="validate">
+                              <input name="dni_contrato" onkeypress="return solonumeros(event)" id="dni" type="text" class="validate" required="true">
                               <label for="dni">DNI</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
                             
                             <div class="input-field col s12 m3">
-                              <input id="numero" type="text" class="validate">
+                              <input name="numero_usuario" onkeypress="return solonumeros3(event)" id="numero" type="text" class="validate" required="true">
                               <label for="numero">Numero Telefonico</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos3"></p>
                             </div>
 
                             <div class="input-field col s12 m3">
-                              <input id="email" type="text" class="validate">
+                              <input name="email_contrato" id="email" type="email" class="validate" required="true">
                               <label for="email">Email</label>
                             </div>
 
                             <div class="input-field col s12 m3">
-                              <input id="cuotas" type="text" class="validate">
+                              <input name="cuotas_contrato" onkeypress="return solonumeros4(event)" id="cuotas" type="text" class="validate" required="true">
                               <label for="cuotas">Cuotas a Pagar</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos4"></p>
                             </div>
 
                           </div>
@@ -77,7 +86,7 @@ include('header.php');
 
                                 <!--CONSULTA PARA EL SELECT SERVICIOS-->
                               <div class="input-field col s12 m4" >
-                              <select multiple name="servicios_venta_contrato[]" id="servicios_venta_venta">
+                              <select multiple name="servicios_venta_contrato[]" id="servicios_venta_contrato">
                                     <?php 
                                      while($fila =mysqli_fetch_array($resultado))
                                         {
@@ -104,14 +113,14 @@ include('header.php');
 
                                 <!--CONSULTA PARA EL SELECT-->
                               <div class="input-field col s12 m4" >
-                              <select multiple name="servicios_venta_contrato[]" id="servicios_venta_venta">
+                              <select multiple name="planes_venta_contrato[]" id="planes_venta_contrato">
                                     <?php 
                                      while($fila_planes =mysqli_fetch_array($resultado_planes))
                                         {
             
                                     ?>
 
-                                    <option value="<?php echo $fila['id_servicios']?>"><?php echo $fila_planes['nombre']?> - <?php echo $fila_planes['precio_plan']?>$ </option>
+                                    <option value="<?php echo $fila_planes['id_planes']?>"><?php echo $fila_planes['nombre']?> - <?php echo $fila_planes['precio_plan']?>$ </option>
 
                                     <?php 
                                       }

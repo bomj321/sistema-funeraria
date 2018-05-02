@@ -93,7 +93,7 @@ include('connect.php');
  /////////////////////////////////INSERT PARA LOS SERVICIOS  CIERRO  
  /// 
       
-              ////////////////////////////////SEGUNDO FOREACH
+              ////////////////////////////////SEGUNDO FOREACH PRODUCTOS
                 foreach ($productos as $productostotales) {
                 $sql5="SELECT objeto,cantidad,precio FROM stock WHERE id= ? AND cantidad >= ?";
                   $resultado5=mysqli_prepare($connection, $sql5);
@@ -147,7 +147,7 @@ include('connect.php');
                 }
 
                 }
-////////////////////////////////SEGUNDO FOREACH
+////////////////////////////////SEGUNDO FOREACH PRODUCTOS
          
                 
 mysqli_stmt_close($resultado4);

@@ -15,19 +15,19 @@ $familiares=$connection->real_escape_string($_POST['familiares_directos']);
 						<div class="col s12 m12"> <p>Familiar numero '.$i.'</p> </div>
                                   
                         <div class=" input-field col s12 m4">
-                             <input  id="namedirecto'.$i.'" type="text" class="validate" name="familiar['. $i .'][nombre]">
+                             <input  required="true" id="namedirecto'.$i.'" type="text" class="validate" name="familiar['. $i .'][nombre]">
                              <label for="namedirecto'.$i.'">Nombre Completo</label>
                         </div>
 
                         <div class=" input-field col s12 m4"> 
                         		                               
-                             <input  id="parentezcodirecto'.$i.'" type="text" class="validate" name="familiar['. $i .'][parentezco]">
+                             <input  required="true" id="parentezcodirecto'.$i.'" type="text" class="validate" name="familiar['. $i .'][parentezco]">
 								<label for="parentezcodirecto'.$i.'">Parentezco</label>
                         </div>
 
                          <div class=" input-field col s12 m4">
                          		                               
-                             <input  id="edaddirecto'.$i.'" type="text" class="validate" name="familiar['. $i .'][edad]">
+                             <input  required="true" id="edaddirecto'.$i.'" type="text" class="validate" name="familiar['. $i .'][edad]">
                              <label for="edaddirecto'.$i.'">Edad</label>
                         </div>
 

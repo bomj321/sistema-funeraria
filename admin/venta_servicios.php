@@ -20,7 +20,7 @@ include('header.php');
 
                 <div class="row">
                   <h4>Venta de Servicios</h4>
-                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" onsubmit="ventaDeServicios(); return false" class="col s12 m12" action="venta_servicios_action.php" style="margin-bottom: 3rem;">
+                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" onsubmit="ventaDeServicios(); return false" class="col s12 m12" action="" style="margin-bottom: 3rem;">
                            
                           <div class="row">
                             <div class="input-field col s12 m4">
