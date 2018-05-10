@@ -10,15 +10,24 @@ include('connect.php');
                 $dni= $_POST['dni_contrato'];   
                 $email= $_POST['email_contrato'];
                 $cuota= $_POST['cuotas_contrato'];
-                $activo = 0;
-                $contrato = 'X-12912';
+                $activo = 0;               
                 
 
+                if (empty($_POST['descuento'])) {
+                  $_POST['descuento'] = 0;
+                  $descuento =  $_POST['descuento'];
+
+                }else{
+
+                  $descuento =  $_POST['descuento'];
+                }
+
+                
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO User (activo,name,edad,estado_civil,cuotas,total,numero,email,numero_contrato,dni) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO User (activo,name,edad,estado_civil,cuotas,total,numero,email,dni,descuento) VALUES (?,?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
-           	mysqli_stmt_bind_param($resultado_user, "isisiisssi",$activo,$usu,$edad,$estado_civil,$cuota,$costo,$numero,$email,$contrato,$dni );
+           	mysqli_stmt_bind_param($resultado_user, "isisiissii",$activo,$usu,$edad,$estado_civil,$cuota,$costo,$numero,$email,$dni,$descuento );
             $ok=mysqli_stmt_execute($resultado_user);
             $idgenerado =mysqli_insert_id($connection);
             mysqli_stmt_close($resultado_user);
@@ -41,11 +50,11 @@ $servicios= $_POST['servicios_venta_contrato'];
   ///         
             
             foreach($servicios as $serviciostotal){
-
+                $entregado = 0;
                 mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO User_has_Servicios_Adicionales (User_idUser, Servicios_Adicionales_id) VALUES (?,?)";
+                $sql2="INSERT INTO User_has_Servicios_Adicionales (User_idUser, Servicios_Adicionales_id,entregado) VALUES (?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
-                mysqli_stmt_bind_param($resultado2, "ii", $idgenerado, $serviciostotal);
+                mysqli_stmt_bind_param($resultado2, "iii", $idgenerado, $serviciostotal, $entregado);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
               
@@ -108,6 +117,111 @@ $servicios= $_POST['servicios_venta_contrato'];
 /////////////////////////////////INSERT PARA LOS PLANES CIERRO
 
 
+
+/////////////////////////////////////INSERT PARA LOS FAMILIARES DIRECTOS
+if (!empty($_POST['familiar'])) {
+$familiares= $_POST['familiar'];
+
+        foreach($familiares as $familiaresdirectos){
+            $sql_familiardi="INSERT INTO User_family (User_idUser, Parentezco,nombre,edad) VALUES (?,?,?,?)";
+                    $resultado_familiardi=mysqli_prepare($connection, $sql_familiardi);
+                    mysqli_stmt_bind_param($resultado_familiardi, "issi", $idgenerado, $familiaresdirectos['parentezco'],$familiaresdirectos['nombre'],$familiaresdirectos['edad']);
+                    $ok_familiardi=mysqli_stmt_execute($resultado_familiardi);
+                    mysqli_stmt_close($resultado_familiardi);
+
+
+
+
+        }
+}
+/////////////////////////////////////INSERT PARA LOS FAMILIARES DIRECTOS CIERRO
+
+
+/////////////////////////////////////INSERT PARA LOS FAMILIARES INDIRECTOS
+if (!empty($_POST['familiarin'])) {
+$familiaresin= $_POST['familiarin'];
+
+        foreach($familiaresin as $familiaresindirectos){
+            $sql_familiarin="INSERT INTO User_family_independent (User_idUser, Parentezco,nombre,edad,costo_adicional) VALUES (?,?,?,?,?)";
+                    $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);
+                    mysqli_stmt_bind_param($resultado_familiarin, "issii", $idgenerado, $familiaresindirectos['parentezco'],$familiaresindirectos['nombre'],$familiaresindirectos['edad'],$familiaresindirectos['costoadicional']);
+                    $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
+                    mysqli_stmt_close($resultado_familiarin);
+
+
+
+
+        }
+
+        
+}
+/////////////////////////////////////INSERT PARA LOS FAMILIARES INDIRECTOS CIERRO
+ $sql_total_costo ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $idgenerado";
+                    $resultado_total_costo= mysqli_query($connection, $sql_total_costo);
+                    $row_costo = mysqli_fetch_assoc($resultado_total_costo);
+                    $sum_costo = $row_costo['value_sum'] ;
+                    $sum_costo_total = ($costo+$sum_costo) - ( ($descuento/100) * ($costo+$sum_costo));                    
+                    $costo_cuota_sinredondear = $sum_costo_total/$cuota;
+                    $costo_cuota= ceil($costo_cuota_sinredondear);
+
+                    //SUMO A LA FECHA 30 DIAS
+      
+ 
+        
+      $hoy = date('d-m-Y');
+      for($i=1;$i<=$cuota; $i++){
+        $pagado = 0;
+        
+       
+       $mas_1D = date("d-m-Y",strtotime($hoy."+ 30 days"));  
+            $sql_pagos="INSERT INTO Pagos (User_id, pago,fecha,pagado) VALUES (?,?,?,?)";
+                    $resultado_pagos=mysqli_prepare($connection, $sql_pagos);
+                    mysqli_stmt_bind_param($resultado_pagos, "iisi", $idgenerado, $costo_cuota,$mas_1D,$pagado);
+                    $ok_pagos=mysqli_stmt_execute($resultado_pagos);
+                    mysqli_stmt_close($resultado_pagos);
+
+              $hoy = $mas_1D;
+
+
+
+                if (!$ok_pagos) {
+                   echo "ERROR" .'</br>';
+                  
+                 }else{
+                   echo $descuento .'</br>';
+                   echo $idgenerado .'</br>';
+                   echo $costo_cuota .'</br>';
+                   echo $mas_1D .'</br>';
+                   echo $cuota .'</br>';
+                 } 
+                }
+
+
+//////////////////////////////////////////////INSERT PARA LOS PAGOS
+           
+
+
+           
+         // for($i=1;$i<=$cuota; $i++){
+
+
+
+
+
+
+
+
+
+
+
+
+       // }
+
+
+
+
+
+/////////////////////////////////////////////INSERT PARA LOS PAGOS CIERRO
 
 
 

@@ -4,6 +4,16 @@ include('header.php');
 <main>
   <div class="container">
         <div class="row">
+          <!--MODALES-->
+          <div class="col s12 m12">
+            <?php 
+              include("modales/buscar_servicios.php");
+             ?>
+            
+
+          </div>
+                    <!--MODALES-->
+
                  <div class="col s3" >
                             <?php
                               include('aside.php');
@@ -19,8 +29,8 @@ include('header.php');
                         <div class="divider pink"></div>                        
 
                 <div class="row">
-                  <h4>Venta de Servicios</h4>
-                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas" onsubmit="ventaDeServicios(); return false" class="col s12 m12" action="" style="margin-bottom: 3rem;">
+                  <h4>Venta de Servicios</h4>                  
+                    <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas"  onsubmit="ventaDeServicios(); return false" class="col s12 m12" action="" style="margin-bottom: 3rem;">
                            
                           <div class="row">
                             <div class="input-field col s12 m4">
@@ -72,7 +82,7 @@ include('header.php');
             
                                     ?>
 
-                                    <option value="<?php echo $fila['id_servicios']?>"><?php echo $fila['descripcion_servicio']?></option>
+                                    <option value="<?php echo $fila['id_servicios']?>"><?php echo $fila['descripcion_servicio']?>-<?php echo $fila['costo']?>$</option>
 
                                     <?php 
                                       }
@@ -81,8 +91,49 @@ include('header.php');
                                   </select>
                                   <label>Selecciona los Servicios</label>
                                 </div>
+                          </div>
+
+
+
+
+
+
+
+
+
+
+                          <div class="row">
+                              <div class="col s12 m4">
+                                <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons right">add_circle</i>Agregar Servicios</a>
+                              </div>
+
+
                           </div> 
 
+                            
+                             <div class="row" id="resultados">
+
+                             </div>         
+
+
+
+
+
+
+
+
+
+
+
+
+<!--CONSULTA PARA LOS PRODUCTOS-->
+                                <?php 
+                                $sql_producto = "SELECT * FROM stock WHERE cantidad > 0";
+                                $resultado_producto= mysqli_query($connection, $sql_producto);
+                                 ?>
+
+
+                                <!--CONSULTA PARA LOS PRODUCTOS-->
                           <div class="row">
                             <div class="col s12 m12" >
                               <h4>Selecciona los Productos</h4>
@@ -102,14 +153,7 @@ include('header.php');
                       </tr>
                 </thead> 
                 <tbody>
-                    <!--CONSULTA PARA LOS PRODUCTOS-->
-                                <?php 
-                                $sql_producto = "SELECT * FROM stock WHERE cantidad > 0";
-                                $resultado_producto= mysqli_query($connection, $sql_producto);
-                                 ?>
-
-
-                                <!--CONSULTA PARA LOS PRODUCTOS-->
+                    
                        <?php 
                                      for($i=1;$i<=mysqli_num_rows($resultado_producto); $i++)
                                       {
@@ -117,23 +161,23 @@ include('header.php');
                         ?>
                   <tr>
                       <td>
-                        <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_id" type="text" class="validate" name="producto[<?= $i ?>][id]">
+                        <input  value="<?php echo $fila_producto['id']?>" readonly="readonly" id="first_id<?= $i ?>" type="text" class="validate" name="producto[<?= $i ?>][id]">
                       </td>
 
                       <td>
-                        <input  value="<?php echo $fila_producto['objeto']?>" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][nombre]">
+                        <input  value="<?php echo $fila_producto['objeto']?>" readonly="readonly" id="first_name<?= $i ?>" type="text" class="validate" name="producto[<?= $i ?>][nombre]">
                       </td>
 
                       <td>
-                        <input  value="<?php echo $fila_producto['precio']?>$" readonly="readonly" id="first_name" type="text" class="validate" name="producto[<?= $i ?>][precio]">
+                        <input  value="<?php echo $fila_producto['precio']?>$" readonly="readonly" id="first_name<?= $i ?>" type="text" class="validate" name="producto[<?= $i ?>][precio]">
                       </td>
 
                       <td>
-                       <input  id="first_cantidad_stock" value="<?php echo $fila_producto['cantidad']?>" type="text" class="validate" readonly="readonly" name="producto[<?= $i ?>][cantidad_stock]">
+                       <input  id="first_cantidad_stock<?= $i ?>" value="<?php echo $fila_producto['cantidad']?>" type="text" class="validate" readonly="readonly" name="producto[<?= $i ?>][cantidad_stock]">
                      </td>
 
                       <td>
-                        <input  id="first_cantidad_vender" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
+                        <input onkeypress="return solonumerosolo(event)"  id="first_cantidad_vender<?= $i ?>" type="text" class="validate" name="producto[<?= $i ?>][cantidad]">
                       </td>
 
                   </tr>

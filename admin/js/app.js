@@ -2,8 +2,11 @@
   $(document).ready(function(){
   $('.sidenav').sidenav();
 	$('.carousel').carousel(); 
-  $('select').formSelect();       
+  $('select').formSelect();
+  $('.modal').modal();       
   });
+
+  
 //JQUERY DE MATERIALIZE
 
 
@@ -170,6 +173,72 @@ function solonumeros5(e){
 }
 
 ///////////////////////////////////////FUNCION SOLO NUMEROS 5
+///
+///////////////////////////////FUNCION SOLO NUMEROS 6
+
+function solonumeros6(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  var texto = " Solo se aceptan Numeros";
+  var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      document.getElementById('mensaje_costos6').innerHTML= texto;
+      return false;
+
+  }else{
+          document.getElementById('mensaje_costos6').innerHTML= texto2;
+
+  }
+}
+
+///////////////////////////////////////FUNCION SOLO NUMEROS 6
+///
+/////////////////////////////////FUNCION SOLO NUMEROS 6
+
+function solonumerosolo(e){
+  key = e.keyCode || e.which;
+  teclado= String.fromCharCode(key);
+  //var texto = " Solo se aceptan Numeros";
+  //var texto2 = "";
+  numeros ="0,1,2,3,4,5,6,7,8,9";
+  especiales =[8,37,39,46]; // array
+  teclado_especial = false;
+
+
+  for (var i in especiales){
+    if(key==especiales[i] || key ==numeros){
+      teclado_especial = true;
+
+    }
+  }
+  
+
+  if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+      
+      //document.getElementById('mensaje_costos6').innerHTML= texto;
+      return false;
+
+  }else{
+          //document.getElementById('mensaje_costos6').innerHTML= texto2;
+
+  }
+}
+
+///////////////////////////////////////FUNCION SOLO NUMEROS 6
 
 function sololetras(e){
   key = e.keyCode || e.which;
@@ -257,7 +326,6 @@ function sololetras3(e){
 
   }
 }
-
 
 
 
@@ -545,7 +613,7 @@ function LimpiarCamposNuevoPlan(){
 ////////////////////////////////////////////////////////////////SUBIR PLAN
 
 
-/////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
+///////////////////////////////////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
 function ventaDeServicios(){ 
   var parametros = new FormData($("#venta_servicio_ventas")[0]);
       $.ajax({
@@ -558,8 +626,7 @@ function ventaDeServicios(){
             toastr.options.progressBar = true;
             toastr.warning('Registrando venta Espere...');
           },
-          success: function(data){
-            $('#servicio_venta').html(data);
+          success: function(data){            
             toastr.options.progressBar = false;
             setTimeout(function () {
             toastr.success('Venta Registrada!!!');
@@ -580,7 +647,7 @@ function LimpiarVentaDeServicios(){
 
 
 
-/////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
+//////////////////////////////////////////////////////////////////////////////////////////////SUBIR VENTA DE SERVICIOS
 
 
 
@@ -687,6 +754,155 @@ $(document).on('keyup', '#familiares_numero_indirectos', function()
 
 /////////////////////////////////////////////////////////////////AGREGAR FAMILIARES INDIRECTOS
 
+/////////////////////////////////////////////////////////////////SUBIR CONTRATO
+function ventaDeContratos(){ 
+  var parametros = new FormData($("#venta_contrato_ventas")[0]);
+      $.ajax({
+          data: parametros,
+          url:"venta_contrato_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Registrando contrato Espere...');
+          },
+          success: function(data){            
+            toastr.options.progressBar = false;
+            setTimeout(function () {
+            toastr.success('Contrato Registrado!!!');
+          }, 1000);         
+            //LimpiarVentaDeServicios();
+ setTimeout(function () {
+              location.reload();
+          }, 2000);
+
+                        
+          }
+      });
+}
+
+function LimpiarVentaDeServicios(){
+      $("#venta_contrato_ventas")[0].reset();
+}
+
+
+
+/////////////////////////////////////////////////////////////////SUBIR CONTRATO
+///
+///
+////////////////////////////////////////////////////////////////BUSCAR VENTA DE CONTRATOS
+$(obtener_contratos());
+
+function obtener_contratos(ventas)
+{
+  $.ajax({
+    url : 'buscar_venta_contratos.php',
+    type : 'POST',
+    dataType : 'html',
+    data : { ventas: ventas },
+    })
+
+  .done(function(resultado){
+    $("#contrato_venta").html(resultado);
+  })
+}
+
+$(document).on('keyup', '#buscar_contrato_input', function()
+{
+  var valorBusqueda=$(this).val();
+  if (valorBusqueda!="")
+  {
+    obtener_contratos(valorBusqueda);
+  }
+  else
+    {
+      obtener_contratos();
+    }
+});
+
+
+
+/////////////////////////////////////////////////////////////////BUSCAR VENTA DE CONTRATOS
+
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS
+function entregarservicio(){
+ 
+  //recogemos los valores de los inputs
+  entregado= 1 ;
+  
+  //instanciamos el objetoAjax
+  ajax=objetoAjax();
+ 
+  //uso del metodo POST
+  //archivo que realizará la operacion
+  //registro.php
+  ajax.open("POST", "entregado_servicio.php",true);
+  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
+  ajax.onreadystatechange=function() {
+    //la función responseText tiene todos los datos pedidos al servidor
+    if (ajax.readyState==4) {
+      //mostrar resultados en esta capa
+      //llamar a funcion para limpiar los inputs
+    LimpiarCamposNuevoUsuario();
+    toastr.options.progressBar = true;
+    toastr.warning('Pagando espere...');
+    toastr.options.progressBar = false;
+     setTimeout(function () {
+      toastr.success('Usuario Pagado!!!');
+    }, 4800); 
+
+    setTimeout(function () {
+      window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
+    }, 6000); 
+  }else if(ajax.readyState==0){
+    toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+  }
+ }
+  ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  //enviando los valores a registro.php para que inserte los datos
+  ajax.send("entregado="+entregado)
+}
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS
+
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS
+
+function agregar (id)
+    {
+      var precio_venta=document.getElementById('precio_venta_'+id).value;
+      var cantidad=document.getElementById('cantidad_'+id).value;
+      //Inicia validacion
+      if (isNaN(cantidad))
+      {
+      alert('Esto no es un numero');
+      document.getElementById('cantidad_'+id).focus();
+      return false;
+      }
+      if (isNaN(precio_venta))
+      {
+      alert('Esto no es un numero');
+      document.getElementById('precio_venta_'+id).focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_facturacion.php",
+        data: "id="+id+"&precio_venta="+precio_venta+"&cantidad="+cantidad,
+     beforeSend: function(objeto){
+      $("#resultados").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS CIERRO
 
 ////AJAX DE LA PAGINA
 

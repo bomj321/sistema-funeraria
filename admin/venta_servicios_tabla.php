@@ -58,11 +58,11 @@ $resultado= mysqli_query($connection, $sql);
         </thead>
 
         <tbody>
-        	<?php 
-        		while($fila =mysqli_fetch_array($resultado))                      {
+          <?php 
+            while($fila =mysqli_fetch_array($resultado))                      {
             
             $planid =$fila['idUser'];
-        	 ?>
+           ?>
           <tr>
             <td><?php echo $fila['idUser'];?></td>
             <td><?php echo $fila['nombre'];?></td>
@@ -79,7 +79,7 @@ $resultado= mysqli_query($connection, $sql);
 
 
 
-                    $sql_total_servicios ="SELECT SUM(costo) AS value_sum FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
+                    $sql_total_servicios ="SELECT SUM(precio_total) AS value_sum FROM user_has_services WHERE servicios_id_user= $planid";
                     $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
                     $row = mysqli_fetch_assoc($resultado_total_servicios);
                     $sum = $row['value_sum'];   

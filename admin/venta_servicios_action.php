@@ -71,11 +71,15 @@ include('connect.php');
       ///         
             
                 foreach($servicios as $serviciostotal){
+                  $sql_servicios = "SELECT * FROM Servicios WHERE id_servicios=$serviciostotal ";
+                  $resultado_servicios= mysqli_query($connection, $sql_servicios);
+                  $fila_servicio =mysqli_fetch_array($resultado_servicios);
+                  $costo_servicio= $fila_servicio['costo'];
 
                 mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO user_has_services (servicios_id_user, servicio_id_servicios) VALUES (?,?)";
+                $sql2="INSERT INTO user_has_services (servicios_id_user, servicio_id_servicios,precio_total) VALUES (?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
-                $ok2=mysqli_stmt_bind_param($resultado2, "ii", $idgenerado,$serviciostotal );
+                $ok2=mysqli_stmt_bind_param($resultado2, "iii", $idgenerado,$serviciostotal,$costo_servicio);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
 

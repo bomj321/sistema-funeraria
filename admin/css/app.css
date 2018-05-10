@@ -79,7 +79,22 @@ main ul li{
 .material-icons.pdf{ color: red; }
 .material-icons.pagar{ color: #66bb6a; }
 .material-icons.nopagar{ color: black; }
+.material-icons.entregado{ color: #6200ea; }
+.material-icons.noentregado{ color: #dd2c00; }
+
 
 
 
 /*ESTILOS PARA LOS ICONOS*/
+
+/*ESTILOS PARA LOS INPUTS*/
+
+.sinborde{
+	border-bottom: none !important; 
+	text-align:right !important;
+}
+
+
+
+
+/*ESTILOS PARA LOS INPUTS*/

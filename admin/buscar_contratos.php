@@ -1,33 +1,51 @@
-<?php 
-session_start();
-include('connect.php');
-
-				
-
-                //////////////////////INSERT USUARIO
-            mysqli_set_charset($connection, "utf8");
-            $sql5="SELECT idUser, numero_contrato FROM User";
-           		$resultado5=mysqli_prepare($connection, $sql5);                     
-                  $ok5=mysqli_stmt_execute($resultado5);
-                  mysqli_stmt_bind_result($resultado5, $id, $numero);
-                  mysqli_stmt_store_result($resultado5);
-                  $fila5= mysqli_stmt_num_rows($resultado5);
-
-//////////////////////INSERT USUARIO CIERRO
-
-
- while (mysqli_stmt_fetch($resultado5)) {
-                echo $id. '</br>';
-                echo $numero . '</br>';
-
-                echo $id . $numero . '</br>';
-                echo $numero . $id;             
-          }
-
-
-
-
-
-
-mysqli_close($connection)
+<?php
+include('header.php');
 ?>
+<main>
+  <div class="container">
+        <div class="row">
+                 <div class="col s3" >
+                            <?php
+                              include('aside.php');
+                            ?>
+                </div>
+
+                 <div class="col s9">
+                      
+                             <?php 
+                                  include('advertencias.php');
+                              ?>
+                     
+                        <div class="divider pink"></div>
+
+                  <div class="row" style="margin-top: 50px;">                                   
+                                <div class=" input-field col s12 m12">                              
+                                   <input name="buscar_contrato_input" id="buscar_contrato_input" type="text" class="validate" required="">
+                                   <label for="buscar_contrato_input">Ingrese nombre,DNI o Numero de Contrato</label>
+                               </div>
+                    </div>
+
+                    <div id="contrato_venta" class="row col s12 m12">
+                          
+                    </div> 
+              </div>
+        </div>
+  </div>  
+</main>
+<?php
+include('footer.php');
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

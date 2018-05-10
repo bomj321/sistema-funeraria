@@ -21,7 +21,7 @@ $usuarioid = $_GET['id'];
 
         	<?php 
         	$sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
-      $resultado= mysqli_query($connection, $sql); 
+            $resultado= mysqli_query($connection, $sql); 
             $fila =mysqli_fetch_array($resultado);
             
             $planid =$fila['idUser'];

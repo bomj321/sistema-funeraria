@@ -8,7 +8,7 @@ if (!$pagado_usuario) {
 $pagado_usuario=0;	
 
 mysqli_set_charset($connection, "utf8");
-		$sql="UPDATE User_servicios_indiduales SET pagado= ? WHERE idUser= ?";
+		$sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
 		$resultado=mysqli_prepare($connection, $sql);
 		$ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
 		$ok=mysqli_stmt_execute($resultado);
@@ -24,7 +24,7 @@ mysqli_set_charset($connection, "utf8");
 
  	$pagado_usuario=1;
  	mysqli_set_charset($connection, "utf8");
-		$sql="UPDATE User_servicios_indiduales SET pagado= ? WHERE idUser= ?";
+		$sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
 		$resultado=mysqli_prepare($connection, $sql);
 		$ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
 		$ok=mysqli_stmt_execute($resultado);

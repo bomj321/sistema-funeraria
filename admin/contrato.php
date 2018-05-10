@@ -21,7 +21,7 @@ include('header.php');
                     
                       <div class="row">
                         <h4>Registro de Usuario/Contratos</h4>
-                        <form method="POST" action="venta_contrato_action.php" class="col s12">
+                        <form method="POST" id="venta_contrato_ventas" onsubmit="ventaDeContratos(); return false" class="col s12">
                           <div class="row">
                             <div class="input-field col s12 m3">
                               <input  name="nombre_contrato" onkeypress="return sololetras(event)" id="name" type="text" class="validate" required="true">
@@ -43,7 +43,7 @@ include('header.php');
 
                             <div class="input-field col s12 m3">
                               <input name="costo_contrato" onkeypress="return solonumeros5(event)" id="costo" type="text" class="validate" required="true">
-                              <label for="costo">Costo del Contrato</label>
+                              <label for="costo">Costo base del Contrato</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos5"></p>
                             </div>
                           </div>
@@ -129,6 +129,12 @@ include('header.php');
                                   </select>
                                   <label>Planes</label>
                                 </div>
+
+                                <div class="input-field col s12 m4">
+                              <input name="descuento" onkeypress="return solonumeros6(event)" id="descuento" type="text" class="validate" required="true">
+                              <label for="descuento">Descuento Total (Numero Entero menor a 100)</label>
+                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos6"></p>
+                            </div>
 
 
 
