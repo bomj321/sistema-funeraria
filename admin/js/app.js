@@ -632,7 +632,7 @@ function ventaDeServicios(){
             toastr.success('Venta Registrada!!!');
           }, 1000);         
             //LimpiarVentaDeServicios();
- setTimeout(function () {
+          setTimeout(function () {
               location.reload();
           }, 2000);
 
@@ -686,73 +686,7 @@ $(document).on('keyup', '#buscar_recibo_input', function()
 /////////////////////////////////////////////////////////////////BUSCAR VENTA DE SERVICIOS
 
 
-////////////////////////////////////////////////////////////////AGREGAR FAMILIARES
-$(obtener_familiares_directos());
 
-function obtener_familiares_directos(familiares_directos)
-{
-  $.ajax({
-    url : 'familiares_contrato_directos.php',
-    type : 'POST',
-    dataType : 'html',
-    data : { familiares_directos: familiares_directos },
-    })
-
-  .done(function(resultado){
-    $("#familiares_contrato_directos").html(resultado);
-  })
-}
-
-$(document).on('keyup', '#familiares_numero_directos', function()
-{
-  var valorBusqueda=$(this).val();
-  if (valorBusqueda!="")
-  {
-    obtener_familiares_directos(valorBusqueda);
-  }
-  else
-    {
-      obtener_familiares_directos();
-    }
-});
-
-
-
-/////////////////////////////////////////////////////////////////AGREGAR FAMILIARES
-///
-///////////////////////////////////////////////////////////////////AGREGAR FAMILIARES INDIRECTOS
-$(obtener_familiares_indirectos());
-
-function obtener_familiares_indirectos(familiares_indirectos)
-{
-  $.ajax({
-    url : 'familiares_contrato_indirectos.php',
-    type : 'POST',
-    dataType : 'html',
-    data : { familiares_indirectos: familiares_indirectos },
-    })
-
-  .done(function(resultado){
-    $("#familiares_contrato_indirectos").html(resultado);
-  })
-}
-
-$(document).on('keyup', '#familiares_numero_indirectos', function()
-{
-  var valorBusqueda=$(this).val();
-  if (valorBusqueda!="")
-  {
-    obtener_familiares_indirectos(valorBusqueda);
-  }
-  else
-    {
-      obtener_familiares_indirectos();
-    }
-});
-
-
-
-/////////////////////////////////////////////////////////////////AGREGAR FAMILIARES INDIRECTOS
 
 /////////////////////////////////////////////////////////////////SUBIR CONTRATO
 function ventaDeContratos(){ 
@@ -826,7 +760,7 @@ $(document).on('keyup', '#buscar_contrato_input', function()
 /////////////////////////////////////////////////////////////////BUSCAR VENTA DE CONTRATOS
 
 
-////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS
+////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS MODIFICAR DESPUES
 function entregarservicio(){
  
   //recogemos los valores de los inputs
@@ -865,13 +799,13 @@ function entregarservicio(){
   ajax.send("entregado="+entregado)
 }
 
-////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS
+////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS MODIFICAR DESPUES
 
 
 
-//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS 
 
-function agregar (id)
+function agregar(id)
     {
       var precio_venta=document.getElementById('precio_venta_'+id).value;
       var cantidad=document.getElementById('cantidad_'+id).value;
@@ -903,6 +837,291 @@ function agregar (id)
       });
     }
 //////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR PRODUCTOS 
+
+function agregar_productos(id)
+    {
+      var precio_venta_producto=document.getElementById('precio_venta_producto'+id).value;
+      var cantidad_producto=document.getElementById('cantidad_producto'+id).value;
+      var cantidad_stock_producto=document.getElementById('cantidad_stock_producto'+id).value;
+      //Inicia validacion
+      
+      if(parseInt(cantidad_stock_producto) < parseInt(cantidad_producto))
+      {
+      alert('No existe tantos producto en el Almacen');
+      document.getElementById('cantidad_producto'+id).focus();
+      return false;
+      }
+
+      if (isNaN(cantidad_producto))
+      {
+      alert('Esto no es un numero');
+      document.getElementById('cantidad_producto'+id).focus();
+      return false;
+      }
+
+      if (isNaN(precio_venta_producto))
+      {
+      alert('Esto no es un numero');
+      document.getElementById('precio_venta_producto'+id).focus();
+      return false;
+      }
+
+      
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_facturacion.php",
+        data: "id_producto="+id+"&precio_venta_producto="+precio_venta_producto+"&cantidad_producto="+cantidad_producto,
+     beforeSend: function(objeto){
+      $("#resultados").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR PRODUCTOS CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR SERVICIOS 
+function eliminar_servicio (id)
+    {
+      
+      $.ajax({
+        type: "GET",
+        url: "./ajax/agregar_facturacion.php",
+        data: "id_servicio="+id,
+     beforeSend: function(objeto){
+      $("#resultados").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR SERVICIOS CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR PRODUCTOS 
+function eliminar_producto (id)
+    {
+      
+      $.ajax({
+        type: "GET",
+        url: "./ajax/agregar_facturacion.php",
+        data: "id_producto="+id,
+     beforeSend: function(objeto){
+      $("#resultados").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR PRODUCTOS CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR Costo y Descuento CONTRATO
+
+function agregar_costo_descuento()
+    {
+      var costo_contrato=document.getElementById('costo_contrato').value;
+      var descuento_contrato=document.getElementById('descuento_contrato').value;
+      //Inicia validacion
+      if (isNaN(costo_contrato) || costo_contrato==="" )
+      {
+      alert('Esto no es un numero');
+      document.getElementById('costo_contrato').focus();
+      return false;
+      }
+      if (isNaN(descuento_contrato) || descuento_contrato==="")
+      {
+      alert('Esto no es un numero');
+      document.getElementById('descuento_contrato').focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "costo_contrato="+costo_contrato+"&descuento_contrato="+descuento_contrato,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR Costo y Descuento CONTRATO CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR COSTO Y DESCUENTO 
+function eliminar_costo_descuento (id)
+    {
+      
+      $.ajax({
+        type: "GET",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "id_costo_contrato="+id,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR COSTO Y DESCUENTO CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR PLANES CONTRATO 
+
+function agregar_contrato_planes(id_plan)
+    {
+      var precio_venta_planes=document.getElementById('precio_venta_planes'+id_plan).value;
+      var nombre_contrato_plan=document.getElementById('nombre_venta_planes'+id_plan).value;      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "id_plan="+id_plan+"&precio_venta_planes="+precio_venta_planes+"&nombre_contrato_plan="+nombre_contrato_plan,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR PLANES CONTRATO CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR PLANES CONTRATO 
+
+function eliminar_planes_contrato(id_eliminar)
+    {
+            
+      $.ajax({
+        type: "GET",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "id_planes_contrato="+id_eliminar,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR PLANES CONTRATO CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS CONTRATO 
+
+function agregar_contrato_servicio(id)
+    {
+      var precio_servicio_contrato=document.getElementById('precio_servicio_venta_contrato'+id).value;
+      var cantidad_servicio_contrato=document.getElementById('cantidad_servicio_contrato'+id).value;
+      var nombre_servicio_contrato=document.getElementById('nombre_servicio_contrato'+id).value;
+      //Inicia validacion
+      if (isNaN(cantidad_servicio_contrato))
+      {
+      alert('Esto no es un numero');
+      document.getElementById('cantidad_servicio_contrato'+id).focus();
+      return false;
+      }
+      if (isNaN(precio_servicio_contrato))
+      {
+      alert('Esto no es un numero');
+      document.getElementById('precio_servicio_venta_contrato'+id).focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "id_servicio="+id+"&precio_servicio_contrato="+precio_servicio_contrato+"&cantidad_servicio_contrato="+cantidad_servicio_contrato+"&nombre_servicio_contrato="+nombre_servicio_contrato,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS CONTRATO CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR SERVICIOS CONTRATO
+function eliminar_servicios_contrato(id_servicio)
+    {
+      
+      $.ajax({
+        type: "GET",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "id_servicio="+id_servicio,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR SERVICIOS CONTRATO CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR Costo y Descuento CONTRATO
+
+function agregar_contrato_familiaresdi()
+    {
+      var parentezcodi_contrato=document.getElementById('familiaresdi_parentezco_contrato').value;
+      var nombredi_contrato=document.getElementById('familiaresdi_nombre_contrato').value;
+      var edaddi_contrato=document.getElementById('familiaresdi_edad_contrato').value;
+      //Inicia validacion
+      if (parentezcodi_contrato==="" )
+      {
+      alert('Ingrese Parentezco');
+      document.getElementById('familiaresdi_parentezco_contrato').focus();
+      return false;
+      }
+
+      if (nombredi_contrato==="" )
+      {
+      alert('Ingrese Nombre');
+      document.getElementById('familiaresdi_nombre_contrato').focus();
+      return false;
+      }
+      if (isNaN(edaddi_contrato) || edaddi_contrato==="")
+      {
+      alert('Esto no es un numero, ingrese una edad correcta');
+      document.getElementById('edaddi_contrato').focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_facturacion_contrato.php",
+        data: "parentezcodi_contrato="+parentezcodi_contrato+"&nombredi_contrato="+nombredi_contrato+"&edaddi_contrato="+edaddi_contrato,
+     beforeSend: function(objeto){
+      $("#resultados_contrato").html("Mensaje: Cargando...");
+      },
+        success: function(datos){
+    $("#resultados_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR Costo y Descuento CONTRATO CIERRO
 
 ////AJAX DE LA PAGINA
 

@@ -25,8 +25,8 @@ $tabla.='
 <table class="responsive-table" >
         <thead>
           <tr>
-              <th>Id</th>
               <th>Nombre</th>
+              <th>Telefono</th>
               <th>Comentario</th>
               <th>DNI</th>                                          
               <th>Servicios</th>
@@ -43,27 +43,31 @@ $tabla.='
             $planid =$fila['idUser'];
        $tabla.=' 	
           <tr>
-            <td>'.$fila['idUser'].'</td>
             <td>'.$fila['nombre'].'</td>
+            <td>'.$fila['numero_telefonico'].'</td>
             <td>'.$fila['comentario'].'</td>
             <td>'.$fila['dni'].'</td>
             <td>';
                 
                     $sql_servicios = "SELECT * FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
                     $resultado_servicios= mysqli_query($connection, $sql_servicios);
-
+                    $fila_servicio_consulta= mysqli_num_rows($resultado_servicios);
 
 
                     $sql_total_servicios ="SELECT SUM(precio_total) AS value_sum FROM user_has_services INNER JOIN Servicios ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
                     $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
                     $row_servicio = mysqli_fetch_assoc($resultado_total_servicios);
-                    $sum_servicio = $row_servicio['value_sum'];   
+                    $sum_servicio = $row_servicio['value_sum'];
+                    if ($fila_servicio_consulta==0) {
+                            $tabla.='<p class="text-center">N/A</p>';
+                       }else{   
 
-                    while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){              
+                    while ($fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                  $tabla.='
-                  <li style="font-size: 0.8rem;">'.$fila_servicio['descripcion_servicio'].'</li>';
+                  <li style="font-size: 0.8rem; text-align:center;">'.$fila_servicio['descripcion_servicio'].'</li>';
                 
                    }
+                }
                 
            $tabla.='        
             </td>
@@ -72,7 +76,7 @@ $tabla.='
                 
                     $sql_productos = "SELECT * FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid ";
                     $resultado_productos= mysqli_query($connection, $sql_productos);
-                    
+                    $fila_producto_consulta= mysqli_num_rows($resultado_productos);
 
 
                     $sql_total_productos ="SELECT SUM(precio_total) AS value_sum FROM user_has_products INNER JOIN stock ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
@@ -80,13 +84,16 @@ $tabla.='
                     $row_producto = mysqli_fetch_assoc($resultado_total_productos);
                     $sum_producto = $row_producto['value_sum'];
                     $sum = $sum_servicio + $sum_producto;   
+                    if ($fila_producto_consulta==0) {
+                            $tabla.='<p class="text-center">N/A</p>';
+                       }else{
 
                     while ( $fila_producto =mysqli_fetch_array($resultado_productos)){              
                  $tabla.='
-                  <li style="font-size: 0.8rem;">'.$fila_producto['objeto'].'('.$fila_producto['cantidad_comprada'].')</li>';
+                  <li style="font-size: 0.8rem; text-align:center;">'.$fila_producto['objeto'].'('.$fila_producto['cantidad_comprada'].')</li>';
                 
                    }
-                
+                }
            $tabla.='        
             </td>
 

@@ -1,5 +1,6 @@
 <?php 
 session_start();
+$session_id= session_id();
 include('connect.php');
 
                 $usu= $_POST['nombre_usuario'];
@@ -7,44 +8,17 @@ include('connect.php');
                 $estado_civil= $_POST['civil_usuario'];
                 $dni_usuario= $_POST['dni_usuario'];                
                 $comentario_usuario= $_POST['comentario_usuario'];
+                $numero=$_POST['numero'];
                 $pagado_usuario = 0;
-                
-
-                $productos= $_POST['producto'];
-/////////////////////////////////VERIFICAR STOCK    
-  ///
-              foreach ($productos as $productosverificar) {
-                $sql4="SELECT objeto,cantidad FROM stock WHERE id= ? AND cantidad >= ?";
-                  $resultado4=mysqli_prepare($connection, $sql4);
-                  mysqli_stmt_bind_param($resultado4, "ii", $productosverificar['id'], $productosverificar['cantidad']);    
-                  $ok4=mysqli_stmt_execute($resultado4);
-                  mysqli_stmt_bind_result($resultado4, $nombre, $cantidad);
-                  mysqli_stmt_store_result($resultado4);
-                  $fila= mysqli_stmt_num_rows($resultado4);
-
-                  if ($fila ==0){
-
-                    echo "
-
-                      <script>
-                          alert('La cantidad es mayor a lo que posee el Stock');
-                          window.location.href ='venta_servicios.php';
-                      </script>
-                    ";
-                  }             
-             
-                }
 
 
-
-/////////////////////////////////VERIFICAR STOCK    CIERRO  
 
 
 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql="INSERT INTO User_servicios_individuales (nombre,edad,estado_civil,dni,comentario,pagado) VALUES (?,?,?,?,?,?)";
+            $sql="INSERT INTO User_servicios_individuales (nombre,edad,estado_civil,dni,comentario,numero_telefonico,pagado) VALUES (?,?,?,?,?,?,?)";
             $resultado=mysqli_prepare($connection, $sql);
-            $ok=mysqli_stmt_bind_param($resultado, "sisisi", $usu,$edad , $estado_civil, $dni_usuario, $comentario_usuario,$pagado_usuario);
+            $ok=mysqli_stmt_bind_param($resultado, "sisissi", $usu,$edad,$estado_civil,$dni_usuario,$comentario_usuario,$numero,$pagado_usuario);
             $ok=mysqli_stmt_execute($resultado);        
                     
             $idgenerado =mysqli_insert_id($connection);
@@ -64,22 +38,18 @@ include('connect.php');
 
 
 
-
-
-         $servicios= $_POST['servicios_venta_venta'];
-      /////////////////////////////////INSERT PARA LOS SERVICIOS     
-      ///         
-            
-                foreach($servicios as $serviciostotal){
-                  $sql_servicios = "SELECT * FROM Servicios WHERE id_servicios=$serviciostotal ";
-                  $resultado_servicios= mysqli_query($connection, $sql_servicios);
-                  $fila_servicio =mysqli_fetch_array($resultado_servicios);
-                  $costo_servicio= $fila_servicio['costo'];
-
-                mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO user_has_services (servicios_id_user, servicio_id_servicios,precio_total) VALUES (?,?,?)";
+/////////////////////////////////////////////////////////////////////INSERT PARA LOS SERVICIOS
+              $sql_servicios="SELECT * FROM Servicios,tmp_servicios_inviduales WHERE Servicios.id_servicios=tmp_servicios_inviduales.id_servicio AND tmp_servicios_inviduales.session_id='".$session_id."'";
+                 $resultado_servicios= mysqli_query($connection, $sql_servicios);
+                 while($row=mysqli_fetch_array($resultado_servicios)) {
+                    $id_tmp_servicio=$row["id_servicio"];
+                    $costo_servicio=$row['precio_tmp'];
+                    $cantidad_servicio=$row['cantidad_tmp'];
+                    $precio_total = $costo_servicio * $cantidad_servicio;
+                  mysqli_set_charset($connection, "utf8");
+                $sql2="INSERT INTO user_has_services (servicios_id_user, servicio_id_servicios,cantidad_servicio,precio_total) VALUES (?,?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
-                $ok2=mysqli_stmt_bind_param($resultado2, "iii", $idgenerado,$serviciostotal,$costo_servicio);
+                $ok2=mysqli_stmt_bind_param($resultado2, "iiii", $idgenerado,$id_tmp_servicio,$cantidad_servicio,$precio_total);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
 
@@ -92,17 +62,33 @@ include('connect.php');
 
                ";
               }
-              
-              }
+
+
+                  
+                 }
+
+         
  /////////////////////////////////INSERT PARA LOS SERVICIOS  CIERRO  
- /// 
-      
-              ////////////////////////////////SEGUNDO FOREACH PRODUCTOS
-                foreach ($productos as $productostotales) {
-                $sql5="SELECT objeto,cantidad,precio FROM stock WHERE id= ? AND cantidad >= ?";
+ 
+
+  /////////////////////////////////INSERT PARA LOS PRODUCTOS  CIERRO  
+
+ 
+             $sql_productos="SELECT * FROM stock,tmp_productos_individuales WHERE stock.id=tmp_productos_individuales.id_producto AND tmp_productos_individuales.session_id='".$session_id."'";
+                 $resultado_productos= mysqli_query($connection, $sql_productos);
+               while($row_producto=mysqli_fetch_array($resultado_productos)) {
+                $id_tmp_producto=$row_producto["id_producto"];
+                $cantidad_producto=$row_producto['cantidad_tmp_producto'];
+                $precio_venta_producto=$row_producto['precio_tmp_producto'];
+
+
+                  $sql5="SELECT objeto,cantidad,precio FROM stock WHERE id= ? AND cantidad >= ?";
                   $resultado5=mysqli_prepare($connection, $sql5);
-                  mysqli_stmt_bind_param($resultado5, "ii", $productostotales['id'], $productostotales['cantidad']);    
-                  $ok5=mysqli_stmt_execute($resultado5);
+                  mysqli_stmt_bind_param($resultado5, "ii", $id_tmp_producto, $cantidad_producto);    
+                  $ok_producto=mysqli_stmt_execute($resultado5);
+                  if (!$ok_producto) {
+                    echo "Falla Al actualizar pedir el stock";
+                  }
                   mysqli_stmt_bind_result($resultado5, $nombre, $cantidad, $precio_articulo);
                   mysqli_stmt_store_result($resultado5);
                   $fila5= mysqli_stmt_num_rows($resultado5);
@@ -110,59 +96,64 @@ include('connect.php');
                  // actualizo la db con los datos nuevos!
 
                while (mysqli_stmt_fetch($resultado5)) {
-                if (empty($productostotales['cantidad'])) {
-                 $productostotales['cantidad'] = 0 ;
+
+                if (empty($cantidad_producto)) {
+                 $cantidad_producto = 0 ;
                 }
 
-                $resta = $cantidad - $productostotales['cantidad'];
+                $resta = $cantidad - $cantidad_producto;
 
                 mysqli_set_charset($connection, "utf8");
                 $sql_update="UPDATE stock SET  cantidad=? WHERE id=?";
                 $resultado_update=mysqli_prepare($connection, $sql_update);
-                $ok=mysqli_stmt_bind_param($resultado_update, "ii", $resta,$productostotales['id'] );
+                mysqli_stmt_bind_param($resultado_update, "ii", $resta,$id_tmp_producto);
                 $ok5=mysqli_stmt_execute($resultado_update);
+                mysqli_stmt_close($resultado_update);  
 
-                     
-              mysqli_stmt_close($resultado_update);               
-          }
+                  if (!$ok5) {
+                    echo "Falla Al actualizar Stock";
+                  }
 
-      
-       
+               }
 
 
-            if (!empty($productostotales['cantidad'])) {
-                  $precio_total=$productostotales['cantidad'] * $precio_articulo;
-                      mysqli_set_charset($connection, "utf8");
+               $precio_total=$cantidad_producto * $precio_venta_producto;
+                mysqli_set_charset($connection, "utf8");
                 $sql3 = "INSERT INTO user_has_products(stock_id_stock, products_id_user,cantidad_comprada,precio_total) VALUES (?,?,?,?)";
                 $resultado3=mysqli_prepare($connection, $sql3);
-                mysqli_stmt_bind_param($resultado3, "iiii",$productostotales['id'], $idgenerado,$productostotales['cantidad'], $precio_total );
+                mysqli_stmt_bind_param($resultado3, "iiii",$id_tmp_producto, $idgenerado,$cantidad_producto, $precio_total );
                 $ok3=mysqli_stmt_execute($resultado3);
                 mysqli_stmt_close($resultado3);
+}
 
-                 if (!$ok3) {
-                echo "
 
-                <script>
+  /////////////////////////////////INSERT PARA LOS PRODUCTOS  CIERRO  
 
-               alert('Error en la insercion de Productos vendidos');
-              </script>";               
-                
-              }
-                }
-
-                }
-////////////////////////////////SEGUNDO FOREACH PRODUCTOS
-         
-                
-mysqli_stmt_close($resultado4);
-              // include('venta_servicios_tabla.php');
-        
-
-                  ?>
+  /////////////////////////////////BORRAR SERVICIOS EN TMP
+  
+  mysqli_set_charset($connection, "utf8");
+    $sql_servicio_borrar="DELETE FROM tmp_servicios_inviduales WHERE session_id=? ";
+    $resultado_servicio_borrar=mysqli_prepare($connection, $sql_servicio_borrar);
+    mysqli_stmt_bind_param($resultado_servicio_borrar, "s", $session_id);
+    mysqli_stmt_execute($resultado_servicio_borrar);
+     
               
-                    
-                    
+     /////////////////////////////////BORRAR SERVICIOS EN TMP CIERRO
+     
 
-
-
-
+     /////////////////////////////////BORRAR PRODUCTOS EN TMP
+  
+  mysqli_set_charset($connection, "utf8");
+    $sql_producto_borrar="DELETE FROM tmp_productos_individuales WHERE session_id=? ";
+    $resultado_producto_borrar=mysqli_prepare($connection, $sql_producto_borrar);
+    mysqli_stmt_bind_param($resultado_producto_borrar, "s", $session_id);
+    mysqli_stmt_execute($resultado_producto_borrar);
+     
+              
+     /////////////////////////////////BORRAR PRODUCTOS EN TMP CIERRO
+     
+      
+                
+        
+mysqli_close($connection);
+                  ?>

@@ -24,7 +24,7 @@ $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
 
             $sql_servicios = "SELECT * FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
                $resultado_servicios= mysqli_query($connection, $sql_servicios);
-
+               $fila_servicio_consulta= mysqli_num_rows($resultado_servicios);
 
 
              $sql_total_servicios ="SELECT SUM(costo) AS value_sum FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
@@ -34,7 +34,7 @@ $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
 
                $sql_productos = "SELECT * FROM stock INNER JOIN user_has_products ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid ";
                     $resultado_productos= mysqli_query($connection, $sql_productos);
-
+                    $fila_producto_consulta= mysqli_num_rows($resultado_productos);
 
                     $sql_total_productos ="SELECT SUM(precio_total) AS value_sum FROM user_has_products INNER JOIN stock ON user_has_products.stock_id_stock = stock.id && user_has_products.products_id_user= $planid";
                     $resultado_total_productos= mysqli_query($connection, $sql_total_productos);
@@ -77,7 +77,14 @@ $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
                        
                     </td> 
                 </tr>';
-
+         if ($fila_producto_consulta==0) {
+                            $codigoHTML.='
+                <tr> 
+                    <td colspan="1"> 
+                       N/A
+                    </td
+                </tr>';
+                       }else{
 
     while ( $fila_producto =mysqli_fetch_array($resultado_productos)){
 $precio_total_productos = $fila_producto['cantidad_comprada'] * $fila_producto['precio'];
@@ -95,7 +102,8 @@ $codigoHTML.='
                     
                 </tr>';
 
-}
+                                                                    }
+                        }
 $codigoHTML.='
                 <tr> 
                     <td colspan="3" style="border-top:2px solid;"> 
@@ -103,7 +111,15 @@ $codigoHTML.='
                     </td> 
                 </tr>';
 
-
+        if ($fila_servicio_consulta==0) {
+                $codigoHTML.='
+                <tr> 
+                    <td colspan="1"> 
+                       N/A
+                    </td>
+                </tr>
+                ';
+            }else{
     while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){
 $codigoHTML.='
                 <tr> 
@@ -119,7 +135,7 @@ $codigoHTML.='
                 ';
 
  }
-
+}
  $codigoHTML.='
                 <tr > 
                     <td > 

@@ -98,3 +98,18 @@ main ul li{
 
 
 /*ESTILOS PARA LOS INPUTS*/
+
+.text-right{
+	text-align: right !important;
+}
+
+.text-left{
+	text-align: left !important;
+}
+
+.text-center{
+	text-align: center !important;
+}
+.mt{
+	margin-top: 10px !important; 
+}

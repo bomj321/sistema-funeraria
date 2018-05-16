@@ -11,13 +11,13 @@
       	</thead>
       	<tbody>
       		<?php 
-      		$sql = "SELECT * FROM Servicios ";
+      		$sql = "SELECT * FROM Servicios WHERE servicio_activo=1 ";
 			$resultado= mysqli_query($connection, $sql);
       		 ?>
 			<?php 
         		while($fila=mysqli_fetch_array($resultado))        			 
                       {
-                      	$id_producto=$fila['id_servicios']; 
+                      	$id_servicio=$fila['id_servicios']; 
                       	$serviciosestado =$fila['servicio_activo'];
         	 ?>
           <tr>
@@ -26,14 +26,14 @@
             <td><?php echo $fila['descripcion_servicio'];?></td>
 
             <td><div>
-           <input  type="text" class="form-control col s1 sinborde" id="cantidad_<?php echo $id_producto; ?>"  value="1">
+           <input  type="text" class="form-control sinborde" id="cantidad_<?php echo $id_servicio; ?>"  value="1">
              </div></td>
 
              <td><div>
-           <input  type="text" class="form-control col s2 sinborde"  id="precio_venta_<?php echo $id_producto; ?>" value="<?php echo $fila['costo'];?>">
+           <input  type="text" class="form-control sinborde"  id="precio_venta_<?php echo $id_servicio; ?>" value="<?php echo $fila['costo'];?>">
              </div></td>
 
-            <td><a class='btn btn-info green' href="#" onclick="agregar('<?php echo $id_producto ?>')">
+            <td class="text-right"><a class='btn btn-info green' href="#" onclick="agregar('<?php echo $id_servicio ?>')">
   			<i class="material-icons ">add_circle</i>
             </a></td>            
         	</tr>

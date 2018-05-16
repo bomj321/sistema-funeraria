@@ -2,8 +2,15 @@
 include('header.php');
 ?>
 <main>
-  
+  <div class="container">
         <div class="row">
+          <!--MODALES-->
+              <div class="col s12 m12">
+                <?php 
+                  include("modales/buscar_todo_contrato.php");                  
+                 ?> 
+              </div>
+              <!--MODALES-->
                  <div class="col s3" >
                             <?php
                               include('aside.php');
@@ -11,40 +18,34 @@ include('header.php');
                 </div>
 
                  <div class="col s9">
-                    <div class="row">
+                    
                            <?php 
                                 include('advertencias.php');
                             ?>
                         <div class="divider"></div>
-                    </div>
+                   
 
                     
                       <div class="row">
                         <h4>Registro de Usuario/Contratos</h4>
                         <form method="POST" id="venta_contrato_ventas" onsubmit="ventaDeContratos(); return false" class="col s12">
                           <div class="row">
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m4">
                               <input  name="nombre_contrato" onkeypress="return sololetras(event)" id="name" type="text" class="validate" required="true">
                               <label for="name">Nombre </label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra"></p>
                             </div>
 
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m4">
                               <input name="civil_contrato" onkeypress="return sololetras2(event)" id="estado" type="text" class="validate" required="true">
                               <label for="estado">Estado Civil</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra2"></p>
                             </div>
 
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m4">
                               <input name="edad_contrato" onkeypress="return solonumeros2(event)" id="edad" type="text" class="validate" required="true">
                               <label for="edad">Edad</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
-                            </div>
-
-                            <div class="input-field col s12 m3">
-                              <input name="costo_contrato" onkeypress="return solonumeros5(event)" id="costo" type="text" class="validate" required="true">
-                              <label for="costo">Costo base del Contrato</label>
-                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos5"></p>
                             </div>
                           </div>
                           
@@ -71,115 +72,38 @@ include('header.php');
                               <label for="cuotas">Cuotas a Pagar</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos4"></p>
                             </div>
-
                           </div>
+<!--AJAX CONTRATO-->
 
                           <div class="row">
+                              <div class="col s12 m4 ">
+                                <a class="waves-effect waves-light btn modal-trigger" href="#modal_contrato_servicio"><i class="material-icons right">add_circle</i>Diseñar Contrato</a>
+                              </div>
 
-                            <!--CONSULTA PARA EL SELECT-->
-                                <?php 
-                                include('connect.php');
-                                $sql = "SELECT * FROM Servicios WHERE servicio_activo ='1'";
-                                $resultado= mysqli_query($connection, $sql);
-                                 ?>
+                              
+                          </div>
 
-
-                                <!--CONSULTA PARA EL SELECT SERVICIOS-->
-                              <div class="input-field col s12 m4" >
-                              <select multiple name="servicios_venta_contrato[]" id="servicios_venta_contrato">
-                                    <?php 
-                                     while($fila =mysqli_fetch_array($resultado))
-                                        {
-            
-                                    ?>
-
-                                    <option value="<?php echo $fila['id_servicios']?>"><?php echo $fila['descripcion_servicio']?> - <?php echo $fila['costo']?>$ </option>
-
-                                    <?php 
-                                      }
-                                     ?>
-
-                                  </select>
-                                  <label>Servicios Adicionales</label>
-                                </div>
-
-                                <!--CONSULTA PARA EL SELECT PLANES-->
-                                <?php 
-                                include('connect.php');
-                                $sql_planes = "SELECT * FROM planes ";
-                                $resultado_planes= mysqli_query($connection, $sql_planes);
-                                 ?>
-
-
-                                <!--CONSULTA PARA EL SELECT-->
-                              <div class="input-field col s12 m4" >
-                              <select multiple name="planes_venta_contrato[]" id="planes_venta_contrato">
-                                    <?php 
-                                     while($fila_planes =mysqli_fetch_array($resultado_planes))
-                                        {
-            
-                                    ?>
-
-                                    <option value="<?php echo $fila_planes['id_planes']?>"><?php echo $fila_planes['nombre']?> - <?php echo $fila_planes['precio_plan']?>$ </option>
-
-                                    <?php 
-                                      }
-                                     ?>
-
-                                  </select>
-                                  <label>Planes</label>
-                                </div>
-
-                                <div class="input-field col s12 m4">
-                              <input name="descuento" onkeypress="return solonumeros6(event)" id="descuento" type="text" class="validate" required="true">
-                              <label for="descuento">Descuento Total (Numero Entero menor a 100)</label>
-                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos6"></p>
-                            </div>
-
-
+                          <div class="row" id="resultados_familiares_contrato">
 
                           </div> 
-                          <div class="row">
 
-                                <div class="col s12 m4">
-                                  <p>Numero de familiares directos:</p>
-                                </div>
+                          <div class="row" id="resultados_contrato">
 
-                                <div class="col s12 m1">
-                                  <input id="familiares_numero_directos" type="text" class="validate">
-                                </div>
-                          </div>  
-
-                          <div id="familiares_contrato_directos" class="row">
-                          
                           </div>
 
-                          <div class="row">
 
-                                <div class="col s12 m4">
-                                  <p>Numero de familiares indirectos:</p>
-                                </div>
-
-                                <div class="col s12 m1">
-                                  <input id="familiares_numero_indirectos" type="text" class="validate">
-                                </div>
-                          </div>  
-
-                          <div id="familiares_contrato_indirectos" class="row">
                           
-                          </div>
-
-                      <div class="row">
-                             <button class="btn waves-effect waves-light" type="submit" name="action">Registrar Contrato
+<!--AJAX CONTRATO-->
+                     
+                             <button class="btn waves-effect waves-light green darken-3" type="submit" name="action">Registrar Contrato
                                 <i class="material-icons right">send</i>
                             </button>
-                      </div>
+                      
                         </form>
                       </div>
-        
-                   
                 </div>
-    </div>
+      </div>
+  </div>    
 </main>
 <?php
 include('footer.php');
