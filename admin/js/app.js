@@ -827,8 +827,7 @@ $(document).on('keyup', '#buscar_servicios_input', function()
 //////////////////////////////////////////////////////////////////////////////////DESACTIVAR SERVICIO
 function desactivar_servicio (id)
     {
-          var estatus=0;
-  
+        
       $.ajax({
         type: "GET",
         url: "./busquedas/buscar_servicio.php",
@@ -956,49 +955,127 @@ function LimpiarVentaDeServicios(){
 
 
 
-
+//________________________________________________SECCION CONTRATOS__________________________________________________
 
 ////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS MODIFICAR DESPUES
-function entregarservicio(){
- 
-  //recogemos los valores de los inputs
-  entregado= 1 ;
-  
-  //instanciamos el objetoAjax
-  ajax=objetoAjax();
- 
-  //uso del metodo POST
-  //archivo que realizará la operacion
-  //registro.php
-  ajax.open("POST", "entregado_servicio.php",true);
-  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
-  ajax.onreadystatechange=function() {
-    //la función responseText tiene todos los datos pedidos al servidor
-    if (ajax.readyState==4) {
-      //mostrar resultados en esta capa
-      //llamar a funcion para limpiar los inputs
-    LimpiarCamposNuevoUsuario();
-    toastr.options.progressBar = true;
-    toastr.warning('Pagando espere...');
-    toastr.options.progressBar = false;
-     setTimeout(function () {
-      toastr.success('Usuario Pagado!!!');
-    }, 4800); 
+function entregarservicioplan(id){
+    var actualizar_servicio=document.getElementById('servicio_plan'+id).value;
 
-    setTimeout(function () {
-      window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
-    }, 6000); 
-  }else if(ajax.readyState==0){
-    toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
-  }
- }
-  ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-  //enviando los valores a registro.php para que inserte los datos
-  ajax.send("entregado="+entregado)
+ $.ajax({
+        type: "GET",
+        url: "./ajax/actualizar_servicio.php",
+        data: "id_servicio_entregar="+id+"&actualizar_servicio="+actualizar_servicio,
+     
+        success: function(datos){
+    $("#contrato_todo"+actualizar_servicio).html(datos);
+    }
+      });
 }
 
 ////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS MODIFICAR DESPUES
 
+////////////////////////////////////////////////////////AJAX ACTUALIZAR PRODUCTO
+
+function entregarproductoplan(id){
+ var actualizar_producto=document.getElementById('producto_plan'+id).value;
+ $.ajax({
+        type: "GET",
+        url: "./ajax/actualizar_productos.php",
+        data: "id_producto_entregar="+id+"&actualizar_producto="+actualizar_producto,
+     
+        success: function(datos){
+    $("#plan_producto_todo"+actualizar_producto).html(datos);
+    }
+      });
+}
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR PRODUCTO CIERRO
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR SERVICIOS ADICIONALES 
+
+function entregarserviciosadicionales(id){
+ 
+ $.ajax({
+        type: "GET",
+        url: "./ajax/actualizar_servicio_adicionales.php",
+        data: "id_servicio_adicionales="+id,
+     
+        success: function(datos){
+    $("#servicios_adicionales_contrato").html(datos);
+    }
+      });
+}
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR SERVICIOS ADICIONALES CIERRO
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR PAGOS
+function entregarpagos(id){
+ 
+ $.ajax({
+        type: "GET",
+        url: "./ajax/actualizar_pagos.php",
+        data: "id_pagos="+id,
+     
+        success: function(datos){
+    $("#pagos_entregar_contrato").html(datos);
+    }
+      });
+}
+
+////////////////////////////////////////////////////////AJAX ACTUALIZAR PAGOS CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR COMENTARIO 
+
+function agregar_comentario(id)
+    {
+      var actividad=document.getElementById('comentario_actividad').value;
+      var observaciones=document.getElementById('comentario_observaciones').value;
+      //Inicia validacion
+      if (actividad==="")
+      {
+      alert('Ingrese una actividad');
+      document.getElementById('comentario_actividad').focus();
+      return false;
+      }
+      if (observaciones==="")
+      {
+      alert('Agregue una observacion');
+      document.getElementById('comentario_observaciones').focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./ajax/agregar_comentario.php",
+        data: "actividad="+actividad+"&observaciones="+observaciones+"&id_user="+id,
+        success: function(datos){
+    $("#resultados_comentario").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR COMENTARIO CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR COMENTARIO 
+function eliminar_comentario(id)
+    {
+      
+      $.ajax({
+        type: "GET",
+        url: "./ajax/agregar_comentario.php",
+        data: "id_comentario="+id,
+        success: function(datos){
+    $("#resultados_comentario").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR COMENTARIO CIERRO
+
+//________________________________________________SECCION CONTRATOS CIERRO__________________________________________________
 
 
 //////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS 

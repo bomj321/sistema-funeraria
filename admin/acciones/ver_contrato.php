@@ -1,5 +1,5 @@
 <?php
-require_once('../header.php');
+include('header.php');
 $usuarioid= $connection->real_escape_string($_GET['id']);
  //--------------------if--------------------
   
@@ -421,7 +421,7 @@ $usuarioid= $connection->real_escape_string($_GET['id']);
 
 </div>
 <?php
-require_once('../footer.php');
+include('footer.php');
 
 mysqli_close($connection);
  ?>

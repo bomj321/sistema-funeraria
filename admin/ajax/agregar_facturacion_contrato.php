@@ -399,7 +399,13 @@ if ($filasdi>0 || $filasin>0) {
 					<td class="text-right" colspan="3">SubTotal</td>
 					<td class='text-right'><?php echo $costo_contrato+$sumador_total_planes+$sumador_total_servicio;?>$</td>
 	 			</tr>
-	 			
+	 				 			
+
+	 			<tr> 				
+					<td class="text-right" colspan="3">Total sin descuento</td>
+					<td class='text-right'><?php echo ($costo_contrato+$sumador_total_planes+$sumador_total_servicio+$costo_familiarin);?>$</td>
+	 			</tr>
+
 	 			<tr> 				
 					<td class="text-right" colspan="3">Descuento</td>
 					<td class='text-right'><?php echo $descuento_contrato;?>%</td>

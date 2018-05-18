@@ -47,10 +47,13 @@ require_once('../connect.php');
   //////////////////////////////////SELECCIONAR ID SERVICIO/////////////////////////////////////
           $sql_servicio_contrato="SELECT * FROM tmp_servicios_contratos WHERE session_id_contrato='".$session_id."'";
           $resultado_servicio_contrato= mysqli_query($connection, $sql_servicio_contrato);
+          $sumador_total_servicio=0;
           while($row_servicio_contrato=mysqli_fetch_array($resultado_servicio_contrato)){
           $id_servicio=$row_servicio_contrato['id_servicio_contrato'];
           $cantidad_servicio=$row_servicio_contrato['cantidad_tmp_contrato'];
           $precio_servicio=$row_servicio_contrato['precio_tmp_contrato'];
+          $total_servicio=$precio_servicio*$cantidad_servicio;
+          $sumador_total_servicio+=$total_servicio;
 //////////////////////////////////SELECCIONAR ID SERVICIO CIERRO///////////////////////////////////// 
                 $entregado = 0;
                 mysqli_set_charset($connection, "utf8");
@@ -173,7 +176,7 @@ require_once('../connect.php');
                     $resultado_total_costo= mysqli_query($connection, $sql_total_costo);
                     $row_costo = mysqli_fetch_assoc($resultado_total_costo);
                     $sum_costo = $row_costo['value_sum'] ;
-                    $sum_costo_total = ($costo_contrato+$sum_costo) - ( ($descuento_contrato/100) * ($costo_contrato+$sum_costo));                    
+                    $sum_costo_total = ($costo_contrato+$sum_costo+$costo_planes_contrato+$sumador_total_servicio) - ( ($descuento_contrato/100) * ($costo_contrato+$sum_costo+$costo_planes_contrato+$sumador_total_servicio));                    
                     $costo_cuota_sinredondear = $sum_costo_total/$cuotas_contrato;
                     $costo_cuota= ceil($costo_cuota_sinredondear);
 

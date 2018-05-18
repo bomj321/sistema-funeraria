@@ -18,8 +18,8 @@ if (isset($_GET['id_servicio_desactivar']))//codigo elimina un elemento del arra
 if (isset($_GET['id_servicio_activar']))//codigo elimina un elemento del array
 {
 		$id_servicio=intval($_GET['id_servicio_activar']);
-		$sql="UPDATE Servicios SET servicio_activo='1' WHERE id_servicios= ? ";
-        $resultado=mysqli_prepare($connection, $sql);
+		$sql_activar="UPDATE Servicios SET servicio_activo='1' WHERE id_servicios= ? ";
+        $resultado=mysqli_prepare($connection, $sql_activar);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_servicio);
         $ok=mysqli_stmt_execute($resultado);	
 }
