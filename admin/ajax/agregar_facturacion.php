@@ -101,7 +101,7 @@ if (isset($_GET['id_producto']))//codigo elimina un elemento del array
 				<td>Servicio-<?php echo $nombre_servicio; ?></td>
 				<td class="text-right"><?php echo $precio_venta; ?></td>
 				<td class="text-right"> <?php echo $precio_total; ?></td>
-				<td class="text-center"><a href="#" onclick="eliminar_servicio('<?php echo $id_tmp ?>')"><i class="material-icons pdf">cancel</i></a></td>
+				<td class="text-center"><a onclick="eliminar_servicio('<?php echo $id_tmp ?>')"><i class="material-icons pdf">cancel</i></a></td>
 			</tr>
  		 <?php 
  		 	 }
@@ -120,7 +120,7 @@ if (isset($_GET['id_producto']))//codigo elimina un elemento del array
 				<td>Producto-<?php echo $nombre_producto; ?></td>
 				<td class="text-right"><?php echo $precio_venta_producto; ?></td>
 				<td class="text-right"> <?php echo $precio_total_producto; ?></td>
-				<td class="text-center"><a href="#" onclick="eliminar_producto('<?php echo $id_tmp_producto ?>')"><i class="material-icons pdf">cancel</i></a></td>
+				<td class="text-center"><a onclick="eliminar_producto('<?php echo $id_tmp_producto ?>')"><i class="material-icons pdf">cancel</i></a></td>
 
 			</tr>
  		 <?php 

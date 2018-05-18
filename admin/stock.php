@@ -56,12 +56,7 @@ include('header.php');
                                   </button>
                 
                                 </form>
-                          </div>
-                          <div id="resultado" class="row">
-                                <div class="col s12 m12">
-                                    <?php include('stock_tabla.php');?>
-                                </div>
-                          </div>
+                          </div>                          
                   </div>
            </div>
     </div>

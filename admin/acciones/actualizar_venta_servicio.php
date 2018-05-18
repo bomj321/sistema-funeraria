@@ -1,13 +1,13 @@
 <?php 
 session_start();
-include('connect.php');
+require_once('../connect.php');
 				$id_usuario= $_GET['id'];
                 $pagado_usuario= $_GET['pagado'];
                
 if (!$pagado_usuario) {
 $pagado_usuario=0;	
 
-mysqli_set_charset($connection, "utf8");
+		mysqli_set_charset($connection, "utf8");
 		$sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
 		$resultado=mysqli_prepare($connection, $sql);
 		$ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
@@ -16,7 +16,7 @@ mysqli_set_charset($connection, "utf8");
 		echo "
                                  <script>
                                         
-                                        window.location.href ='control_venta_servicios.php';
+                                        window.location.href ='../control_venta_servicios.php';
                                  </script>  
                             ";
 
@@ -32,7 +32,7 @@ mysqli_set_charset($connection, "utf8");
 		echo "
                                  <script>
                                         
-                                        window.location.href ='control_venta_servicios.php';
+                                        window.location.href ='../control_venta_servicios.php';
                                  </script>  
                             ";
  }      

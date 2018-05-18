@@ -28,7 +28,7 @@ include('header.php');
                     
                       <div class="row">
                         <h4>Registro de Usuario/Contratos</h4>
-                        <form method="POST" id="venta_contrato_ventas" onsubmit="ventaDeContratos(); return false" class="col s12">
+                        <form method="POST" enctype="multipart/form-data" id="venta_contrato_ventas" action="" onsubmit="ventaDeContratos(); return false" class="col s12">
                           <div class="row">
                             <div class="input-field col s12 m4">
                               <input  name="nombre_contrato" onkeypress="return sololetras(event)" id="name" type="text" class="validate" required="true">
@@ -50,28 +50,23 @@ include('header.php');
                           </div>
                           
                           <div class="row">
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m4">
                               <input name="dni_contrato" onkeypress="return solonumeros(event)" id="dni" type="text" class="validate" required="true">
                               <label for="dni">DNI</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
                             
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m4">
                               <input name="numero_usuario" onkeypress="return solonumeros3(event)" id="numero" type="text" class="validate" required="true">
                               <label for="numero">Numero Telefonico</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos3"></p>
                             </div>
 
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m4">
                               <input name="email_contrato" id="email" type="email" class="validate" required="true">
                               <label for="email">Email</label>
                             </div>
-
-                            <div class="input-field col s12 m3">
-                              <input name="cuotas_contrato" onkeypress="return solonumeros4(event)" id="cuotas" type="text" class="validate" required="true">
-                              <label for="cuotas">Cuotas a Pagar</label>
-                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos4"></p>
-                            </div>
+                            
                           </div>
 <!--AJAX CONTRATO-->
 
@@ -81,11 +76,7 @@ include('header.php');
                               </div>
 
                               
-                          </div>
-
-                          <div class="row" id="resultados_familiares_contrato">
-
-                          </div> 
+                          </div>                         
 
                           <div class="row" id="resultados_contrato">
 
@@ -106,5 +97,6 @@ include('header.php');
   </div>    
 </main>
 <?php
+mysqli_close($connection);
 include('footer.php');
 ?>

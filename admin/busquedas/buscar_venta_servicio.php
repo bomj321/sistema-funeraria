@@ -1,8 +1,32 @@
 <?php 
-include('connect.php');
+require_once('../connect.php');
 
  //--------------------if--------------------
+////////////////////PAGAR SERVICIOS
+if (isset($_GET['id_pagar']))//codigo elimina un elemento del array
+{   
+    $id_usuario= $_GET['id_pagar'];
+    $pagado_usuario=1;
+    mysqli_set_charset($connection, "utf8");
+    $sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
+    $resultado=mysqli_prepare($connection, $sql);
+    $ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
+    $ok=mysqli_stmt_execute($resultado); 
+}
+////////////////////PAGAR SERVICIOS CIERRO 
 
+////////////////////NOPAGAR SERVICIOS
+if (isset($_GET['id_nopagar']))//codigo elimina un elemento del array
+{
+    $id_usuario= $_GET['id_nopagar'];
+    $pagado_usuario=0;
+    mysqli_set_charset($connection, "utf8");
+    $sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
+    $resultado=mysqli_prepare($connection, $sql);
+    $ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
+    $ok=mysqli_stmt_execute($resultado);  
+}
+////////////////////NOPAGAR SERVICIOS CIERRO
        
 
  
@@ -13,8 +37,8 @@ $sql = "SELECT * FROM User_servicios_individuales ORDER BY  idUser desc ";
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['ventas']))
 {
-	$buscar=$connection->real_escape_string($_POST['ventas']);
-	$sql="SELECT * FROM User_servicios_individuales WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY  idUser desc  ";
+  $buscar=$connection->real_escape_string($_POST['ventas']);
+  $sql="SELECT * FROM User_servicios_individuales WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY  idUser desc  ";
 } 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);
@@ -37,11 +61,11 @@ $tabla.='
         </thead>
 
         <tbody>';
-        	
-        		while($fila =mysqli_fetch_array($resultado))                      {
+          
+            while($fila =mysqli_fetch_array($resultado))                      {
             
             $planid =$fila['idUser'];
-       $tabla.=' 	
+       $tabla.='  
           <tr>
             <td>'.$fila['nombre'].'</td>
             <td>'.$fila['numero_telefonico'].'</td>
@@ -97,25 +121,25 @@ $tabla.='
            $tabla.='        
             </td>
 
-		
+    
             <td>'.$sum.'$</td>
 
-            <td><a href="pdf_servicios.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>
+            <td><a href="acciones/pdf_servicios.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>
 
-            <a href="word_servicios.php?id='.$fila['idUser'].'"><i class="material-icons word">insert_drive_file</i></a>
+            <a href="acciones/word_servicios.php?id='.$fila['idUser'].'"><i class="material-icons word">insert_drive_file</i></a>
 
-            <a href="imprimir_servicios.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
+            <a href="acciones/imprimir_servicios.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
 if ($fila['pagado'] ==1) {
-	
+  
 
 
-			$tabla.='	
-            <a href="actualizar_venta_servicio.php?id='.$fila['idUser'].'&pagado=0"><i class="material-icons pagar">local_atm</i></a> ';
+      $tabla.=' 
+            <a onclick="nopagar_servicio('.$fila["idUser"].')"><i class="material-icons pagar">local_atm</i></a> ';
 
 }else{
 
-$tabla.='	
-            <a href="actualizar_venta_servicio.php?id='.$fila['idUser'].'&pagado=1"><i class="material-icons nopagar">local_atm</i></a> ';
+$tabla.=' 
+            <a onclick="pagar_servicio('.$fila["idUser"].')"><i class="material-icons nopagar">local_atm</i></a> ';
 
 
 }
@@ -135,10 +159,10 @@ $tabla.='
       </table>';
     
 }else
-	{
-		$tabla="No se encontraron coincidencias con sus criterios de búsqueda.";
-	}
-	echo $tabla;
+  {
+    $tabla="No se encontraron coincidencias con sus criterios de búsqueda.";
+  }
+  echo $tabla;
 
 
   mysqli_close($connection);    

@@ -26,14 +26,14 @@
             <td><?php echo $fila['descripcion_servicio'];?></td>
 
             <td><div>
-           <input  type="text" class="form-control sinborde" id="cantidad_<?php echo $id_servicio; ?>"  value="1">
+           <input  type="text" class="form-control sinborde text-left" id="cantidad_<?php echo $id_servicio; ?>"  value="1">
              </div></td>
 
              <td><div>
-           <input  type="text" class="form-control sinborde"  id="precio_venta_<?php echo $id_servicio; ?>" value="<?php echo $fila['costo'];?>">
+           <input  type="text" class="form-control sinborde text-left"  id="precio_venta_<?php echo $id_servicio; ?>" value="<?php echo $fila['costo'];?>">
              </div></td>
 
-            <td class="text-right"><a class='btn btn-info green' href="#" onclick="agregar('<?php echo $id_servicio ?>')">
+            <td class="text-left"><a class='btn btn-info green ' onclick="agregar('<?php echo $id_servicio ?>')">
   			<i class="material-icons ">add_circle</i>
             </a></td>            
         	</tr>

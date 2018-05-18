@@ -4,7 +4,8 @@
       <table class="responsive-table">
         <thead>
               <th>Costo base del Contrato</th>           
-              <th >Descuento</th>                            
+              <th>Descuento</th>
+              <th>Cuotas</th>                            
               <th colspan="2" class="text-right">Agregar</th>
         </thead>
         <tbody>          
@@ -20,10 +21,16 @@
               <div>
            <input  type="text" class="form-control "  id="descuento_contrato">
              </div>
+           </td>
+
+           <td>
+              <div>
+           <input  type="text" class="form-control "  id="cuotas_contrato">
+             </div>
            </td>           
             
             <td class="text-right">
-              <a class='btn btn-info green' href="#" onclick="agregar_costo_descuento()">
+              <a class='btn btn-info green' type="button" onclick="agregar_costo_descuento()">
             <i class="material-icons ">add_circle</i>
             </a>
             </td> 
@@ -66,22 +73,22 @@
           <tr>
             
             <td>
-            <input  type="text" class="form-control sinborde text-left"  id="id_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['id_planes'];?>">
+            <input disabled type="text" class="form-control sinborde text-left"  id="id_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['id_planes'];?>">
              </td>
 
              <td>
-            <input  type="text" class="form-control sinborde text-left"  id="nombre_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['nombre'];?>">
+            <input disabled type="text" class="form-control sinborde text-left"  id="nombre_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['nombre'];?>">
              </td>            
 
             
              <td>
               <div>
-           <input  type="text" class="form-control sinborde text-left"  id="precio_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['precio_plan'];?>">
+           <input disabled type="text" class="form-control sinborde text-left"  id="precio_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['precio_plan'];?>">
              </div>
            </td>
 
             <td class="text-right">
-            <a class='btn btn-info green' href="#" onclick="agregar_contrato_planes('<?php echo $id_planes?>')">
+            <a class='btn btn-info green' type="button" onclick="agregar_contrato_planes('<?php echo $id_planes?>')">
              <i class="material-icons ">add_circle</i>
             </a>
           </td>            
@@ -131,7 +138,7 @@
             <td><?php echo $fila['id_servicios'];?></td>
 
             <td><div>
-           <input  type="text" class="form-control sinborde text-left" id="nombre_servicio_contrato<?php echo $id_servicio; ?>"  value="<?php echo $fila['descripcion_servicio'];?>">
+           <input disabled type="text" class="form-control sinborde text-left" id="nombre_servicio_contrato<?php echo $id_servicio; ?>"  value="<?php echo $fila['descripcion_servicio'];?>">
              </div></td>
 
             <td><div>
@@ -139,11 +146,11 @@
              </div></td>
 
              <td><div>
-           <input  type="text" class="form-control sinborde text-left"  id="precio_servicio_venta_contrato<?php echo $id_servicio; ?>" value="<?php echo $fila['costo'];?>">
+           <input disabled type="text" class="form-control sinborde text-left"  id="precio_servicio_venta_contrato<?php echo $id_servicio; ?>" value="<?php echo $fila['costo'];?>">
              </div></td>
 
 
-            <td><a class='btn btn-info green' href="#" onclick="agregar_contrato_servicio('<?php echo $id_servicio ?>')">
+            <td><a class='btn btn-info green' type="button" onclick="agregar_contrato_servicio('<?php echo $id_servicio ?>')">
         <i class="material-icons ">add_circle</i>
             </a></td>            
           </tr>
@@ -159,9 +166,9 @@
 
       <h4>Agregar Familiares Directos</h4>
       <table class="responsive-table">
-        <thead>           
-              <th class="text-center">Parentezco</th>
+        <thead>
               <th class="text-center">Nombre</th>
+              <th class="text-center">Parentezco</th>
               <th class="text-center">Edad</th>              
               <th colspan="2" >Agregar</th>
         </thead>
@@ -188,7 +195,7 @@
 
              
            <td class="text-right">
-            <a class='btn btn-info green' href="#" onclick="agregar_contrato_familiaresdi()">
+            <a class='btn btn-info green' type="button" onclick="agregar_contrato_familiaresdi()">
         <i class="material-icons ">add_circle</i>
             </a>
           </td>
@@ -200,9 +207,9 @@
 
       <h4>Agregar Familiares Indirectos</h4>
       <table class="responsive-table">
-        <thead>           
-              <th class="text-center">Parentezco</th>
+        <thead>
               <th class="text-center">Nombre</th>
+              <th class="text-center">Parentezco</th>
               <th class="text-center">Edad</th>
               <th class="text-center">Costo Adicional</th>              
               <th class="text-center" colspan="2" >Agregar</th>
@@ -236,7 +243,7 @@
            </td>
 
            <td class="text-right">
-            <a class='btn btn-info green' href="#" onclick="agregar_contrato_familiaresin()">
+            <a class='btn btn-info green' type="button" onclick="agregar_contrato_familiaresin()">
         <i class="material-icons ">add_circle</i>
             </a>
           </td> 
@@ -246,6 +253,6 @@
       </table>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+      <a type="button" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
     </div>
   </div>

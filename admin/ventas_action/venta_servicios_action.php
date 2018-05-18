@@ -1,7 +1,7 @@
 <?php 
 session_start();
 $session_id= session_id();
-include('connect.php');
+require_once('../connect.php');
 
                 $usu= $_POST['nombre_usuario'];
                 $edad= $_POST['edad_usuario'];

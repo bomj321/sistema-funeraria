@@ -3,7 +3,7 @@
       <h4>Agregar Productos</h4>
       <table class="responsive-table">
       	<thead>
-      		 <th>Id</th>
+      		    <th>Id</th>
               <th>Producto</th>
               <th>Cantidad Exist.</th>
               <th>Cantidad a Vender</th>
@@ -25,17 +25,18 @@
             <td><?php echo $fila['id'];?></td>
             <td><?php echo $fila['objeto'];?></td>
 			<td><div>
-           <input  type="text" class="form-control sinborde"  id="cantidad_stock_producto<?php echo $id_producto; ?>" value="<?php echo $fila['cantidad'];?>">
+           <input  type="text" class="form-control sinborde text-left"  id="cantidad_stock_producto<?php echo $id_producto; ?>" value="<?php echo $fila['cantidad'];?>">
              </div></td>
+
             <td ><div >
-           <input  type="text" class="form-control sinborde text-center" id="cantidad_producto<?php echo $id_producto; ?>"  value="1">
+           <input  type="text" class="form-control sinborde text-left" id="cantidad_producto<?php echo $id_producto; ?>"  value="1">
              </div></td>
 
              <td><div>
-           <input  type="text" class="form-control sinborde"  id="precio_venta_producto<?php echo $id_producto; ?>" value="<?php echo $fila['precio'];?>">
+           <input  type="text" class="form-control sinborde text-left"  id="precio_venta_producto<?php echo $id_producto; ?>" value="<?php echo $fila['precio'];?>">
              </div></td>
 
-            <td class="text-right"><a class='btn btn-info green' href="#" onclick="agregar_productos('<?php echo $id_producto ?>')">
+            <td class="text-right"><a class='btn btn-info green' onclick="agregar_productos('<?php echo $id_producto ?>')">
   			<i class="material-icons ">add_circle</i>
             </a></td>            
         	</tr>

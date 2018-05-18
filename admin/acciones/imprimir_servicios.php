@@ -1,8 +1,6 @@
 <?php
 session_start();
-header("Content-type: application/vnd.ms-word");
-header("Content-Disposition: attachment; filename=Reporte_Personal_usuarios.doc");
-include('connect.php');
+require_once('../connect.php');
 $usuarioid = $_GET['id'];
  //--------------------if--------------------
       
@@ -12,16 +10,14 @@ $usuarioid = $_GET['id'];
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <link rel="stylesheet" href="css/materialize.css" media="screen">
 
   <title>Document</title>  
 </head> 
-<body>
+<body id="print" onload="javascript:printlayer('servicios')">
 
-
-        	<?php 
-        	$sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
-            $resultado= mysqli_query($connection, $sql); 
+          <?php 
+          $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
+      $resultado= mysqli_query($connection, $sql); 
             $fila =mysqli_fetch_array($resultado);
             
             $planid =$fila['idUser'];
@@ -45,18 +41,17 @@ $usuarioid = $_GET['id'];
                     $row_producto = mysqli_fetch_assoc($resultado_total_productos);
                     $sum_producto = $row_producto['value_sum'] ;
                     $sum = $sum_servicio + $sum_producto ;   
-        	 ?>
-	
-  <div style="text-align:center;">
-      <table > 
+           ?>
+  <div  id="servicios">
+      <table align="center" width="500" height="600" > 
                 <tr> 
 
-                    <td > 
+                    <td colspan="1"> 
                        Nombre del Usuario:
                     </td> 
                 
                 
-                    <td > 
+                    <td style="text-align:center"> 
                        <?php echo $fila['nombre']; ?>
                     </td>
                      
@@ -64,13 +59,13 @@ $usuarioid = $_GET['id'];
                      
                 <tr> 
                     
-                    <td > 
+                    <td colspan="1"> 
                         DNI:
                     </td> 
 
                      
 
-                    <td > 
+                    <td style="text-align:center"> 
                        <?php echo $fila['dni']; ?> 
                     </td> 
                     
@@ -141,6 +136,43 @@ $precio_total_productos = $fila_producto['cantidad_comprada'] * $fila_producto['
 
 </table>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+  function printlayer(Imprimeme){
+      var impresion=document.getElementById(Imprimeme).innerHTML;
+      var winprint= window.open('','Impresion');
+
+      winprint.document.open();
+      
+      winprint.document.write('<html><head><style type="text/css">');
+      winprint.document.write('#table{align:"center" width:"800" height:"600"}');
+      winprint.document.write('</style></head><body onload="window.print();">');
+      
+      winprint.document.write(impresion);
+      winprint.document.write('</body></html>');
+      winprint.document.close();
+      winprint.focus();
+      winprint.print();
+      winprint.close();
+
+
+
+
+    }
+    </script> 
 </body>
 </html>
 <?php 

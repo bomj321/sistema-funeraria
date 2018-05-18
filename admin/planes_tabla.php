@@ -54,7 +54,7 @@ $resultado= mysqli_query($connection, $sql);
               <th>Imagen</th>
               <th>Servicios a ofrecer</th>
               <th>Productos a ofrecer</th>              
-              <th >Acciones</th>
+              <th>Acciones</th>
           </tr>
         </thead>
 

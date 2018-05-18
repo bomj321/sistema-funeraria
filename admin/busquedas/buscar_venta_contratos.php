@@ -1,5 +1,5 @@
 <?php 
-include('connect.php');
+require_once('../connect.php');
 
  //--------------------if--------------------
 
@@ -45,19 +45,41 @@ $tabla.='
             <td>'.$fila['dni'].'</td>';
 
            
-                
+                /////////////////////////////////////////DESCUENTO//////////////////////////////////
                     $sql_contrato = "SELECT total,descuento FROM User WHERE idUser=$contratoid ";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
                     $sum_total = $row_contrato['total'];
                     $sum_descuento = $row_contrato['descuento'];
 
+                /////////////////////////////////////////DESCUENTO//////////////////////////////////
+
+                /////////////////////////////////////////COST PLANES//////////////////////////////////
+
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$contratoid";
+                    $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
+                    $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
+                    $sum_total_planes = $row_contrato_planes['value_planes'];
+                /////////////////////////////////////////COST PLANES CIERR//////////////////////////////////
+                
+                
+                /////////////////////////////////////////COST PLANES CIERRO//////////////////////////////////
+
+                    $sql_total_servicio ="SELECT SUM(costo) AS value_servicio FROM User_has_Servicios_Adicionales WHERE User_idUser=$contratoid";
+                    $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
+                    $row_contrato_servicio = mysqli_fetch_assoc($resultado_total_servicio);
+                    $sum_total_servicio = $row_contrato_servicio['value_servicio'];
+                /////////////////////////////////////////DESCUENTO//////////////////////////////////
+                
+                
+                /////////////////////////////////////////DESCUENTO//////////////////////////////////
 
                     $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $contratoid";
                     $resultado_total_contrato= mysqli_query($connection, $sql_total_contrato);
                     $row_contrato_familiares = mysqli_fetch_assoc($resultado_total_contrato);
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];
-                    $sum = ($sum_total + $sum_total_familiares)- (($sum_total + $sum_total_familiares) * $sum_descuento/100);
+                    $sum = ($sum_total + $sum_total_familiares+$sum_total_planes+$sum_total_servicio)- (($sum_total_planes+$sum_total + $sum_total_familiares+$sum_total_servicio) * $sum_descuento/100);
+                /////////////////////////////////////////DESCUENTO//////////////////////////////////
 
                    
                 
@@ -67,13 +89,13 @@ $tabla.='
 
             <td>
 
-            <a href="ver_contrato.php?id='.$fila['idUser'].'"><i class="material-icons ">remove_red_eye</i></a>
+            <a href="acciones/ver_contrato.php?id='.$fila['idUser'].'"><i class="material-icons ">remove_red_eye</i></a>
 
-            <a href="pdf_contrato.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>
+            <a href="acciones/pdf_contrato.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>
 
-            <a href="word_contrato.php?id='.$fila['idUser'].'"><i class="material-icons word">insert_drive_file</i></a>
+            <a href="acciones/word_contrato.php?id='.$fila['idUser'].'"><i class="material-icons word">insert_drive_file</i></a>
 
-            <a href="imprimir_contrato.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
+            <a href="acciones/imprimir_contrato.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
 if ($fila['activo'] ==1) {
 	
 
