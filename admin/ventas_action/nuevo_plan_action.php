@@ -36,7 +36,6 @@ if ($tamaño_imagen<=1000000) {
     
     
                 $nom= $_POST['nombre'];
-                $cost= $_POST['costo'];                
                 $des= $_POST['descripcion'];
                 $activo = 1;
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS///////////////////////////////////
@@ -44,7 +43,8 @@ if ($tamaño_imagen<=1000000) {
           $resultado_costo_descuento= mysqli_query($connection, $sql_costo_descuento);
           $row_costo_descuento=mysqli_fetch_array($resultado_costo_descuento);          
           $descuento_plan=$row_costo_descuento['descuento_planes'];
-          $costo_total= $cost-($cost*($descuento_plan/100));//COSTO CON DESCUENTO
+          $costo_plan=$row_costo_descuento['costo_planes'];
+          $costo_total= $costo_plan-($costo_plan*($descuento_plan/100));//COSTO CON DESCUENTO
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS CIERRO////////////////////////////
 
         mysqli_set_charset($connection, "utf8");

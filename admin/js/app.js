@@ -361,7 +361,6 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 function enviarDatosStock(){
  
   //div donde se mostrará lo resultados
-  divResultado = document.getElementById('resultado');
   //recogemos los valores de los inputs
   obj=document.nuevo_servicio.objeto.value;
   can=document.nuevo_servicio.cantidad.value;
@@ -379,8 +378,6 @@ function enviarDatosStock(){
   ajax.onreadystatechange=function() {
 	  //la función responseText tiene todos los datos pedidos al servidor
   	if (ajax.readyState==4) {
-  		//mostrar resultados en esta capa
-		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
 		LimpiarCampos1();    
 		toastr.success('Item Registrado!!!'); //mensaje
@@ -455,7 +452,6 @@ function actualizarDatosStock(){
 function enviarDatosServicio(){
  
   //div donde se mostrará lo resultados
-  divResultado = document.getElementById('servicio');
   //recogemos los valores de los inputs
   descs=document.nuevo_servicio.descripcion_servicio.value;
   costs=document.nuevo_servicio.costo_servicio.value;
@@ -471,8 +467,6 @@ function enviarDatosServicio(){
   ajax.onreadystatechange=function() {
 	  //la función responseText tiene todos los datos pedidos al servidor
   	if (ajax.readyState==4) {
-  		//mostrar resultados en esta capa
-		divResultado.innerHTML = ajax.responseText
   		//llamar a funcion para limpiar los inputs
 		LimpiarCampos2();    
 		toastr.success('Servicio Registrado!!!'); //mensaje
@@ -957,6 +951,42 @@ function LimpiarVentaDeServicios(){
 
 //________________________________________________SECCION CONTRATOS__________________________________________________
 
+//////////////////////////////////////////////////////////////////////////////////DESACTIVARCONTRATO
+function desactivar_contrato (id)
+    {
+        
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_venta_contratos.php",
+        data: "id_contrato_desactivar="+id,
+     
+        success: function(datos){
+    $("#contrato_venta").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////DESACTIVARCONTRATO CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////ACTIVARCONTRATO
+function activar_contrato (id)
+    {
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_venta_contratos.php",
+        data: "id_contrato_activar="+id,
+     
+        success: function(datos){
+    $("#contrato_venta").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ACTIVAR CONTRATO CIERRO
+///
 ////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS MODIFICAR DESPUES
 function entregarservicioplan(id){
     var actualizar_servicio=document.getElementById('servicio_plan'+id).value;

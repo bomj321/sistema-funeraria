@@ -73,9 +73,11 @@ require_once('../connect.php');
  //////////////////////////////////SELECCIONAR ID PLANES/////////////////////////////////////
           $sql_planes_contrato="SELECT * FROM tmp_planes_contrato WHERE session_id='".$session_id."'";
           $resultado_planes_contrato= mysqli_query($connection, $sql_planes_contrato);
+          $sumador_total_planes=0;
           while($row_planes_contrato=mysqli_fetch_array($resultado_planes_contrato)){
           $id_planes_contrato=$row_planes_contrato['id_plan_contrato'];
           $costo_planes_contrato=$row_planes_contrato['precio_plan_contrato'];
+          $sumador_total_planes+=$costo_planes_contrato;
 //////////////////////////////////SELECCIONAR ID PLANES CIERRO/////////////////////////////////////    
 
                 mysqli_set_charset($connection, "utf8");
@@ -89,11 +91,12 @@ require_once('../connect.php');
                   $resultado_servicios= mysqli_query($connection, $sql_servicios);
                   while($fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                     $id_servicios = $fila_servicio['id_servicios'];
+                    $cantidad_servicios = $fila_servicio['cantidad_servicios_planes'];
                     $entregado = 0;
 
-                    $sql_planes_servicios="INSERT INTO planes_has_services_delivered (idUser_services, planes_id_planes,servicio_id_servicios,entregado) VALUES (?,?,?,?)";
+                    $sql_planes_servicios="INSERT INTO planes_has_services_delivered (idUser_services, planes_id_planes,servicio_id_servicios,entregado,cantidad_servicio) VALUES (?,?,?,?,?)";
                     $resultado_planes_servicios=mysqli_prepare($connection, $sql_planes_servicios);
-                    mysqli_stmt_bind_param($resultado_planes_servicios, "iiii", $idgenerado, $id_planes_contrato,$id_servicios,$entregado);
+                    mysqli_stmt_bind_param($resultado_planes_servicios, "iiiii", $idgenerado, $id_planes_contrato,$id_servicios,$entregado,$cantidad_servicios);
                     $ok_planes_servicios=mysqli_stmt_execute($resultado_planes_servicios);
                     mysqli_stmt_close($resultado_planes_servicios);
 
@@ -106,11 +109,12 @@ require_once('../connect.php');
 
                     while ($fila_products =mysqli_fetch_array($resultado_products)){              
                     $id_product = $fila_products['id'];
+                    $cantidad_productos = $fila_servicio['cantidad_comprada'];
                     $entregado = 0;
 
-                    $sql_planes_product="INSERT INTO planes_has_products_delivered (idUser_products, planes_id_planes,products_id_products_products,entregado_product) VALUES (?,?,?,?)";
+                    $sql_planes_product="INSERT INTO planes_has_products_delivered (idUser_products, planes_id_planes,products_id_products_products,entregado_product,cantidad_producto) VALUES (?,?,?,?,?)";
                     $resultado_planes_product=mysqli_prepare($connection, $sql_planes_product);
-                    mysqli_stmt_bind_param($resultado_planes_product, "iiii", $idgenerado, $id_planes_contrato,$id_product,$entregado);
+                    mysqli_stmt_bind_param($resultado_planes_product, "iiiii", $idgenerado, $id_planes_contrato,$id_product,$entregado,$cantidad_productos);
                     $ok_planes_product=mysqli_stmt_execute($resultado_planes_product);
                     mysqli_stmt_close($resultado_planes_product);
 
@@ -152,11 +156,13 @@ require_once('../connect.php');
 //////////////////////////////////SELECCIONAR FAMILIARES INDIRECTOS/////////////////////////////////////////////
           $sql_familiares_indirecto="SELECT * FROM tmp_familiaredin_contrato WHERE session_id='".$session_id."'";
           $resultado_familiares_indirecto= mysqli_query($connection, $sql_familiares_indirecto);
+          $sumador_familiares_indirecto=0;
           while($row_familiares_indirecto=mysqli_fetch_array($resultado_familiares_indirecto)){
           $parentezco_familiares_indirecto=$row_familiares_indirecto['parentezcoin'];
           $nombre_familiares_indirecto=$row_familiares_indirecto['nombrein'];
           $edad_familiares_indirecto=$row_familiares_indirecto['edadin'];
           $costo_familiares_indirecto=$row_familiares_indirecto['costo_adicional'];
+          $sumador_familiares_indirecto+=$costo_familiares_indirecto;
 //////////////////////////////////SELECCIONAR  FAMILIARES INDIRECTOS CIERRO/////////////////////////////////////
 
 
@@ -176,9 +182,9 @@ require_once('../connect.php');
                     $resultado_total_costo= mysqli_query($connection, $sql_total_costo);
                     $row_costo = mysqli_fetch_assoc($resultado_total_costo);
                     $sum_costo = $row_costo['value_sum'] ;
-                    $sum_costo_total = ($costo_contrato+$sum_costo+$costo_planes_contrato+$sumador_total_servicio) - ( ($descuento_contrato/100) * ($costo_contrato+$sum_costo+$costo_planes_contrato+$sumador_total_servicio));                    
-                    $costo_cuota_sinredondear = $sum_costo_total/$cuotas_contrato;
-                    $costo_cuota= ceil($costo_cuota_sinredondear);
+                    $sum_costo_total = ($costo_contrato+ $sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio) - (($costo_contrato+ $sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio)*($descuento_contrato/100));                    
+                    $costo_cuota_redondear = ceil($sum_costo_total/$cuotas_contrato);
+                    $costo_cuota= $costo_cuota_redondear;
 
                     //SUMO A LA FECHA 30 DIAS
       

@@ -32,18 +32,13 @@ include('header.php');
                         <form id="form_nuevo_plan" name="nuevo_plan" method="POST" enctype="multipart/form-data"  class="col s12" action="" onsubmit="enviarNuevoPlan(); return false">
 
                           <div class="row">                            
-                              <div class="input-field col s12 m4">
+                              <div class="input-field col s12 m6">
                                 <input  name="nombre" id="nombre" type="text" class="validate" required="true">
                                 <label for="nombre">Nombre del Plan</label>
                               </div>
+                             
 
-                              <div class="input-field col s12 m4">
-                                <input onkeypress="return solonumeros(event)" onpaste="false" name="costo" id="costo" type="text" class="validate" required="true">
-                                <label for="costo">Costo del Plan</label>
-                                <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
-                              </div>
-
-                              <div class="input-field col s12 m4">
+                              <div class="input-field col s12 m6">
                                 <input name="descripcion" id="descripcion" type="text" class="validate" required="true">
                                 <label for="descripcion">Descripcion</label>
                               </div>

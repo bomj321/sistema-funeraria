@@ -54,9 +54,9 @@ $tabla.='
        $tabla.=' 	
           <tr>
             <td>'.$fila['nombre'].'</td>
-            <td>'.$fila['descuento_plan'].'</td>
+            <td>'.$fila['descuento_plan'].'%</td>
             <td>'.$fila['descripcion'].'</td>
-            <td>'.$fila['precio_plan'].'</td>
+            <td>'.$fila['precio_plan'].'$</td>
             <td><img style="width: 3rem; height: 3rem;" src="img/'.$fila["image"].'"></td>
             <td>';
                 

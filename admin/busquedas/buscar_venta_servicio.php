@@ -56,7 +56,7 @@ $tabla.='
               <th>Servicios</th>
               <th>Productos</th>  
               <th>Total</th>
-              <th>Acciones</th>
+              <th>Acciones a Realizar</th>
           </tr>
         </thead>
 
@@ -88,7 +88,7 @@ $tabla.='
 
                     while ($fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                  $tabla.='
-                  <li style="font-size: 0.8rem; text-align:center;">'.$fila_servicio['descripcion_servicio'].'</li>';
+                  <li style="font-size: 0.8rem; text-align:center;">'.$fila_servicio['descripcion_servicio'].'('.$fila_servicio['cantidad_servicio'].')</li>';
                 
                    }
                 }
@@ -124,22 +124,20 @@ $tabla.='
     
             <td>'.$sum.'$</td>
 
-            <td><a href="acciones/pdf_servicios.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>
+            <td><a title="Exportar a PDF" href="./acciones/fpdf_servicios.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>            
 
-            <a href="acciones/word_servicios.php?id='.$fila['idUser'].'"><i class="material-icons word">insert_drive_file</i></a>
-
-            <a href="acciones/imprimir_servicios.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
+            <a title="Imprimir en Ticketera" href="acciones/imprimir_servicios.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
 if ($fila['pagado'] ==1) {
   
 
 
       $tabla.=' 
-            <a onclick="nopagar_servicio('.$fila["idUser"].')"><i class="material-icons pagar">local_atm</i></a> ';
+            <a title="Marcar como no pago" onclick="nopagar_servicio('.$fila["idUser"].')"><i class="material-icons pagar">local_atm</i></a> ';
 
 }else{
 
 $tabla.=' 
-            <a onclick="pagar_servicio('.$fila["idUser"].')"><i class="material-icons nopagar">local_atm</i></a> ';
+            <a title="Marcar como pagado" onclick="pagar_servicio('.$fila["idUser"].')"><i class="material-icons nopagar">local_atm</i></a> ';
 
 
 }

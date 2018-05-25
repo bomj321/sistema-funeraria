@@ -43,11 +43,7 @@ include('header.php');
         
                         </form>
                       </div>
-                        <div id="servicio" class="row">
-                             <div class="col s12">
-                                <?php include('servicio_tabla.php');?>
-                              </div>
-                        </div> 
+                         
                 </div>
         </div>
   </div>  

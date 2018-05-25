@@ -245,26 +245,32 @@ include('header.php');
 
                     $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session AND planes_has_services_delivered.planes_id_planes=$planes_id";
                            $resultado_servicios= mysqli_query($connection, $sql_servicios);
-
-                            
+                           if (mysqli_num_rows($resultado_servicios)==0) {                          
                               ?>
+                          <p style="color: red; text-align:center;">NO HAY SERVICIOS AGREGADOS</p>   
 
-                    <table class="responsive-table" >
-                    <thead>
-                      <tr>              
-                          <th>Nombre del Servicio</th>
-                          <th>Costo Unitario</th>
-                          <th >Entregado</th>
-                      </tr>
-                    </thead>
+                   
+                         
+                          
+                          <?php
+                        }else{
+                          ?>
+                           <table class="responsive-table" >
+                            <thead>
+                              <tr>              
+                                  <th>Nombre del Servicio</th>
+                                  <th>Costo Total</th>
+                                  <th >Entregado</th>
+                              </tr>
+                            </thead>
 
-                    <tbody>
-                          <?php 
+                            <tbody>
+                      <?php
                               while ( $fila_servicio =mysqli_fetch_array($resultado_servicios)){
                            ?>
                       <tr>
-                        <td><?php echo $fila_servicio['descripcion_servicio'];?></td>            
-                        <td><?php echo $fila_servicio['costo'];?>$</td>            
+                        <td>(<?php echo $fila_servicio['cantidad_servicio'];?>)<?php echo $fila_servicio['descripcion_servicio'];?></td>            
+                        <td><?php echo $fila_servicio['costo']*$fila_servicio['cantidad_servicio'];?>$</td>            
                         <td >
                           <?php 
                           if ($fila_servicio['entregado']==0) { 
@@ -286,6 +292,7 @@ include('header.php');
                       </tr>
                       <?php 
                           } //CIERRO WHILE INTERNO DE LOS SERVICIOS
+                        }
                        ?>
                     </tbody>
                   </table>
@@ -301,10 +308,12 @@ include('header.php');
 
              $sql_productos = "SELECT * FROM stock INNER JOIN planes_has_products_delivered ON planes_has_products_delivered.products_id_products_products = stock.id && planes_has_products_delivered.idUser_products= $id_user_session AND planes_has_products_delivered.planes_id_planes=$planes_id";
                 $resultado_productos= mysqli_query($connection, $sql_productos);
-
-                  
+                if (mysqli_num_rows($resultado_productos)==0) {                    
                           ?>
-
+                 <p style="color: red; text-align:center;">NO HAY SERVICIOS AGREGADOS</p>                    
+                    <?php
+                        }else{
+                    ?>
                 <table class="responsive-table" >
                 <thead>
                   <tr>
@@ -312,7 +321,7 @@ include('header.php');
                       <th>Nombre del Producto</th>
                       <th></th>
                       <th></th>
-                      <th >Costo Unitario</th>
+                      <th >Costo Total</th>
                       <th >Entregado</th>
                   </tr>
                 </thead>
@@ -323,10 +332,10 @@ include('header.php');
                    ?>
                   <tr> 
 
-                    <td><?php echo $fila_producto['objeto'];?></td>
+                    <td>(<?php echo $fila_producto['cantidad_producto'];?>)<?php echo $fila_producto['objeto'];?></td>
                     <td></td>
                     <td></td>            
-                    <td ><?php echo $fila_producto['precio'];?>$</td>            
+                    <td ><?php echo $fila_producto['precio']*$fila_producto['cantidad_producto'];?>$</td>            
                     <td >
                       <?php 
                       if ($fila_producto['entregado_product']==0) { 
@@ -348,6 +357,7 @@ include('header.php');
                   </tr>
                     <?php 
                       } // CIERRO WHILE INTERNO DE LOS PRODUCTOS
+                    }
                      ?>
                 </tbody>
               </table>
@@ -383,7 +393,7 @@ include('header.php');
             <tr>
                 
               <th>Nombre del Servicio</th>
-              <th>Costo Unitario</th>
+              <th>Costo Total</th>
               <th colspan="2" >Entregado</th>
             </tr>
           </thead>
@@ -434,7 +444,7 @@ include('header.php');
           <thead>
             <tr>
               <th>Monto del Pago</th>
-              <th>fecha</th>
+              <th>Fecha</th>
               <th colspan="2" >Pagado</th>
             </tr>
           </thead>
