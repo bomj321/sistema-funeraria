@@ -3,8 +3,8 @@ session_start();
 $session_id= session_id();
 require_once('../connect.php');
 
-				        $usu= $_POST['nombre_contrato'];
-				        $estado_civil= $_POST['civil_contrato'];
+				$usu= $_POST['nombre_contrato'];
+				$estado_civil= $_POST['civil_contrato'];
                 $edad= $_POST['edad_contrato'];
                 $numero= $_POST['numero_usuario'];
                 $dni= $_POST['dni_contrato'];   
@@ -15,16 +15,15 @@ require_once('../connect.php');
           $sql_costo_descuento="SELECT * FROM tmp_costo_descuento_contratp WHERE session_id='".$session_id."'";
           $resultado_costo_descuento= mysqli_query($connection, $sql_costo_descuento);
           $row_costo_descuento=mysqli_fetch_array($resultado_costo_descuento);
-          $costo_contrato=$row_costo_descuento['costo_contrato'];
           $descuento_contrato=$row_costo_descuento['descuento_contrato'];
           $cuotas_contrato=$row_costo_descuento['cuotas'];
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS CIERRO////////////////////////////
                 
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO User (activo,name,edad,estado_civil,cuotas,total,numero,email,dni,descuento) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO User (activo,name,edad,estado_civil,cuotas,numero,email,dni,descuento) VALUES (?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
-           	mysqli_stmt_bind_param($resultado_user, "isisiissii",$activo,$usu,$edad,$estado_civil,$cuotas_contrato,$costo_contrato,$numero,$email,$dni,$descuento_contrato );
+           	mysqli_stmt_bind_param($resultado_user, "isssisssi",$activo,$usu,$edad,$estado_civil,$cuotas_contrato,$numero,$email,$dni,$descuento_contrato );
             $ok=mysqli_stmt_execute($resultado_user);
             $idgenerado =mysqli_insert_id($connection);
             mysqli_stmt_close($resultado_user);
@@ -182,23 +181,24 @@ require_once('../connect.php');
                     $resultado_total_costo= mysqli_query($connection, $sql_total_costo);
                     $row_costo = mysqli_fetch_assoc($resultado_total_costo);
                     $sum_costo = $row_costo['value_sum'] ;
-                    $sum_costo_total = ($costo_contrato+ $sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio) - (($costo_contrato+ $sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio)*($descuento_contrato/100));                    
+                    $sum_costo_total = ($sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio) - (($sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio)*($descuento_contrato/100));                    
                     $costo_cuota_redondear = ceil($sum_costo_total/$cuotas_contrato);
                     $costo_cuota= $costo_cuota_redondear;
 
                     //SUMO A LA FECHA 30 DIAS
       
  
-////////////////////////////////////////////////INSERT PAGO////////////////////////////////////////////////////////        
+////////////////////////////////////////////////INSERT PAGO////////////////////////////////////////////////////////
+      $numero_cuota = 0;
       $hoy = date('d-m-Y');
       for($i=1;$i<=$cuotas_contrato; $i++){
         $pagado = 0;
         
-       
+       $numero_cuota++;
        $mas_1D = date("d-m-Y",strtotime($hoy."+ 30 days"));  
-            $sql_pagos="INSERT INTO Pagos (User_id, pago,fecha,pagado) VALUES (?,?,?,?)";
+            $sql_pagos="INSERT INTO Pagos (User_id, pago,fecha,pagado,numero_cuota) VALUES (?,?,?,?,?)";
                     $resultado_pagos=mysqli_prepare($connection, $sql_pagos);
-                    mysqli_stmt_bind_param($resultado_pagos, "iisi", $idgenerado, $costo_cuota,$mas_1D,$pagado);
+                    mysqli_stmt_bind_param($resultado_pagos, "iisii", $idgenerado, $costo_cuota,$mas_1D,$pagado,$numero_cuota);
                     $ok_pagos=mysqli_stmt_execute($resultado_pagos);
                     mysqli_stmt_close($resultado_pagos);
 
@@ -209,13 +209,7 @@ require_once('../connect.php');
                 if (!$ok_pagos) {
                    echo "ERROR" .'</br>';
                   
-                 }else{
-                   echo $descuento_contrato .'</br>';
-                   echo $idgenerado .'</br>';
-                   echo $costo_cuota .'</br>';
-                   echo $mas_1D .'</br>';
-                   echo $cuotas_contrato .'</br>';
-                 } 
+                 }
                 }
 ////////////////////////////////////////////////INSERT PAGO////////////////////////////////////////////////////////        
 

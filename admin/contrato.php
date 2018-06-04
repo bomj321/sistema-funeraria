@@ -26,7 +26,7 @@ include('header.php');
                    
 
                     
-                      <div class="row">
+                      <div class="row" id="spin_ajax">
                         <h4>Registro de Usuario/Contratos</h4>
                         <form method="POST" enctype="multipart/form-data" id="venta_contrato_ventas" action="" onsubmit="ventaDeContratos(); return false" class="col s12">
                           <div class="row">
@@ -43,9 +43,8 @@ include('header.php');
                             </div>
 
                             <div class="input-field col s12 m4">
-                              <input name="edad_contrato" onkeypress="return solonumeros2(event)" id="edad" type="text" class="validate" required="true">
-                              <label for="edad">Edad</label>
-                              <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
+                              <input name="edad_contrato" onkeypress="return solonumeros2(event)" id="edad" type="date" class="validate" required="true">
+                              <label for="edad">Edad</label>                              
                             </div>
                           </div>
                           

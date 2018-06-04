@@ -66,10 +66,10 @@ $tabla.='
 
            
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT total,descuento FROM User WHERE idUser=$contratoid ";
+                    $sql_contrato = "SELECT descuento FROM User WHERE idUser=$contratoid ";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
-                    $sum_total = $row_contrato['total'];
+                    $sum_total = 0;
                     $sum_descuento = $row_contrato['descuento'];
 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////

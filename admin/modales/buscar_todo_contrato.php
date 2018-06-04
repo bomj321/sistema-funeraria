@@ -3,20 +3,12 @@
       <h4>Agregar Costo y Descuento</h4>
       <table class="responsive-table">
         <thead>
-              <th>Costo base del Contrato</th>           
               <th>Descuento</th>
               <th>Cuotas</th>                            
               <th colspan="2" class="text-right">Agregar</th>
         </thead>
         <tbody>          
-          <tr>           
-
-            <td>
-              <div>
-           <input  type="text" class="form-control " id="costo_contrato">
-             </div>
-           </td>
-
+          <tr>
             <td>
               <div>
            <input  type="text" class="form-control "  id="descuento_contrato">
@@ -56,52 +48,21 @@
              <?php
               }else{
               ?>
-        <h4>Agregar Planes</h4>
-      <table class="responsive-table">
-        <thead>
-           <th>Id</th>
-              <th>Plan</th>
-              <th>Costo</th>              
-              <th colspan="2" class="text-right" >Agregar</th>
-        </thead>
-        <tbody>
-          <?php
-            while($fila_planes=mysqli_fetch_array($resultado_planes))              
-                      {
-                        $id_planes=$fila_planes['id_planes']; 
-           ?>
-          <tr>
-            
-            <td>
-            <input disabled type="text" class="form-control sinborde text-left"  id="id_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['id_planes'];?>">
-             </td>
-
-             <td>
-            <input disabled type="text" class="form-control sinborde text-left"  id="nombre_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['nombre'];?>">
-             </td>            
-
-            
-             <td>
-              <div>
-           <input disabled type="text" class="form-control sinborde text-left"  id="precio_venta_planes<?php echo $id_planes; ?>" value="<?php echo $fila_planes['precio_plan'];?>">
-             </div>
-           </td>
-
-            <td class="text-right">
-            <a class='btn btn-info green' type="button" onclick="agregar_contrato_planes('<?php echo $id_planes?>')">
-             <i class="material-icons ">add_circle</i>
-            </a>
-          </td>            
-          </tr>
-            <?php
-                  }
-                                  }
-             ?>
-
-
-
-        </tbody>        
-      </table>
+           
+            <h4>Agregar Planes</h4>
+          <div class="input-field col s12 m12" onkeyup="load_planes(1)">
+            <input name="planes_contrato" id="planes_contrato" type="text" >
+            <label for="planes_contrato">Buscar Planes</label>
+          </div>
+    <div id="id_contenido_contrato">        
+          <!--RESULTADO AJAX-->
+   
+    </div>        
+            <?php 
+              }              
+          ?> 
+           
+       
 
         <?php 
           $sql_servicio = "SELECT * FROM Servicios WHERE servicio_activo=1 ";
@@ -117,52 +78,16 @@
               ?>
 
       <h4>Agregar Servicios Adicionales</h4>
-      <table class="responsive-table">
-        <thead>
-           <th>Id</th>
-              <th>Servicio</th>
-              <th>Cantidad</th>
-              <th>Costo Unitario</th>              
-              <th colspan="2" >Agregar</th>
-        </thead>
-        <tbody>          <?php 
-          
-          
-            while($fila=mysqli_fetch_array($resultado_servicio))              
-                      {
-                        $id_servicio=$fila['id_servicios']; 
-                        $serviciosestado =$fila['servicio_activo'];
-           ?>
-          <tr>
-            
-            <td><?php echo $fila['id_servicios'];?></td>
-
-            <td><div>
-           <input disabled type="text" class="form-control sinborde text-left" id="nombre_servicio_contrato<?php echo $id_servicio; ?>"  value="<?php echo $fila['descripcion_servicio'];?>">
-             </div></td>
-
-            <td><div>
-           <input  type="text" class="form-control sinborde text-left" id="cantidad_servicio_contrato<?php echo $id_servicio; ?>"  value="1">
-             </div></td>
-
-             <td><div>
-           <input disabled type="text" class="form-control sinborde text-left"  id="precio_servicio_venta_contrato<?php echo $id_servicio; ?>" value="<?php echo $fila['costo'];?>">
-             </div></td>
-
-
-            <td><a class='btn btn-info green' type="button" onclick="agregar_contrato_servicio('<?php echo $id_servicio ?>')">
-        <i class="material-icons ">add_circle</i>
-            </a></td>            
-          </tr>
-            <?php
-                  }
-                }
-             ?>
-
-
-
-        </tbody>        
-      </table>
+    <div class="input-field col s12 m12" onkeyup="load_servicio_contrato(1)">
+            <input name="servicios_contrato" id="servicios_contrato" type="text" >
+            <label for="servicios_contrato">Buscar Servicios</label>
+      </div>
+  <div id="id_contenido_contrato_servicios">     
+          <!--RESULTADO AJAX-->
+</div>        
+    <?php
+         }
+      ?>    
 
       <h4>Agregar Familiares Directos</h4>
       <table class="responsive-table">
@@ -183,13 +108,13 @@
 
             <td>
               <div>
-           <input  type="text" class="form-control" id="familiaresdi_nombre_contrato"  >
+           <input  type="text" class="form-control" id="familiaresdi_nombre_contrato">
              </div>
            </td>
 
              <td>
               <div>
-           <input  type="text" class="form-control"  id="familiaresdi_edad_contrato" ">
+           <input  type="text" class="form-control"  id="familiaresdi_edad_contrato">
              </div>
            </td>
 
@@ -232,7 +157,7 @@
 
              <td>
               <div>
-           <input  type="text" class="form-control"  id="familiaresin_edad_contrato" ">
+           <input  type="text" class="form-control"  id="familiaresin_edad_contrato">
              </div>
            </td>
 

@@ -11,5 +11,4 @@ include('connect.php');
         $ok=mysqli_stmt_execute($resultado);        
                 
        
-        include('servicio_tabla.php');
 ?>

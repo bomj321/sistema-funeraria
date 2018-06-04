@@ -1,0 +1,2 @@
+- Autocompletado_producto---eliminarlo de la carpeta ajax y usarlo despues
+

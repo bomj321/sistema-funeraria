@@ -1224,16 +1224,9 @@ function eliminar_producto (id)
 
 function agregar_costo_descuento()
     {
-      var costo_contrato=document.getElementById('costo_contrato').value;
       var descuento_contrato=document.getElementById('descuento_contrato').value;
       var cuotas_contrato=document.getElementById('cuotas_contrato').value;
-      //Inicia validacion
-      if (isNaN(costo_contrato) || costo_contrato==="" )
-      {
-      alert('Agregue un costo base de Contrato');
-      document.getElementById('costo_contrato').focus();
-      return false;
-      }
+      //Inicia validacion      
       if (isNaN(descuento_contrato) || descuento_contrato==="")
       {
       alert('Agregue un descuento');
@@ -1252,7 +1245,7 @@ function agregar_costo_descuento()
       $.ajax({
         type: "POST",
         url: "./ajax/agregar_facturacion_contrato.php",
-        data: "costo_contrato="+costo_contrato+"&descuento_contrato="+descuento_contrato+"&cuotas_contrato="+cuotas_contrato,     
+        data:"descuento_contrato="+descuento_contrato+"&cuotas_contrato="+cuotas_contrato,     
         success: function(datos){
     $("#resultados_contrato").html(datos);
     }
@@ -1651,5 +1644,146 @@ function eliminar_producto_planes (id)
     }
 
 //////////////////////////////////////////////////////////////////////////////////ELIMINAR PRODUCTOS PLANES CIERRO
+
+/**************************************SECCION AJAX MODAL PRODUCTOS **************************************************/
+$(document).ready(function(){
+    load(1);
+});
+
+function load(){
+			var producto= $("#producto").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_productos_ajax.php',
+                data: 'producto='+producto,
+		 beforeSend: function(objeto){
+			$("#contenido_producto").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#contenido_producto").html(data);
+					
+					
+				}
+			})
+		}
+
+
+
+/**************************************************SECCION AJAX MODAL PRODUCTOS FINAL**************************************************/
+
+/**************************************SECCION AJAX MODAL SERVICIOS**************************************************/
+$(document).ready(function(){
+    load_servicio(1);
+});
+function load_servicio(){
+			var servicio= $("#servicio").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_servicios_ajax.php',
+                data: 'servicio='+servicio,
+		 beforeSend: function(objeto){
+			$("#contenido_servicio").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#contenido_servicio").html(data);
+					
+					
+				}
+			})
+		}
+
+/***********************************************SECCION AJAX MODAL SERVICIOS FINAL**************************************************/
+
+
+
+/**************************************SECCION AJAX MODAL PLANES CONTRATO**************************************************/
+$(document).ready(function(){
+    load_planes(1);
+});
+function load_planes(){
+			var planes= $("#planes_contrato").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_planes_ajax_contrato.php',
+                data: 'planes='+planes,
+		 beforeSend: function(objeto){
+			$("#id_contenido_contrato").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_contrato").html(data);
+					
+					
+				}
+			})
+		}
+
+/*************************************SECCION AJAX MODAL PLANES CONTRATO FINAL*********************************************/
+
+/***********************************SECCION AJAX MODAL SERVICIOS CONTRATO**************************************************/
+$(document).ready(function(){
+    load_servicio_contrato(1);
+});
+function load_servicio_contrato(){
+			var servicios= $("#servicios_contrato").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_servicios_ajax_contrato.php',
+                data: 'servicios='+servicios,
+		 beforeSend: function(objeto){
+			$("#id_contenido_contrato_servicios").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_contrato_servicios").html(data);
+					
+					
+				}
+			})
+		}
+
+/***********************************SECCION AJAX MODAL SERVICIOS CONTRATO FINAL*********************************************/
+
+/***********************************SECCION AJAX MODAL SERVICIOS PLANES**************************************************/
+$(document).ready(function(){
+    load_servicio_planes(1);
+});
+function load_servicio_planes(){
+			var servicios= $("#planes_servicios").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_servicios_ajax_planes.php',
+                data: 'servicios='+servicios,
+		 beforeSend: function(objeto){
+			$("#id_contenido_servicio_plan").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_servicio_plan").html(data);
+					
+					
+				}
+			})
+		}
+
+/***********************************SECCION AJAX MODAL SERVICIOS PLANES FINAL*********************************************/
+
+/***********************************SECCION AJAX MODAL PRODUCTOS PLANES**************************************************/
+$(document).ready(function(){
+    load_productos_planes(1);
+});
+function load_productos_planes(){
+			var productos= $("#planes_productos").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_productos_ajax_planes.php',
+                data: 'productos='+productos,
+		 beforeSend: function(objeto){
+			$("#id_contenido_productos_plan").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_productos_plan").html(data);
+					
+					
+				}
+			})
+		}
+
+/***********************************SECCION AJAX MODAL PRODUCTOS PLANES FINAL*********************************************/
+
+
+
+
 ////AJAX DE LA PAGINA
 

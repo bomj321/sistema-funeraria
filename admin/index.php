@@ -1,4 +1,5 @@
 <?php
+$resultado2='Administracion > Sistema Interno';
 include('header.php');
 ?>
 <main>

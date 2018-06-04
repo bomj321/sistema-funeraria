@@ -26,7 +26,7 @@ include('fpdf_plantilla_contrato.php');
                     $sql_contrato = "SELECT * FROM User WHERE idUser=$usuarioid ";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
-                    $sum_total = $row_contrato['total'];
+                    $sum_total = 0;
                     $sum_descuento = $row_contrato['descuento'];
 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////

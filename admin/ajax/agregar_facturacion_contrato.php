@@ -2,10 +2,9 @@
 session_start();
 require_once('../connect.php');
 $session_id= session_id();
-
+$costo_contrato=0;
 ////////////////////////////////VERIFICAR VARIABLES COSTO Y DESCUENTO////////////////////////////////////////////
-if (isset($_POST['costo_contrato']) AND isset($_POST['descuento_contrato']) AND isset($_POST['cuotas_contrato'])) {
-	   $costo_contrato=$_POST['costo_contrato'];
+if (isset($_POST['descuento_contrato']) AND isset($_POST['cuotas_contrato'])) {	  
 	   $descuento_contrato=$_POST['descuento_contrato'];	  
 	   $cuotas_contrato=$_POST['cuotas_contrato'];
 	   $total_descuento = $costo_contrato-($costo_contrato*($descuento_contrato/100)); 
@@ -14,11 +13,11 @@ if (isset($_POST['costo_contrato']) AND isset($_POST['descuento_contrato']) AND 
 
 //////////////Insertar COSTO Y DESCUENTO
 
-if (isset($costo_contrato) AND isset($descuento_contrato) AND isset($total_descuento) AND isset($cuotas_contrato)) {
+if (isset($descuento_contrato) AND isset($cuotas_contrato)) {
 	   mysqli_set_charset($connection, "utf8");
-            $sql_tmp_costo="INSERT INTO  tmp_costo_descuento_contratp(costo_contrato,descuento_contrato,cuotas,session_id) VALUES (?,?,?,?)";
+            $sql_tmp_costo="INSERT INTO  tmp_costo_descuento_contratp(descuento_contrato,cuotas,session_id) VALUES (?,?,?)";
             $resultado_tmp_costo=mysqli_prepare($connection, $sql_tmp_costo);
-            mysqli_stmt_bind_param($resultado_tmp_costo, "iiis", $costo_contrato,$descuento_contrato,$cuotas_contrato,$session_id);
+            mysqli_stmt_bind_param($resultado_tmp_costo, "iis", $descuento_contrato,$cuotas_contrato,$session_id);
             mysqli_stmt_execute($resultado_tmp_costo);
             mysqli_stmt_close($resultado_tmp_costo);
 }
@@ -333,24 +332,10 @@ if ($filasdi>0 || $filasin>0) {
 
 
             $descuento_contrato=0;
-            $costo_contrato=0;
-            while($row_total=mysqli_fetch_array($resultado_costo_descuento)){
-            $id_tmp_costo=$row_total['id_tmp_costo'];
-            $costo_contrato=$row_total['costo_contrato'];
-            $cuotas =$row_total['cuotas'];
-            $descuento_contrato=$row_total['descuento_contrato'];            
+            $costo_contrato=0;                    
 		?> 		
- 		 	    <tr>
- 		 	   		<td class="text-right"></td>
- 		 	    	<td class="text-right"></td> 				
-					<td class="text-right" >Costo Base del Contrato</td>
-					<td class='text-right'><?php echo $costo_contrato;?>$</td>
-					<td class="text-left"><a onclick="eliminar_costo_descuento('<?php echo $id_tmp_costo ?>')"><i class="material-icons pdf">cancel</i></a></td>
-		 		</tr>
-				<?php 
-				}
-				 ?>
-
+ 		 	    
+				
 			<?php
 				$sumador_total_planes=0; 
 				while($row_planes = mysqli_fetch_array($resultado_planes_resultado)){
@@ -405,11 +390,23 @@ if ($filasdi>0 || $filasin>0) {
 					<td class="text-right" colspan="3">Total sin descuento</td>
 					<td class='text-right'><?php echo ($costo_contrato+$sumador_total_planes+$sumador_total_servicio+$costo_familiarin);?>$</td>
 	 			</tr>
-
+		<?php
+		while($row_total=mysqli_fetch_array($resultado_costo_descuento)){
+            $id_tmp_costo=$row_total['id_tmp_costo'];            
+            $cuotas =$row_total['cuotas'];
+            $descuento_contrato=$row_total['descuento_contrato'];  
+		?>
 	 			<tr> 				
 					<td class="text-right" colspan="3">Descuento</td>
-					<td class='text-right'><?php echo $descuento_contrato;?>%</td>
+					<td class='text-right'><?php echo $descuento_contrato;?>%
+					<a onclick="eliminar_costo_descuento('<?php echo $id_tmp_costo ?>')"><i class="material-icons pdf">cancel</i></a>
+					</td>					
 	 			</tr>
+	 			
+	 	<?php
+		
+		}
+		?>		
 
 	 			<tr> 				
 					<td class="text-right" colspan="3">Total con Descuento</td>

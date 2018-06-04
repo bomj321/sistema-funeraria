@@ -1,23 +1,13 @@
 <?php
+$resultado3="Administracion > control contratos > Detalles del Contrato";
 include('header.php');
   $usuarioid= $connection->real_escape_string($_GET['id']);
   $_SESSION["usuarioid"]=$usuarioid;
   $id_user_session=$_SESSION["usuarioid"];
  //--------------------if--------------------
-
-
-
-
-
-
-
-
-
-
-
  ?>
 
-  <div class="container" ">
+  <div class="container">
     <div class="row">
       <!--MODALES-->
               <div class="col s12 m12">
@@ -37,10 +27,10 @@ include('header.php');
 /////////////////CONSULTA PARA LOS DATOS DEL USUARIO CIERRO
 
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT total,descuento FROM User WHERE idUser=$id_user_session ";
+                    $sql_contrato = "SELECT descuento FROM User WHERE idUser=$id_user_session ";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
-                    $sum_total = $row_contrato['total'];
+                    $sum_total = 0;
                     $sum_descuento = $row_contrato['descuento'];
 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
@@ -78,11 +68,16 @@ include('header.php');
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];
                     $sum = ceil(($sum_total + $sum_total_familiares+$sum_total_planes+$sumador_total_servicios)- (($sum_total_planes+$sum_total + $sum_total_familiares+$sumador_total_servicios) * ($sum_descuento/100)));
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-
+$generar_hoy= date('Y-m-d H:i:s');
+$hoy = new DateTime($generar_hoy);        
+$nacimiento= $fila['edad'];         
+$nacimiento= new DateTime($nacimiento);          
+$interval = date_diff($nacimiento, $hoy);        
          ?>
          <a href="control_contratos.php"><button class="btn waves-effect waves-light">Volver Atras</button></a>
+        
       <p>Nombre del Usuario: <?php echo $fila['name']; ?></p>
-      <p>Edad del Usuario: <?php echo $fila['edad']; ?></p>
+      <p>Edad del Usuario: <?php echo $interval->format('%y años'); ?></p>
       <p>Estado Civil del Usuario: <?php echo $fila['estado_civil']; ?></p>
       <p>DNI del Usuario: <?php echo $fila['dni']; ?></p>
       <p>Numero Telefonico del Usuario: <?php echo $fila['numero']; ?></p>
@@ -477,6 +472,15 @@ include('header.php');
                <?php 
                 }
                 ?>
+                
+              <?php 
+              if ($fila_pago['pagado']==1) { 
+               ?>
+                <a title="Imprimir en Ticketera" href="acciones/fpdf_plantilla_cuotas.php?id_cuota=<?php echo $fila_pago['id_pagos'];?>&id_user=<?php echo $id_user_session;?>">
+                <i class="material-icons desactivar">assignment_returned</i></a>
+              <?php 
+                 }
+               ?>     
             </td>
             </tr>
              <?php

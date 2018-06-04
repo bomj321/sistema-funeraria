@@ -1,4 +1,5 @@
 <?php
+$resultado_servicio="Administracion > control servicios > Editar servicio";
 include('header.php');
 include('connect.php');
 $id=$_GET['id_servicio'];

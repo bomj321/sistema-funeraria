@@ -1,4 +1,5 @@
 <?php
+$resultado_stock="Administracion > control stock > Editar stock";
 include('header.php');
 include('connect.php');
 $id=$_GET['id'];

@@ -23,7 +23,7 @@ if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
             <tr>
               <th>Monto del Pago</th>
               <th>fecha</th>
-              <th colspan="2" >Pagado</th>
+              <th>Pagado</th>
             </tr>
           </thead>
 
@@ -54,7 +54,18 @@ if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
                <?php 
                 }
                 ?>
+                <?php 
+              if ($fila_pago['pagado']==1) { 
+               ?>
+                <a title="Imprimir en Ticketera" href="./acciones/fpdf_plantilla_cuotas.php?id_cuota=<?php echo $fila_pago['id_pagos'];?>&id_user=<?php echo $id_user_session;?>">
+                <i class="material-icons desactivar">assignment_returned</i></a>
+                
+
+              <?php 
+                 }
+               ?>   
             </td>
+            
             </tr>
              <?php
             }

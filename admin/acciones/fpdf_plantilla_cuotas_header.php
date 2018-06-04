@@ -4,7 +4,7 @@
 	class PDF extends FPDF
 	{
 
-	protected $javascript;
+	/*protected $javascript;
 	protected $n_js;
 
 	function IncludeJS($script, $isUTF8=false) {
@@ -40,7 +40,7 @@
 		if (!empty($this->javascript)) {
 			$this->_put('/Names <</JavaScript '.($this->n_js).' 0 R>>');
 		}
-	}
+	}*/
 	
 		function Header()
 		{

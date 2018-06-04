@@ -73,12 +73,13 @@ if ($fila_producto_consulta>0) {
 		
 	$pdf->Cell(10,6,$row['cantidad_comprada'],0,0,'C');
 	$pdf->Cell(20,6,utf8_decode($row['objeto']),0,0,'C');
-	$pdf->Cell(10,6,$row['cantidad_comprada']*$row['precio_total'].'$',0,1,'C');
+	$pdf->Cell(10,6,'RD$'.$row['cantidad_comprada']*$row['precio_total'].',00',0,1,'C');
 	}
-	$pdf->SetFont('Arial','B',8);
-	$pdf->SetX(25);
+	$pdf->SetFont('Arial','B',5);
+	$pdf->SetX(21);
 	$pdf->Cell(15,6,'Subtotal',0,0,'C',0);
-	$pdf->Cell(10,6,$sum_producto.'$',0,1,'C',1);
+    $pdf->SetX(40);
+	$pdf->Cell(10,6,'RD$'.$sum_producto.',00',0,1,'C',0);
 	
 }else{
 	
@@ -102,12 +103,13 @@ while($row = $resultado_servicios->fetch_assoc())
 	
 $pdf->Cell(10,6,$row['cantidad_servicio'],0,0,'C');
 $pdf->Cell(20,6,utf8_decode($row['descripcion_servicio']),0,0,'C');
-$pdf->Cell(10,6,$row['cantidad_servicio']*$row['precio_total'].'$',0,1,'C');
+$pdf->Cell(10,6,'RD$'.$row['cantidad_servicio']*$row['precio_total'].',00',0,1,'C');
 }
-$pdf->SetFont('Arial','B',8);
-$pdf->SetX(25);
+$pdf->SetFont('Arial','B',5);
+$pdf->SetX(21);
 $pdf->Cell(15,6,'Subtotal',0,0,'C',0);
-$pdf->Cell(10,6,$sum_servicio.'$',0,1,'C',1);
+$pdf->SetX(40); 
+$pdf->Cell(10,6,'RD$'.$sum_servicio.',00',0,1,'C',0);
 }else{
 
 }
@@ -116,8 +118,10 @@ $pdf->Ln(5);
 if (!$fila_servicio_consulta AND !$fila_producto_consulta) {
 	$pdf->Cell(40,10, 'No hay Nada para Vender',0,1,'C');
 }else{
+$pdf->SetX(15); 
 $pdf->Cell(30,6,'Total de la Factura',0,0,'C',0);
-$pdf->Cell(10,6,$sum.'$',0,1,'C',1);
+$pdf->SetX(40);
+$pdf->Cell(10,6,'RD$'.$sum.',00',0,1,'C',0);
 }
 $pdf->Ln(5);
 $pdf->Cell(40,10, 'Gracias por su Compra!!!',0,1,'C');

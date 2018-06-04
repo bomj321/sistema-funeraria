@@ -1,5 +1,5 @@
 /*ESTILOS DE MATERIALIZE.css (Ver la pagina)*/
-  body {
+  body{
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -43,6 +43,20 @@ main ul li{
 	margin-bottom: 2rem;
 }
 
+#logo{
+	height: 4.25rem !important;
+	width: 100%;
+}
+#url{
+	color: black;
+	font-size: 1.5rem;
+}
+.noexiste{
+	color: #dd2c00;	
+}
+.ingresealgo{
+	color: #2e7d32 !important;
+}
 /*ESTILOS PARA LOS DIFERENTES COMPONENTES*/
 
 
