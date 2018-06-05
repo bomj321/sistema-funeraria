@@ -2,6 +2,7 @@
 $resultado_stock="Administracion > control stock > Editar stock";
 include('header.php');
 include('connect.php');
+mysqli_set_charset($connection, "utf8");
 $id=$_GET['id'];
 $sql = "SELECT * FROM stock WHERE id='$id'";
 $resultado= mysqli_query($connection, $sql); 
@@ -29,7 +30,7 @@ $fila=mysqli_fetch_array($resultado);
                             <div class="col s12">
                                 <h4>Actualizacion del Almacenaje</h4>
                             </div>
-                          <form name="nuevo_servicio" class="col s12" action="" onsubmit="actualizarDatosStock(); return false" style="margin-bottom: 3rem;">
+                          <form id="actualizar_stock_action" name="nuevo_servicio" class="col s12" action="" onsubmit="actualizarDatosStock(); return false" style="margin-bottom: 3rem;">
 
                             <div class="row">
                             <input name="id" id="id" type="hidden" class="validate" required="true" value="<?php echo $fila['id']; ?>">
@@ -55,7 +56,19 @@ $fila=mysqli_fetch_array($resultado);
                                 <input name="comentario" id="comentario" type="text" class="validate" required="true" value="<?php echo $fila['comentario']; ?>">
                                 <label for="comentario">Comentario</label>
                               </div>
-                            </div>                     
+                            </div> 
+                            
+                            <div class="row">
+                                     <div class="file-field input-field col s12 m6">
+                                         <div class="btn">
+                                        <span>File</span>
+                                        <input id="file" type="file" name="image">
+                                      </div>
+                                        <div class="file-path-wrapper">
+                                          <input class="file-path validate" type="text">
+                                        </div>
+                                      </div>
+                                </div>                                         
    
                              <button class="btn waves-effect waves-light" type="submit" name="action">Actualizar-Stock
                                 <i class="material-icons right">send</i>

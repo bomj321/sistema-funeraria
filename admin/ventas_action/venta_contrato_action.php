@@ -2,30 +2,41 @@
 session_start();
 $session_id= session_id();
 require_once('../connect.php');
-
-				$usu= $_POST['nombre_contrato'];
-				$estado_civil= $_POST['civil_contrato'];
+                $dni= $_POST['dni_contrato'];
+                $estado_civil= $_POST['civil_contrato'];
                 $edad= $_POST['edad_contrato'];
-                $numero= $_POST['numero_usuario'];
-                $dni= $_POST['dni_contrato'];   
+				$usu= $_POST['nombre_contrato'];
+                $numero= $_POST['numero_contrato'];                   
                 $email= $_POST['email_contrato'];
+                $direccion_contrato= $_POST['direccion_contrato'];
+				$familiar_contrato= $_POST['familiar_contrato'];
+				$telefono_familiar_contrato= $_POST['telefono_familiar_contrato'];
+				$email= $_POST['email_contrato'];
                 $activo = 0;               
-                
+                $idUser=$_POST['id_cliente_contrato'];
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS///////////////////////////////////
           $sql_costo_descuento="SELECT * FROM tmp_costo_descuento_contratp WHERE session_id='".$session_id."'";
           $resultado_costo_descuento= mysqli_query($connection, $sql_costo_descuento);
           $row_costo_descuento=mysqli_fetch_array($resultado_costo_descuento);
           $descuento_contrato=$row_costo_descuento['descuento_contrato'];
           $cuotas_contrato=$row_costo_descuento['cuotas'];
+
+          if(empty($descuento_contrato)){
+           $descuento_contrato=0;
+          }
+
+    if(empty($cuotas_contrato)){
+               $cuotas_contrato=0;
+              }
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS CIERRO////////////////////////////
                 
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO User (activo,name,edad,estado_civil,cuotas,numero,email,dni,descuento) VALUES (?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO User ( 	idUser,activo,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
-           	mysqli_stmt_bind_param($resultado_user, "isssisssi",$activo,$usu,$edad,$estado_civil,$cuotas_contrato,$numero,$email,$dni,$descuento_contrato );
+           	mysqli_stmt_bind_param($resultado_user, "iisssssssssii",$idUser,$activo,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion_contrato,$familiar_contrato,$telefono_familiar_contrato,$cuotas_contrato,$descuento_contrato );
             $ok=mysqli_stmt_execute($resultado_user);
-            $idgenerado =mysqli_insert_id($connection);
+            $idgenerado =$idUser;
             mysqli_stmt_close($resultado_user);
              if (!$ok) {
                echo "
@@ -181,7 +192,9 @@ require_once('../connect.php');
                     $resultado_total_costo= mysqli_query($connection, $sql_total_costo);
                     $row_costo = mysqli_fetch_assoc($resultado_total_costo);
                     $sum_costo = $row_costo['value_sum'] ;
-                    $sum_costo_total = ($sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio) - (($sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio)*($descuento_contrato/100));                    
+                    $sum_costo_total = ($sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio) - (($sumador_familiares_indirecto+$sumador_total_planes+$sumador_total_servicio)*($descuento_contrato/100));          if(empty($cuotas_contrato)){
+                     $cuotas_contrato=1;
+                    }          
                     $costo_cuota_redondear = ceil($sum_costo_total/$cuotas_contrato);
                     $costo_cuota= $costo_cuota_redondear;
 

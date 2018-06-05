@@ -16,14 +16,12 @@ include('header.php');
                                 include('advertencias.php');
                             ?>
                           <div class="divider"></div>
-                        </div>
-                          
-
+                        </div>                          
                           <div class="row">
                                 <div class="row">
                                    <h4>Registro de Almacenaje</h4>
                                 </div>
-                                    <form name="nuevo_servicio" class="col s12" action="" onsubmit="enviarDatosStock(); return false" style="margin-bottom: 3rem;"> 
+                                    <form id="nuevo_producto" name="nuevo_servicio" class="col s12" action="" onsubmit="enviarDatosStock(); return false" enctype="multipart/form-data" method="POST" style="margin-bottom: 3rem;"> 
                                     <div class="row">
                                     <div class="input-field col s12 m3">
                                       <input name="objeto" id="objeto" type="text" class="validate" required="true">
@@ -48,7 +46,19 @@ include('header.php');
                                     </div>
 
                                     
-                                  </div>                                  
+                                  </div> 
+                                    
+                                  <div class="row">
+                                     <div class="file-field input-field col s12 m6">
+                                         <div class="btn">
+                                        <span>File</span>
+                                        <input id="file" type="file" name="image">
+                                      </div>
+                                        <div class="file-path-wrapper">
+                                          <input class="file-path validate" type="text">
+                                        </div>
+                                      </div>
+                                </div>                                                                    
 
                                     
                                    <button class="btn waves-effect waves-light  green darken-3" type="submit" name="action">Registrar-Stock

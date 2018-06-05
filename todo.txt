@@ -1,2 +1,11 @@
-- Autocompletado_producto---eliminarlo de la carpeta ajax y usarlo despues
++ Autocompletado_producto---eliminarlo de la carpeta ajax y modales y usarlo despues{{"_file":"/opt/lampp/htdocs/sistema-funeraria/admin/ajax/autocompletado_producto.php"}}
++ Agregar Maestro de Clientes
+- Arreglar Front-end
+- Eliminar planes, productos o servicios enlazados a un contrato. Mensaje de Alerta.
++ imagen producto app.js linea 361
+
+# Edicion de Contratos- LISTA
++ Arreglar formulario linea 915 app.js
++ Mejorar AJAX
+- Editar Contratos-Final
 

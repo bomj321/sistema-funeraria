@@ -101,7 +101,7 @@ $tabla.='
            $tabla.='        
             </td>            
             <td>
-            <a onclick="eliminar_plan('.$fila["id_planes"].')"><i class="material-icons desactivar">delete</i></a>';
+            <a title="Eliminar Plan" onclick="eliminar_plan('.$fila["id_planes"].')"><i class="material-icons desactivar">delete</i></a>';
 
 
 

@@ -1,6 +1,6 @@
 <?php 
 require_once('../connect.php');
-
+mysqli_set_charset($connection,'utf8');  
  //--------------------if--------------------
 
        
@@ -30,6 +30,7 @@ $tabla.='
               <th>Cantidad</th>
               <th>Precio</th>
               <th>Comentario</th>
+              <th>Imagen</th>
               <th colspan="2" >Acciones</th>
           </tr>
         </thead>
@@ -44,7 +45,8 @@ $tabla.='
             <td>'.$fila['cantidad'].'</td>
             <td>'.$fila['precio'].'$</td>
             <td>'.$fila['comentario'].'</td>
-            <td><a href="editar_stock.php?id='.$fila["id"].'"><i class="material-icons">border_color</i></a></td></tr>';
+            <td><img style="width: 3rem; height: 3rem;" src="img/'.$fila["image"].'"></td>
+            <td><a title="Editar Producto" href="editar_stock.php?id='.$fila["id"].'"><i class="material-icons">border_color</i></a></td></tr>';
             
                   }
             

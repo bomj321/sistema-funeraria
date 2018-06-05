@@ -18,10 +18,13 @@ include('header.php');
                      
                         <div class="divider pink"></div>
 
-                  <div class="row" style="margin-top: 50px;">                                   
+                  <div class="row" style="margin-top: 50px;">
+                        <div class="row">
+                              <h4>Busqueda de los planes</h4>
+                            </div>                                          
                                 <div class=" input-field col s12 m12">                              
                                    <input name="buscar_planes_input" id="buscar_planes_input" type="text" class="validate" required="">
-                                   <label for="buscar_planes_input">Ingrese nombre,DNI o Numero de Contrato</label>
+                                   <label for="buscar_planes_input">Ingrese nombre del Plan</label>
                                </div>
                     </div>
 

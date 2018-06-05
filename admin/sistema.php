@@ -1,4 +1,5 @@
 <?php
+$resultado_stock="Administracion > Sistema Interno";
 include('header.php');
 ?>
 

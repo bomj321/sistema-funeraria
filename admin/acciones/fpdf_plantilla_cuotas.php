@@ -48,7 +48,7 @@ $pdf->AddPage();
   $pdf->SetFillColor(232,232,232);
   $pdf->SetFont('Arial','B',8);
   $pdf->Cell(13,6,'Cliente:',0,0,'C',0);
-  $pdf->Cell(16,6,utf8_decode($row_user['name']),0,1,'C',0);
+  $pdf->Cell(16,6,utf8_decode($row_user['nombre']),0,1,'C',0);
   $row_cuota=$resultado_cuota->fetch_assoc();
   $pdf->Cell(22,6,'Cuota numero:',0,0,'C',0);
   $pdf->Cell(1,6,utf8_decode($row_cuota['numero_cuota']),0,0,'C',0);

@@ -61,17 +61,17 @@ $tabla.='
             <td>'.$fila['id_servicios'].'</td>
             <td>'.$fila['descripcion_servicio'].'</td>
             <td>'.$fila['costo'].'</td>            
-            <td><a href="editar_servicio.php?id_servicio='.$fila["id_servicios"].'"><i class="material-icons">border_color</i></a>';
+            <td><a title="Editar Servicio" href="editar_servicio.php?id_servicio='.$fila["id_servicios"].'"><i class="material-icons">border_color</i></a>';
             if($serviciosestado =='1'){
             $tabla.='
 
-            <a onclick="desactivar_servicio('.$fila["id_servicios"].')"><i class="material-icons desactivar">do_not_disturb_alt</i></a>';
+            <a title="Desactivar Servicio" onclick="desactivar_servicio('.$fila["id_servicios"].')"><i class="material-icons desactivar">do_not_disturb_alt</i></a>';
 
             
         }else{
 
         $tabla.='
-            <a onclick="activar_servicio('.$fila["id_servicios"].')"><i class="material-icons activar">check</i></a>';
+            <a title="Activar Servicio" onclick="activar_servicio('.$fila["id_servicios"].')"><i class="material-icons activar">check</i></a>';
 
         }
 

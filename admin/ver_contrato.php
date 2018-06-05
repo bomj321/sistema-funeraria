@@ -70,18 +70,21 @@ include('header.php');
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
 $generar_hoy= date('Y-m-d H:i:s');
 $hoy = new DateTime($generar_hoy);        
-$nacimiento= $fila['edad'];         
+$nacimiento= $fila['nacimiento'];         
 $nacimiento= new DateTime($nacimiento);          
-$interval = date_diff($nacimiento, $hoy);        
+$interval = date_diff($nacimiento, $hoy);   
          ?>
          <a href="control_contratos.php"><button class="btn waves-effect waves-light">Volver Atras</button></a>
         
-      <p>Nombre del Usuario: <?php echo $fila['name']; ?></p>
+      <p>Nombre del Usuario: <?php echo $fila['nombre']; ?></p>
       <p>Edad del Usuario: <?php echo $interval->format('%y años'); ?></p>
-      <p>Estado Civil del Usuario: <?php echo $fila['estado_civil']; ?></p>
+      <p>Estado Civil del Usuario: <?php echo $fila['estado']; ?></p>
       <p>DNI del Usuario: <?php echo $fila['dni']; ?></p>
       <p>Numero Telefonico del Usuario: <?php echo $fila['numero']; ?></p>
-      <p>Email del Usuario: <?php echo $fila['email']; ?></p>
+      <p>Email del Usuario: <?php echo $fila['email'];?></p>
+      <p>Direccion del Cliente: <?php echo $fila['direccion'];?></p>
+      <p>Familiar de Contacto: <?php echo $fila['nombre_familiar'];?></p>
+      <p>Numero de Familiar de Contacto: <?php echo $fila['numero_familiar'];?></p>
       <p>Descuento por Contrato: <?php echo $fila['descuento'];?>%</p>
       <p>Total a Pagar: <?php echo $sum;?>$</p>      
        </div>

@@ -358,45 +358,59 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 }
  
 //Función para recoger los datos del formulario y enviarlos por post  
-function enviarDatosStock(){
- 
-  //div donde se mostrará lo resultados
-  //recogemos los valores de los inputs
-  obj=document.nuevo_servicio.objeto.value;
-  can=document.nuevo_servicio.cantidad.value;
-  pre=document.nuevo_servicio.precio.value;
-  com=document.nuevo_servicio.comentario.value;
-  
-  //instanciamos el objetoAjax
-  ajax=objetoAjax();
- 
-  //uso del metodo POST
-  //archivo que realizará la operacion
-  //registro.php
-  ajax.open("POST", "stock_action.php",true);
-  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
-  ajax.onreadystatechange=function() {
-	  //la función responseText tiene todos los datos pedidos al servidor
-  	if (ajax.readyState==4) {
-  		//llamar a funcion para limpiar los inputs
-		LimpiarCampos1();    
-		toastr.success('Item Registrado!!!'); //mensaje
-	}else if(ajax.readyState==0){
-		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
-	}
- }
-	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	//enviando los valores a registro.php para que inserte los datos
-	ajax.send("objeto="+obj+"&cantidad="+can+"&comentario="+com+"&precio="+pre)
-}
-//función para limpiar los campos
-function LimpiarCampos1(){
-  document.nuevo_servicio.objeto.value="";
-  document.nuevo_servicio.cantidad.value="";
-  document.nuevo_servicio.precio.value="";
-  document.nuevo_servicio.comentario.value=""; 
+function enviarDatosStock(){  
+var parametros = new FormData($("#nuevo_producto")[0]);
+      $.ajax({
+          data: parametros,
+          url:"./acciones/stock_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Registrando item espere...');
+          },
+          success: function(data){
+          toastr.options.progressBar = false;
+           setTimeout(function () {
+            toastr.success('Item Registrado!!!');
+          }, 1000);
+           //LimpiarVentaDeServicios();
+          setTimeout(function () {
+              location.reload();
+          }, 2000);
+          },error: function(data) {
+              toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
+            }
+      });
+
 }
 
+function actualizarDatosStock(){  
+var parametros = new FormData($("#actualizar_stock_action")[0]);
+      $.ajax({
+          data: parametros,
+          url:"./acciones/update_stock_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Actualizando item espere...');
+          },
+          success: function(data){
+          toastr.options.progressBar = false;
+           setTimeout(function () {
+            toastr.success('Item Actualizado!!!');
+          }, 1000);
+           //LimpiarVentaDeServicios();
+            window.location.href = './control_stock.php';         
+          },error: function(data) {
+              toastr.error('Actualizacion Erronea, contacta con el administrador!!!'); //mensaje
+            }
+      });
+
+}
 
 
 //////////////////////AJAX ACTUALIZAR STOCK 
@@ -404,45 +418,6 @@ function LimpiarCampos1(){
 
 // Función para recoger los datos de PHP según el navegador, se usa siempre.
 
- 
-//Función para recoger los datos del formulario y enviarlos por post  
-function actualizarDatosStock(){
- 
-  //div donde se mostrará lo resultados
-  //recogemos los valores de los inputs
-  id=document.nuevo_servicio.id.value;
-  obj=document.nuevo_servicio.objeto.value;
-  can=document.nuevo_servicio.cantidad.value;
-  pre=document.nuevo_servicio.precio.value;
-  com=document.nuevo_servicio.comentario.value;
-  //instanciamos el objetoAjax
-  ajax=objetoAjax();
- 
-  //uso del metodo POST
-  //archivo que realizará la operacion
-  //registro.php
-  ajax.open("POST", "update_stock_action.php",true);
-  //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
-  ajax.onreadystatechange=function() {
-	  //la función responseText tiene todos los datos pedidos al servidor
-  	if (ajax.readyState==4) {
-  		//mostrar resultados en esta capa
-		//divResultado.innerHTML = ajax.responseText
-  		//llamar a funcion para limpiar los inputs
-		
-		toastr.success('Stock Actualizado'); //mensaje
-		setTimeout(function () {
-   		window.location.href = "control_stock.php"; //will redirect to your blog page (an ex: blog.html)
-		}, 1500); //will call the function after 2 secs.
-	}else if(ajax.readyState==0){
-		toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
-	}
- }
-	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	//enviando los valores a registro.php para que inserte los datos
-	ajax.send("id="+id+"&objeto="+obj+"&cantidad="+can+"&comentario="+com+"&precio="+pre)
-}
- 
 
 ////////////////////////////////////////AJAX REGISTRO SERVICIO 
 
@@ -854,7 +829,7 @@ function activar_servicio (id)
 
 //////////////////////////////////////////////////////////////////////////////////ACTIVAR SERVICIO CIERRO
 
-////////////////////////////////////////////////////////////////BUSCAR SERVICIOS
+////////////////////////////////////////////////////////////////BUSCAR PLANES
 $(obtener_plan());
 
 function obtener_plan(plan)
@@ -886,7 +861,7 @@ $(document).on('keyup', '#buscar_planes_input', function()
 
 
 
-/////////////////////////////////////////////////////////////////BUSCAR SERVICIOS CIERRO
+/////////////////////////////////////////////////////////////////BUSCAR PLANES CIERRO
 
 //////////////////////////////////////////////////////////////////////////////////ELIMINAR PLAN
 function eliminar_plan (id)
@@ -912,7 +887,17 @@ function eliminar_plan (id)
 
 
 /////////////////////////////////////////////////////////////////SUBIR CONTRATO
-function ventaDeContratos(){ 
+function ventaDeContratos(){  
+     
+    var civil_contrato=document.getElementById('civil_contrato').value;     
+      //Inicia validacion 
+      if (civil_contrato==="")
+      {
+      alert('Hay campos Vacios');
+      return false;
+      }
+  
+  //Fin validacion
   var parametros = new FormData($("#venta_contrato_ventas")[0]);
       $.ajax({
           data: parametros,
@@ -920,6 +905,7 @@ function ventaDeContratos(){
           type:"POST",
           contentType:false,
           processData:false,
+        
           beforesend: function(){
             toastr.options.progressBar = true;
             toastr.warning('Registrando contrato Espere...');
@@ -928,12 +914,13 @@ function ventaDeContratos(){
             toastr.options.progressBar = false;
             setTimeout(function () {
             toastr.success('Contrato Registrado!!!');
-          }, 1000);         
-            //LimpiarVentaDeServicios();
- setTimeout(function () {
-              location.reload();
+          }, 0000);         
+            LimpiarVentaDeServicios();
+             setTimeout(function () {
+            window.location.href = './contrato.php';
           }, 2000);
-
+            
+ 
                         
           }
       });
@@ -1782,7 +1769,159 @@ function load_productos_planes(){
 
 /***********************************SECCION AJAX MODAL PRODUCTOS PLANES FINAL*********************************************/
 
+///////////////////////////////////////////////////////SECCION DE CLIENTES//////////////////////////////////////////////////////////
 
+/****************************************************REGISTRO DE CLIENTES**************************************************/
+
+function registroclientes(){ 
+  var parametros = new FormData($("#registro_clientes_sistema")[0]);
+      $.ajax({
+          data: parametros,
+          url:"./ventas_action/registrar_cliente_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Registrando cliente Espere...');
+          },
+          success: function(data){            
+            toastr.options.progressBar = false;
+            setTimeout(function () {
+            toastr.success('Cliente Registrado!!!');
+          }, 1000);         
+            //LimpiarVentaDeServicios();
+ setTimeout(function () {
+              location.reload();
+          }, 2000);
+
+                        
+          }
+      });
+}
+
+function LimpiarVentaDeServicios(){
+      $("#venta_contrato_ventas")[0].reset();
+}
+
+/****************************************************REGISTRO DE CLIENTES CIERRO**************************************************/
+$(document).ready(function() {
+ 
+		$('#dni_contrato').autocomplete({
+			source: "./ajax/autocompletado_contrato.php",
+			minLength: 1,
+			select: function(event,ui){
+				event.preventDefault();
+                       $('#id_cliente_contrato').val(ui.item.id_cliente_contrato);          
+                       $('#nombre_contrato').val(ui.item.nombre_contrato);
+				       $('#civil_contrato').val(ui.item.civil_contrato);
+				       $('#edad_contrato').val(ui.item.edad_contrato);				       
+				       $('#numero_contrato').val(ui.item.numero_contrato);
+                       $('#dni_contrato').val(ui.item.dni_contrato);
+                       $('#email_contrato').val(ui.item.email_contrato);
+                       $('#direccion_contrato').val(ui.item.direccion_contrato);
+                       $('#familiar_contrato').val(ui.item.familiar_contrato);
+                       $('#telefono_familiar_contrato').val(ui.item.telefono_familiar_contrato);
+					}
+			         
+    
+		});
+ 
+	});
+
+$("#dni_contrato" ).on( "keydown", function( event ) {
+						if (event.keyCode== $.ui.keyCode.LEFT || event.keyCode== $.ui.keyCode.RIGHT || event.keyCode== $.ui.keyCode.UP || event.keyCode== $.ui.keyCode.DOWN || event.keyCode== $.ui.keyCode.DELETE || event.keyCode== $.ui.keyCode.BACKSPACE )
+						{
+                             $('#id_cliente_contrato').val(""); 
+                             $('#civil_contrato').val("");
+                             $('#edad_contrato').val("");
+                             $('#nombre_contrato').val("");
+                             $('#numero_contrato').val("");
+                             $('#edad_contrato').val("");
+                             $('#email_contrato').val("");
+                             $('#direccion_contrato').val("");
+                             $('#familiar_contrato').val("");
+                             $('#telefono_familiar_contrato').val("");
+											
+						}
+						if (event.keyCode==$.ui.keyCode.DELETE){
+                             $('#id_cliente_contrato').val(""); 
+							 $('#civil_contrato').val("");
+                             $('#dni_contrato').val("");
+                             $('#edad_contrato').val("");
+                             $('#nombre_contrato').val("");
+                             $('#numero_contrato').val("");
+                             $('#edad_contrato').val("");
+                             $('#email_contrato').val("");
+                             $('#direccion_contrato').val("");
+                             $('#familiar_contrato').val("");
+                             $('#telefono_familiar_contrato').val("");
+						}
+			});	
+/***********************************************SECCION DE AUTOCOMPLETADO*******************************************************/
+
+
+/***********************************************SECCION DE AUTOCOMPLETADO CIERRO*******************************************************/
+
+////////////////////////////////////////////////////////////////BUSCAR CLIENTES
+$(obtener_cliente());
+
+function obtener_cliente(cliente)
+{
+  $.ajax({
+    url : './busquedas/buscar_clientes.php',
+    type : 'POST',
+    dataType : 'html',
+    data : { cliente: cliente },
+    })
+
+  .done(function(resultado){
+    $("#clientes_venta").html(resultado);
+  })
+}
+
+$(document).on('keyup', '#buscar_clientes_input', function()
+{
+  var valorBusqueda=$(this).val();
+  if (valorBusqueda!="")
+  {
+    obtener_cliente(valorBusqueda);
+  }
+  else
+    {
+      obtener_cliente();
+    }
+});
+
+
+
+/////////////////////////////////////////////////////////////////BUSCAR CLIENTES CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR CLIENTE
+function eliminar_cliente (id)
+    {
+      
+       if (!confirm("ALERTA: Se eliminaran todos los contratos que tenga este cliente, ¿Estas Seguro?")) 
+       { return false; }
+      
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_clientes.php",
+        data: "id_eliminar="+id,
+     
+        success: function(datos){
+    $("#clientes_venta").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR CLIENTE CIERRO
+
+
+
+///////////////////////////////////////////////////////SECCION DE CLIENTES CIERRO//////////////////////////////////////////////////////////
 
 
 ////AJAX DE LA PAGINA

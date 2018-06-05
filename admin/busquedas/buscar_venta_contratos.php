@@ -61,7 +61,7 @@ $tabla.='
        $tabla.=' 	
           <tr>
             <td>'.$fila['idUser'].'</td>
-            <td>'.$fila['name'].'</td>            
+            <td>'.$fila['nombre'].'</td>            
             <td>'.$fila['dni'].'</td>';
 
            

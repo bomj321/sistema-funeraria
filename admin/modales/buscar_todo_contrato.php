@@ -89,7 +89,7 @@
          }
       ?>    
 
-      <h4>Agregar Familiares Directos</h4>
+      <h4>Agregar Familiares Dependientes</h4>
       <table class="responsive-table">
         <thead>
               <th class="text-center">Nombre</th>
@@ -130,7 +130,7 @@
         </tbody>         
       </table>
 
-      <h4>Agregar Familiares Indirectos</h4>
+      <h4>Agregar Familiares Independientes</h4>
       <table class="responsive-table">
         <thead>
               <th class="text-center">Nombre</th>
