@@ -26,7 +26,7 @@ $fila=mysqli_fetch_array($resultado);
 
                       <div class="row">
                         <h4>Actualizacion del Almacenaje</h4>
-                        <form name="editar_servicio" class="col s12" action="" onsubmit="actualizarDatosServicio(); return false" style="margin-bottom: 3rem;">
+                        <form name="editar_servicio" class="col s12" action=" " onsubmit="actualizarDatosServicio(); return false" style="margin-bottom: 3rem;">
 
                           <div class="row">
                           <input name="id_servicio" id="id_servicio" type="hidden" class="validate" required="true" value="<?php echo $fila['id_servicios']; ?>">

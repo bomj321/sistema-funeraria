@@ -1,8 +1,11 @@
 <?php
 $resultado3="Administracion > control contratos > Detalles del Contrato";
 include('header.php');
+  $unicoid= $connection->real_escape_string($_GET['idunico']);
   $usuarioid= $connection->real_escape_string($_GET['id']);
+  $_SESSION["unicoid"]=$unicoid;
   $_SESSION["usuarioid"]=$usuarioid;
+  $id_user_unico=$_SESSION["unicoid"];
   $id_user_session=$_SESSION["usuarioid"];
  //--------------------if--------------------
  ?>
@@ -20,14 +23,14 @@ include('header.php');
           <h4 style="text-align: center;">Datos del Usuario</h4>
 <!--CONSULTA PARA LOS DATOS DEL USUARIO-->
       <?php 
-          $sql = "SELECT * FROM User WHERE idUser = '$id_user_session'";
+          $sql = "SELECT * FROM User WHERE idUser = '$id_user_session' AND idUser_user='$id_user_unico'";
             $resultado= mysqli_query($connection, $sql); 
             $fila =mysqli_fetch_array($resultado);
 
 /////////////////CONSULTA PARA LOS DATOS DEL USUARIO CIERRO
 
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT descuento FROM User WHERE idUser=$id_user_session ";
+                    $sql_contrato = "SELECT descuento FROM User WHERE idUser=$id_user_session AND idUser_user=$id_user_unico";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
                     $sum_total = 0;
@@ -37,7 +40,7 @@ include('header.php');
 
                 /////////////////////////////////////////COST PLANES//////////////////////////////////
 
-                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$id_user_session";
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$id_user_session AND id_user_plan=$id_user_unico";
                     $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
                     $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
                     $sum_total_planes = $row_contrato_planes['value_planes'];
@@ -46,7 +49,7 @@ include('header.php');
                 
                 /////////////////////////////////////////COST PLANES CIERRO//////////////////////////////////
 
-                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$id_user_session";
+                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$id_user_session AND id_user_servicio=$id_user_unico";
                     $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
                     $sumador_total_servicios=0;
                     while ($row_contrato_servicio = mysqli_fetch_array($resultado_total_servicio)) {
@@ -62,7 +65,7 @@ include('header.php');
                 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
 
-                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $id_user_session";
+                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $id_user_session AND id_User_family_indepen=$id_user_unico";
                     $resultado_total_contrato= mysqli_query($connection, $sql_total_contrato);
                     $row_contrato_familiares = mysqli_fetch_assoc($resultado_total_contrato);
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];
@@ -96,7 +99,7 @@ $interval = date_diff($nacimiento, $hoy);
           <h4 style="text-align: center;">FAMILIARES DEPENDIENTES</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $id_user_session";
+          $sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $id_user_session AND id_User_family=$id_user_unico";
             $resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
             if (mysqli_num_rows($resultado_familiaresde)==0) {
 ?>
@@ -145,7 +148,7 @@ $interval = date_diff($nacimiento, $hoy);
           <h4 style="text-align: center;">FAMILIARES INDEPENDIENTES</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_familiaresin = "SELECT * FROM User_family_independent WHERE User_idUser = $id_user_session";
+          $sql_familiaresin = "SELECT * FROM User_family_independent WHERE User_idUser=$id_user_session AND id_User_family_indepen=$id_user_unico";
             $resultado_familiaresin= mysqli_query($connection, $sql_familiaresin);
             if (mysqli_num_rows($resultado_familiaresin)==0) {
 ?>
@@ -199,7 +202,7 @@ $interval = date_diff($nacimiento, $hoy);
 <!--CONSULTA PARA LOS PLANES-->
 
         <?php 
-            $sql_planes = "SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $id_user_session ";
+            $sql_planes = "SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $id_user_session AND User_has_planes.id_user_plan=$id_user_unico";
               $resultado_planes= mysqli_query($connection, $sql_planes);
 
               if (mysqli_num_rows($resultado_planes)==0) {
@@ -214,7 +217,7 @@ $interval = date_diff($nacimiento, $hoy);
                   ?>    
 <div style="border: 1px solid" >   
     <div class="row" >
-                  <table class="responsive-table" >
+                  <table class="responsive-table tablaeditar" >
                   <thead>
                     <tr>
                         <th>Id del plan</th>
@@ -241,7 +244,9 @@ $interval = date_diff($nacimiento, $hoy);
                     $_SESSION["planesid"]=$planes_id;
                     $planesid_planes=$_SESSION["planesid"];
 
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session AND planes_has_services_delivered.planes_id_planes=$planes_id";
+                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session 
+                    AND planes_has_services_delivered.id_user_delivered=$id_user_unico 
+                    AND planes_has_services_delivered.planes_id_planes=$planes_id";
                            $resultado_servicios= mysqli_query($connection, $sql_servicios);
                            if (mysqli_num_rows($resultado_servicios)==0) {                          
                               ?>
@@ -253,12 +258,12 @@ $interval = date_diff($nacimiento, $hoy);
                           <?php
                         }else{
                           ?>
-                           <table class="responsive-table" >
+                           <table class="responsive-table tablaeditar" >
                             <thead>
                               <tr>              
                                   <th>Nombre del Servicio</th>
                                   <th>Costo Total</th>
-                                  <th >Entregado</th>
+                                  <th>Entregado</th>
                               </tr>
                             </thead>
 
@@ -273,7 +278,7 @@ $interval = date_diff($nacimiento, $hoy);
                           <?php 
                           if ($fila_servicio['entregado']==0) { 
                            ?>
-                            <a onclick="entregarservicioplan(<?php echo $fila_servicio['id_servicios_delivered'];?>)"><i class="material-icons noentregado">thumb_down</i></a>
+                            <a onclick="entregarservicioplan(<?php echo $fila_servicio['id_actualizar_servicio'];?>)"><i class="material-icons noentregado">thumb_down</i></a>
 
                           <?php 
                              }else{ 
@@ -285,7 +290,7 @@ $interval = date_diff($nacimiento, $hoy);
                             }
                             ?>
                         </td>
-                        <input type="hidden" value="<?php echo $planesid_planes?>" id="servicio_plan<?php echo $fila_servicio['id_servicios_delivered'];?>">          
+                        <input type="hidden" value="<?php echo $planesid_planes?>" id="servicio_plan<?php echo $fila_servicio['id_actualizar_servicio'];?>">          
 
                       </tr>
                       <?php 
@@ -304,15 +309,17 @@ $interval = date_diff($nacimiento, $hoy);
         <?php
                         
 
-             $sql_productos = "SELECT * FROM stock INNER JOIN planes_has_products_delivered ON planes_has_products_delivered.products_id_products_products = stock.id && planes_has_products_delivered.idUser_products= $id_user_session AND planes_has_products_delivered.planes_id_planes=$planes_id";
+             $sql_productos = "SELECT * FROM stock INNER JOIN planes_has_products_delivered ON planes_has_products_delivered.products_id_products_products = stock.id && planes_has_products_delivered.idUser_products= $id_user_session 
+             AND planes_has_products_delivered.id_user_delivered=$id_user_unico
+             AND planes_has_products_delivered.planes_id_planes=$planes_id";
                 $resultado_productos= mysqli_query($connection, $sql_productos);
                 if (mysqli_num_rows($resultado_productos)==0) {                    
                           ?>
-                 <p style="color: red; text-align:center;">NO HAY SERVICIOS AGREGADOS</p>                    
+                 <p style="color: red; text-align:center;">NO HAY PRODUCTOS AGREGADOS</p>                    
                     <?php
                         }else{
                     ?>
-                <table class="responsive-table" >
+                <table class="responsive-table tablaeditar" >
                 <thead>
                   <tr>
                       
@@ -339,7 +346,7 @@ $interval = date_diff($nacimiento, $hoy);
                       if ($fila_producto['entregado_product']==0) { 
                        ?>
 
-                        <a onclick="entregarproductoplan(<?php echo $fila_producto['id_producto'];?>)"><i class="material-icons noentregado ">thumb_down</i></a>
+                        <a onclick="entregarproductoplan(<?php echo $fila_producto['id_actualizar_producto'];?>)"><i class="material-icons noentregado ">thumb_down</i></a>
 
                       <?php 
                          }else{ 
@@ -351,7 +358,7 @@ $interval = date_diff($nacimiento, $hoy);
                         }
                         ?>
                     </td>
-                    <input type="hidden" value="<?php echo $planesid_planes?>" id="producto_plan<?php echo $fila_producto['id_producto'];?>">                    
+                    <input type="hidden" value="<?php echo $planesid_planes?>" id="producto_plan<?php echo $fila_producto['id_actualizar_producto'];?>">                    
                   </tr>
                     <?php 
                       } // CIERRO WHILE INTERNO DE LOS PRODUCTOS
@@ -376,7 +383,7 @@ $interval = date_diff($nacimiento, $hoy);
           <h4 style="text-align: center;">SERVICIOS ADICIONALES</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_user_session ";
+          $sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_user_session AND User_has_Servicios_Adicionales.id_user_servicio=$id_user_unico";
             $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adicionales);
             if (mysqli_num_rows($resultado_servicios_adicionales)==0) {
 ?>
@@ -408,7 +415,7 @@ $interval = date_diff($nacimiento, $hoy);
               if ($fila_servicios_adicionales['entregado']==0) { 
                ?>
 
-                <a onclick="entregarserviciosadicionales(<?php echo $fila_servicios_adicionales['id_servicios_adicionales'];?>)"><i class="material-icons noentregado">thumb_down</i></a>
+                <a onclick="entregarserviciosadicionales(<?php echo $fila_servicios_adicionales['id_actualizar'];?>)"><i class="material-icons noentregado">thumb_down</i></a>
 
               <?php 
                  }else{ 
@@ -450,7 +457,7 @@ $interval = date_diff($nacimiento, $hoy);
 
           <tbody>
              <?php 
-          $sql_pagos = "SELECT * FROM Pagos WHERE User_id= $id_user_session ";
+          $sql_pagos = "SELECT * FROM Pagos WHERE User_id= $id_user_session AND id_pagos_user=$id_user_unico";
             $resultado_pagos= mysqli_query($connection, $sql_pagos);
 
                while ($fila_pago =mysqli_fetch_array($resultado_pagos)){
@@ -504,7 +511,7 @@ $interval = date_diff($nacimiento, $hoy);
           </div>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_comentario = "SELECT * FROM comentario_contrato WHERE id_user = $id_user_session";
+          $sql_comentario = "SELECT * FROM comentario_contrato WHERE id_user = $id_user_session AND id_user_user=$id_user_unico";
             $resultado_comentario= mysqli_query($connection, $sql_comentario);
             if (mysqli_num_rows($resultado_comentario)==0) {
 ?>

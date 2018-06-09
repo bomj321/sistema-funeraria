@@ -64,8 +64,20 @@ main ul li{
 
 
 
+/*ESTILOS DE LAS TABLAS*/
+@media screen and (min-width: 990px) {
+   .tablaeditar th {
+    max-width: 50px;
+}
+
+	.tablaeditar td {
+    max-width: 50px;
+}
+    
+}
 
 
+/*ESTILOS DE LAS TABLAS CIERRO*/
 
 
 /*ESTILOS A LOS DIFERENTES FORMULARIOS DE LA PAGINA (USAR ID)*/

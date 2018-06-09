@@ -1,0 +1,131 @@
+<?php
+$resultado_servicio="Administracion > control contratos > Editar Contrato";
+include('header.php');
+include('connect.php');
+$id=$_GET['id'];
+$idunico=$_GET['idunico'];
+$id_limpio= mysqli_escape_string($connection,$id);
+$idunico_limpio= mysqli_escape_string($connection,$idunico);
+
+
+$_SESSION["unicoid_contrato"]=$idunico_limpio;
+$_SESSION["usuarioid_contrato"]=$id_limpio;
+$id_unico_contrato_editar=$_SESSION["unicoid_contrato"];
+$id_normal_contrato_editar=$_SESSION["usuarioid_contrato"];
+
+
+
+$sql = "SELECT * FROM User WHERE idUser=$id_limpio AND idUser_user=$idunico_limpio";
+$resultado= mysqli_query($connection, $sql); 
+$fila=mysqli_fetch_array($resultado);
+?>
+  <main>
+    <div class="row">
+     <!--MODALES-->
+              <div class="col s12 m12">
+                <?php 
+                  include("modales/buscar_todo_contrato.php");                  
+                 ?> 
+              </div>
+              <!--MODALES-->
+      <div class="col s3">
+                            <?php
+                              include('aside.php');
+                            ?>
+      </div>
+<!--$fechaBD= date_format($edad, 'Y-m-d H:i:s');-->
+      <div class="col s9">
+            <div class="row">
+              <?php 
+                                    include('advertencias.php');
+                                ?>
+              <div class="divider"></div>
+            </div>
+
+            <div class="row">
+              <h4>Edicion del Contrato(No se puede editar los pagos ni las cuotas)</h4>
+
+                  <form name="editar_servicio" class="col s12" action=" " onsubmit="actualizarDatosServicio(); return false" style="margin-bottom: 3rem;">
+
+                    <div class="row">
+                        <input name="id_servicio" id="id_servicio" type="hidden" class="validate" required="true" value="<?php echo $fila['idUser']; ?>">
+
+                        <div class="input-field col s12 m4">
+                          <input name="editar_nombre" id="editar_nombre" type="text" class="validate" required="true" value="<?php echo $fila['nombre'];?>">
+                          <label for="editar_nombre">Nombre del Cliente</label>
+                        </div>
+
+                        <div class="input-field col s12  m4">
+                          <input  onpaste="false" name="editar_nacimiento" id="editar_nacimiento" type="text" class="validate" required="true" value="<?php echo date('d-m-Y',strtotime($fila["nacimiento"]))?>">
+                          <label for="editar_nacimiento">Fecha de Nacimiento </label>
+                        </div>
+                        
+                        <div class="input-field col s12  m4">
+                          <input  onpaste="false" name="editar_dni" id="editar_dni" type="text" class="validate" required="true" value="<?php echo $fila['dni'];?>">
+                          <label for="editar_dni">Dni del Cliente</label>
+                        </div>
+                    </div>
+                     
+                     
+                     <div class="row">                        
+
+                        <div class="input-field col s12  m4">
+                          <input name="editar_numero" id="editar_numero" type="text" class="validate" required="true" value="<?php echo $fila['numero'];?>">
+                          <label for="editar_numero">Numero del Cliente</label>
+                        </div>
+
+                        <div class="input-field col s12  m4">
+                          <input  onpaste="false" name="editar_email" id="editar_email" type="text" class="validate" required="true" value="<?php echo $fila['email'];?>">
+                          <label for="editar_email">Email del Cliente</label>
+                        </div>
+                        
+                        <div class="input-field col s12  m4">
+                          <input  onpaste="false" name="editar_direccion" id="editar_direccion" type="text" class="validate" required="true" value="<?php echo $fila['direccion'];?>">
+                          <label for="editar_direccion">Direccion del Cliente</label>
+                        </div>
+                    </div>
+                     
+                     
+                     <div class="row">
+                        <div class="input-field col s12  m6">
+                          <input name="nombre_familiar_editar" id="nombre_familiar_editar" type="text" class="validate" required="true" value="<?php echo $fila['nombre_familiar'];?>">
+                          <label for="nombre_familiar_editar">Nombre del Familiar</label>
+                        </div>
+
+                        <div class="input-field col s12  m6">
+                          <input  onpaste="false" name="numero_familiar_editar" id="numero_familiar_editar" type="text" class="validate" required="true" value="<?php echo $fila['numero_familiar'];?>">
+                          <label for="numero_familiar_editar">Numero del Familiar</label>
+                        </div>
+                    </div>
+                    
+<!--AJAX EDITAR CONTRATO-->                         
+                          
+
+                          <div class="row">
+                              <div class="col s12 m4 ">
+                                <a class="waves-effect waves-light btn modal-trigger" href="#modal_contrato_editar"><i class="material-icons right">add_circle</i>Editar Contrato</a>
+                              </div>
+
+                              
+                          </div>                         
+
+                          <div class="row" id="resultados_editar_contrato">
+
+                          </div>
+
+
+                          
+<!--AJAX EDITAR CONTRATO-->
+                     
+                      <button class="btn waves-effect waves-light" type="submit" name="action">Actualizar-Contrato
+                                <i class="material-icons right">send</i>
+                        </button>
+                  </form>
+                  
+              </div>
+      </div>
+      </div>
+</main>
+  <?php
+include('footer.php');
+?>

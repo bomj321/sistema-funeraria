@@ -1,5 +1,6 @@
 <?php
 require_once('../connect.php');
+$unicoid= $connection->real_escape_string($_GET['idunico']);
 $usuarioid = $connection->real_escape_string($_GET['id']);
 include('fpdf_plantilla_contrato.php');
 
@@ -21,9 +22,8 @@ include('fpdf_plantilla_contrato.php');
         $this->IncludeJS($script);
     }
 }*/
-
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT * FROM User WHERE idUser=$usuarioid ";
+                    $sql_contrato = "SELECT * FROM User WHERE idUser = $usuarioid AND idUser_user=$unicoid";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
                     $sum_total = 0;
@@ -33,7 +33,7 @@ include('fpdf_plantilla_contrato.php');
 
                 /////////////////////////////////////////COST PLANES//////////////////////////////////
 
-                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$usuarioid";
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$usuarioid AND id_user_plan=$unicoid";
                     $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
                     $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
                     $sum_total_planes = $row_contrato_planes['value_planes'];
@@ -42,7 +42,7 @@ include('fpdf_plantilla_contrato.php');
                 
                 /////////////////////////////////////////SERVICIOS ADICIONALES//////////////////////////////////
 
-                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$usuarioid";
+                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$usuarioid AND id_user_servicio=$unicoid";
                     $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
                     $sumador_total_servicios=0;
                     while ($row_contrato_servicio = mysqli_fetch_array($resultado_total_servicio)) {
@@ -58,14 +58,19 @@ include('fpdf_plantilla_contrato.php');
                 
                 /////////////////////////////////////////FAMILIARES INDEPENDIENTE//////////////////////////////////
 
-                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $usuarioid";
+                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $usuarioid AND id_User_family_indepen=$unicoid";
                     $resultado_total_contrato= mysqli_query($connection, $sql_total_contrato);
                     $row_contrato_familiares = mysqli_fetch_assoc($resultado_total_contrato);
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];
                     $sum = ($sum_total + $sum_total_familiares+$sum_total_planes+$sumador_total_servicios)- (($sum_total_planes+$sum_total + $sum_total_familiares+$sumador_total_servicios) * ($sum_descuento/100));
                 /////////////////////////////////////////FAMILIARES INDEPENDIENTE CIERRO//////////////////////////////////
-
-
+//////////////////////////////////////////FORMATEO FECHA
+$generar_hoy= date('Y-m-d H:i:s');
+$hoy = new DateTime($generar_hoy);        
+$nacimiento= $row_contrato['nacimiento'];         
+$nacimiento= new DateTime($nacimiento);          
+$interval = date_diff($nacimiento, $hoy); 
+//////////////////////////////////////////FORMATEO CIERRO
 
 
 
@@ -84,16 +89,16 @@ $pdf->Image('../img/logo.png', 55, 8, 100);
 $pdf->SetFont('Arial','B',12);
 $pdf->SetTextColor(80,77,208);
 $pdf->SetFillColor(232,232,232);
-$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D.,  y el (la) Sr.(a). ').$row_contrato['name'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$row_contrato['edad'].', estado civil '.$row_contrato['estado_civil'].utf8_decode(' cuyo numero de identicación es ').$row_contrato['dni'].' y email '.$row_contrato['email'].', el (la) cual tiene el contrato numero '.$row_contrato['idUser'].' cuyo costo total es de '.$sum.'$.',0,'FJ',0);
+$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D.,  y el (la) Sr.(a). ').$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').', estado civil '.$row_contrato['estado'].utf8_decode(' cuyo numero de identicación es ').$row_contrato['dni'].' y email '.$row_contrato['email'].', el (la) cual tiene el contrato numero '.$row_contrato['idUser_user'].' cuyo costo total es de '.$sum.'$.',0,'FJ',0);
 $pdf->Ln(10);
 $pdf->SetTextColor(231,14,14);
 $pdf->Cell(180,6,'HAN PACTADO Y CONVENIDO LO SIGUIENTE',0,0,'C',0);
 $pdf->SetTextColor(80,77,208);
 $pdf->Ln(10);
-$pdf->MultiCell(180,6,utf8_decode('A) El señor(a). '.$row_contrato['name'].' y demás miembros de su familia, los cuales se detallan a continuación:'),0,'L',0);
+$pdf->MultiCell(180,6,utf8_decode('A) El señor(a). '.$row_contrato['nombre'].' y demás miembros de su familia, los cuales se detallan a continuación:'),0,'L',0);
 $pdf->Ln(5);
 /*************************FAMILIARES DEPENDIENTES**************************************/
-	$sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $usuarioid";
+	$sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $usuarioid AND id_User_family=$unicoid";
 	$resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
 /*************************FAMILIARES DEPENDIENTES CIERRO**************************************/
  if (mysqli_num_rows($resultado_familiaresde)>0) {
@@ -115,7 +120,7 @@ $pdf->Cell(60,6,'Edad',0,1,'C',1);
 $pdf->Ln(5);
 $pdf->SetTextColor(80,77,208);
 /*************************FAMILIARES INDEPENDIENTES**************************************/
-	$sql_familiaresde = "SELECT * FROM User_family_independent WHERE User_idUser = $usuarioid";
+	$sql_familiaresde = "SELECT * FROM User_family_independent WHERE User_idUser = $usuarioid AND id_User_family_indepen=$unicoid";
 	$resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
 /*************************FAMILIARES INDEPENDIENTES CIERRO**************************************/
  if (mysqli_num_rows($resultado_familiaresde)>0) {
@@ -141,7 +146,7 @@ $pdf->SetTextColor(80,77,208);
 $pdf->MultiCell(180,6,utf8_decode('Las personas inscritas mayores de edad, recibirán en caso de muerte comprobada  y  dictaminada por las autoridades competentes, los servicios y planes que se detallan mas adelante:'),0,'L',0);
 $pdf->Ln(5);
 /*********************************************************PLANES*************************************************/
-	$sql_planes = "SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $usuarioid ";
+	$sql_planes = "SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $usuarioid AND User_has_planes.id_user_plan=$unicoid";
 	$resultado_planes= mysqli_query($connection, $sql_planes);
 
 /****************************************************PLANES**************************************************/	
@@ -159,7 +164,7 @@ $pdf->Ln(5);
     			$pdf->Cell(180,10, 'SERVICIOS DEL PLAN',0,1,'C');
     			$pdf->SetTextColor(80,77,208);
 /*************************SERVICIOS DEL PLAN**************************************/    			
-    	$sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $usuarioid ";
+    	$sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $usuarioid AND planes_has_services_delivered.id_user_delivered= $unicoid AND planes_has_services_delivered.planes_id_planes=$planes_id";
                $resultado_servicios= mysqli_query($connection, $sql_servicios);
 /*************************SERVICIOS DEL PLAN CIERRO**************************************/
 		if (mysqli_num_rows($resultado_servicios)>0) {
@@ -175,7 +180,7 @@ $pdf->Ln(5);
 			$pdf->SetTextColor(80,77,208);
 		}/////////////CIERRO IF DE LOS SERVICIOS	
 /*************************************PRODUCTOS DEL PLAN**********************************************/    			
-    	$sql_productos = "SELECT * FROM stock INNER JOIN planes_has_products_delivered ON planes_has_products_delivered.products_id_products_products = stock.id && planes_has_products_delivered.idUser_products= $usuarioid AND planes_has_products_delivered.planes_id_planes=$planes_id";
+    	$sql_productos = "SELECT * FROM stock INNER JOIN planes_has_products_delivered ON planes_has_products_delivered.products_id_products_products = stock.id && planes_has_products_delivered.idUser_products= $usuarioid AND planes_has_products_delivered.planes_id_planes=$planes_id AND planes_has_products_delivered.id_user_delivered=$unicoid";
                 $resultado_productos= mysqli_query($connection, $sql_productos);
 /*************************************PRODUCTOS DEL PLAN CIERRO**************************************/
 			if (mysqli_num_rows($resultado_productos)>0) {
@@ -207,7 +212,7 @@ $pdf->Cell(180,10, 'SERVICIOS ADICIONALES',0,1,'C');
 $pdf->SetTextColor(80,77,208);
 /*************************************SERVICIOS ADICIONALES**********************************************/    			
 
-$sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $usuarioid";
+$sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $usuarioid AND User_has_Servicios_Adicionales.id_user_servicio=$unicoid";
 $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adicionales);
 /*************************************SERVICIOS ADICIONALES CIERRO**********************************************/ 
        if (mysqli_num_rows($resultado_servicios_adicionales)>0) {
@@ -248,7 +253,7 @@ $pdf->Ln(5);
 $pdf->SetTextColor(231,14,14);
 $pdf->Cell(180,10, 'PAGOS',0,1,'C');
 $pdf->SetTextColor(80,77,208);
-	$sql_pagos = "SELECT * FROM Pagos WHERE User_id= $usuarioid ";
+	$sql_pagos = "SELECT * FROM Pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
             $resultado_pagos= mysqli_query($connection, $sql_pagos);
             	$pdf->Cell(90,6,'Monto del Pago',0,0,'C',1);
 				$pdf->Cell(90,6,'Fecha a Pagar',0,1,'C',1);
@@ -265,5 +270,6 @@ $pdf->Cell(90,6,'Firma de la Empresa',0,0,'C',0);
 $pdf->Cell(90,6,'Firma del Cliente',0,1,'C',0);
 /*$pdf->AutoPrint();*/
 $pdf->Output();
+mysqli_close($connection);
  ?>
 

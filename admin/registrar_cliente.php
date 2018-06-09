@@ -1,4 +1,6 @@
 <?php
+$resultado_servicio="Administracion > Registrar Cliente de Contratos";
+
 include('header.php');
 ?>
 <main>

@@ -6,7 +6,6 @@ require_once('../connect.php');
 				$usu= $_POST['nombre_cliente'];
 				$estado_civil= $_POST['civil_cliente'];
                 $edad= $_POST['edad_cliente'];
-                $fechaBD= date_format($edad, 'Y-m-d H:i:s');
                 $dni= $_POST['dni_cliente'];
                 $numero= $_POST['numero_cliente'];                   
                 $email= $_POST['email_cliente'];

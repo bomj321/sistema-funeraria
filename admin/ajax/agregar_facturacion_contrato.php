@@ -112,18 +112,7 @@ if (isset($_POST['parentezcodi_contrato']) AND isset($_POST['nombredi_contrato']
 	   $nombredi=$_POST['nombredi_contrato'];
 	   $edaddi=$_POST['edaddi_contrato'];
 }
-
-///////////////Insertar SERVICIOS
-
-if (!empty($parentezcodi) AND !empty($nombredi) AND !empty($edaddi)) {
-	   		mysqli_set_charset($connection, "utf8");
-            $sql_tmp_familiaresdi="INSERT INTO tmp_familiaresdi_contrato (parentezco,nombre,edad,session_id) VALUES (?,?,?,?)";
-            $resultado_tmp_familiaresdi=mysqli_prepare($connection, $sql_tmp_familiaresdi);
-            mysqli_stmt_bind_param($resultado_tmp_familiaresdi, "ssis", $parentezcodi,$nombredi,$edaddi,$session_id);
-            mysqli_stmt_execute($resultado_tmp_familiaresdi);
-            mysqli_stmt_close($resultado_tmp_familiaresdi);
-}
-///////////////Insertar SERVICIOS Cierro
+/////////////////////////////////////////////////VERIFICAR FAMILIARES DIRECTO CIERRO//////////////////////////////////////
 
 
 ////////////////////ELIMINAR SERVICIOS

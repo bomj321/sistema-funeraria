@@ -1923,6 +1923,67 @@ function eliminar_cliente (id)
 
 ///////////////////////////////////////////////////////SECCION DE CLIENTES CIERRO//////////////////////////////////////////////////////////
 
+/***********************************************************SECCION EDICION DE CONTRATOS****************************************************/
+////////////////////////////////////////////////////////////////OBTENER DATOS DEL CONTRATO
+$(obtener_datos_contrato());
+
+function obtener_datos_contrato(datos)
+{
+  $.ajax({
+    url : './busquedas/buscar_datos_contrato.php',
+    type : 'POST',
+    dataType : 'html',
+    data : { datos: datos },
+    })
+
+  .done(function(resultado){
+    $("#resultados_editar_contrato").html(resultado);
+  })
+}
+
+
+function eliminar_editar_plan_contrato (id)
+    {
+      
+       if (!confirm("ALERTA: Se eliminara el plan, ¿Estas Seguro?")) 
+       { return false; }
+      
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_eliminar_contrato_plan="+id,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+
+    }
+
+function eliminar_editar_servicio_contrato (id_servicio)
+    {
+      
+       if (!confirm("ALERTA: Se eliminara el servicio, ¿Estas Seguro?")) 
+       { return false; }
+      
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_eliminar_contrato_servicio="+id_servicio,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+
+    }
+
+
+
+/////////////////////////////////////////////////////////////////OBTENER DATOS DEL CONTRATO CIERRO
+/***********************************************************SECCION EDICION DE CONTRATOS****************************************************/
 
 ////AJAX DE LA PAGINA
 

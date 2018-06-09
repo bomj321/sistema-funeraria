@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once('../connect.php');
+$id_user_unico=$_SESSION["unicoid"];
 $id_user=$_SESSION["usuarioid"];
 ////////////////////////////////VERIFICAR OBSERVACIONES////////////////////////////////////////////
 if (isset($_POST['actividad']) AND isset($_POST['observaciones']) AND isset($_POST['id_user'])) {
@@ -14,9 +15,9 @@ if (isset($_POST['actividad']) AND isset($_POST['observaciones']) AND isset($_PO
 if (isset($actividad) AND isset($observaciones) AND isset($id_user)) {
 				$hoy = date('d-m-Y H:i:s');
 	  			 mysqli_set_charset($connection, "utf8");
-            $sql_tmp_comentario="INSERT INTO comentario_contrato(id_user,actividad,observaciones,fecha) VALUES (?,?,?,?)";
+            $sql_tmp_comentario="INSERT INTO comentario_contrato(id_user_user,id_user,actividad,observaciones,fecha) VALUES (?,?,?,?,?)";
             $resultado_tmp_comentario=mysqli_prepare($connection, $sql_tmp_comentario);
-            mysqli_stmt_bind_param($resultado_tmp_comentario, "isss", $id_user,$actividad,$observaciones,$hoy);
+            mysqli_stmt_bind_param($resultado_tmp_comentario, "iisss",$id_user_unico,$id_user,$actividad,$observaciones,$hoy);
             mysqli_stmt_execute($resultado_tmp_comentario);
             mysqli_stmt_close($resultado_tmp_comentario);
 }

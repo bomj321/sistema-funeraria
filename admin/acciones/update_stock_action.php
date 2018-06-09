@@ -58,5 +58,5 @@ if(empty($nombre_imagen)){
         mysqli_stmt_close($resultado);  
 }               
      
-
+mysqli_close($connection);
 ?>

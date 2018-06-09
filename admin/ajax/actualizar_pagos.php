@@ -30,7 +30,7 @@ if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
 
           <tbody>
              <?php 
-          $sql_pagos = "SELECT * FROM Pagos WHERE User_id= $id_user_session ";
+          $sql_pagos = "SELECT * FROM Pagos WHERE User_id= $id_user_session AND id_pagos_user=$id_user_unico";
             $resultado_pagos= mysqli_query($connection, $sql_pagos);
 
                while ($fila_pago =mysqli_fetch_array($resultado_pagos)){

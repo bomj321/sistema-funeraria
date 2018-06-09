@@ -4,7 +4,8 @@ include('header.php');
 include('connect.php');
 mysqli_set_charset($connection, "utf8");
 $id=$_GET['id'];
-$sql = "SELECT * FROM stock WHERE id='$id'";
+$id_limpio= mysqli_escape_string($connection,$id);
+$sql = "SELECT * FROM stock WHERE id='$id_limpio'";
 $resultado= mysqli_query($connection, $sql); 
 $fila=mysqli_fetch_array($resultado);
 ?>

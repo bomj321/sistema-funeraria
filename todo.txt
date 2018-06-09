@@ -3,8 +3,10 @@
 - Arreglar Front-end
 - Eliminar planes, productos o servicios enlazados a un contrato. Mensaje de Alerta.
 + imagen producto app.js linea 361
+- opcional, paginar resultados
++ Revisar venta_contrato_Action linea 118
 
-# Edicion de Contratos- LISTA
+# Edicion de Contratos
 + Arreglar formulario linea 915 app.js
 + Mejorar AJAX
 - Editar Contratos-Final
