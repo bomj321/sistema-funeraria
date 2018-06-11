@@ -2,6 +2,7 @@
 session_start();
 require_once('../connect.php');
 $id_user_session=$_SESSION["usuarioid"];
+$id_user_unico=$_SESSION["unicoid"];
 ////////////////////ENTREGAR SERVICIO
 if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
 {
@@ -58,7 +59,7 @@ if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
               if ($fila_pago['pagado']==1) { 
                ?>
                 <a title="Imprimir en Ticketera" href="./acciones/fpdf_plantilla_cuotas.php?id_cuota=<?php echo $fila_pago['id_pagos'];?>&id_user=<?php echo $id_user_session;?>">
-                <i class="material-icons desactivar">assignment_returned</i></a>
+                <i class="material-icons desactivar">print</i></a>
                 
 
               <?php 

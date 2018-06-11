@@ -796,6 +796,9 @@ $(document).on('keyup', '#buscar_servicios_input', function()
 //////////////////////////////////////////////////////////////////////////////////DESACTIVAR SERVICIO
 function desactivar_servicio (id)
     {
+    
+     if (!confirm("ALERTA: Todos los contratos con este servicio se veran afectados, por favor revise los contratos para evitar problemas")) 
+       { return false; }  
         
       $.ajax({
         type: "GET",
@@ -866,6 +869,8 @@ $(document).on('keyup', '#buscar_planes_input', function()
 //////////////////////////////////////////////////////////////////////////////////ELIMINAR PLAN
 function eliminar_plan (id)
     {
+ if (!confirm("ALERTA: Todos los contratos con este plan se veran afectados, tanto en el precio como sus items, recomendamos modificar primero los contratos.")) 
+       { return false; }       
   
       $.ajax({
         type: "GET",
@@ -954,7 +959,7 @@ function desactivar_contrato (id)
 
     }
 
-//////////////////////////////////////////////////////////////////////////////////DESACTIVARCONTRATO CIERRO
+//////////////////////////////////////////////////////////////////////////////////DESACTIVAR CONTRATO CIERRO
 
 //////////////////////////////////////////////////////////////////////////////////ACTIVARCONTRATO
 function activar_contrato (id)
@@ -973,7 +978,26 @@ function activar_contrato (id)
     }
 
 //////////////////////////////////////////////////////////////////////////////////ACTIVAR CONTRATO CIERRO
-///
+
+
+//////////////////////////////////////////////////////////////////////////////////REVISAR CONTRATO
+function revisar_contrato (id)
+    {
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_venta_contratos.php",
+        data: "id_contrato_revisar="+id,
+     
+        success: function(datos){
+    $("#contrato_venta").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////REVISAR CONTRATO CIERRO
+
 ////////////////////////////////////////////////////////AJAX ACTUALIZAR DATOS MODIFICAR DESPUES
 function entregarservicioplan(id){
     var actualizar_servicio=document.getElementById('servicio_plan'+id).value;
@@ -1372,7 +1396,7 @@ function agregar_contrato_familiaresdi()
       if (isNaN(edaddi_contrato) || edaddi_contrato==="")
       {
       alert('Esto no es un numero, ingrese una edad correcta');
-      document.getElementById('edaddi_contrato').focus();
+      document.getElementById('familiaresdi_edad_contrato').focus();
       return false;
       }
       //Fin validacion
@@ -1980,9 +2004,305 @@ function eliminar_editar_servicio_contrato (id_servicio)
 
     }
 
+function eliminar_editar_familiarin_contrato (id_familiarin)
+    {
+      
+       if (!confirm("ALERTA: Se eliminara el familiar, ¿Estas Seguro?")) 
+       { return false; }
+      
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_eliminar_contrato_familiarin="+id_familiarin,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+
+    }
+
+function eliminar_editar_familiarde_contrato (id_familiarde)
+    {
+      
+       if (!confirm("ALERTA: Se eliminara el familiar, ¿Estas Seguro?")) 
+       { return false; }
+      
+  
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_eliminar_contrato_familiarde="+id_familiarde,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+
+    }
+
 
 
 /////////////////////////////////////////////////////////////////OBTENER DATOS DEL CONTRATO CIERRO
+
+/**************************************SECCION AJAX MODAL PLANES CONTRATO EDITAR**************************************************/
+$(document).ready(function(){
+    load_planes_editar(1);
+});
+function load_planes_editar(){
+			var planes= $("#planes_contrato_editar").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_planes_ajax_contrato_editar.php',
+                data: 'planes='+planes,
+		 beforeSend: function(objeto){
+			$("#id_contenido_contrato").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_contrato").html(data);
+					
+					
+				}
+			})
+		}
+
+/*************************************SECCION AJAX MODAL PLANES CONTRATO EDITAR FINAL*********************************************/
+
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR PLANES CONTRATO EDITAR
+
+function agregar_contrato_planes_editar(id_plan)
+    {
+      var precio_venta_planes=document.getElementById('precio_venta_planes_editar'+id_plan).value;
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_plan="+id_plan+"&precio_venta_planes="+precio_venta_planes,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR PLANES CONTRATO EDITAR CIERRO
+
+/**************************************SECCION AJAX MODAL SERVICIOS CONTRATO  EDITAR**************************************************/
+$(document).ready(function(){
+    load_planes_editar(1);
+});
+function load_planes_editar(){
+			var planes= $("#planes_contrato_editar").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_planes_ajax_contrato_editar.php',
+                data: 'planes='+planes,
+		 beforeSend: function(objeto){
+			$("#id_contenido_contrato_editar").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_contrato_editar").html(data);
+					
+					
+				}
+			})
+		}
+
+/*************************************SECCION AJAX MODAL SERVICIOS CONTRATO EDITAR FINAL*********************************************/
+
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS CONTRATO EDITAR
+
+function agregar_contrato_planes_editar(id_plan)
+    {
+      var precio_venta_planes=document.getElementById('precio_venta_planes_editar'+id_plan).value;
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_plan="+id_plan+"&precio_venta_planes="+precio_venta_planes,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS CONTRATO EDITAR CIERRO
+
+
+/***********************************SECCION AJAX MODAL SERVICIOS CONTRATO EDITAR**************************************************/
+$(document).ready(function(){
+    load_servicio_contrato_editar(1);
+});
+function load_servicio_contrato_editar(){
+			var servicios= $("#servicios_contrato_editar").val();			
+			$.ajax({
+               type: "GET",
+				url:'./ajax/buscar_servicios_ajax_contrato_editar.php',
+                data: 'servicios='+servicios,
+		 beforeSend: function(objeto){
+			$("#id_contenido_contrato_servicios_editar").html("CARGANDO, ESPERE POR FAVOR");
+		  },success:function(data){
+					$("#id_contenido_contrato_servicios_editar").html(data);
+					
+					
+				}
+			})
+		}
+
+/***********************************SECCION AJAX MODAL SERVICIOS CONTRATO EDITAR FINAL*********************************************/
+
+/////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS EDITAR
+
+function agregar_contrato_servicio_editar(id)
+    {
+      var precio_venta_planes_servicio=document.getElementById('precio_servicio_venta_contrato_editar'+id).value;
+      var cantidad_planes_servicio=document.getElementById('cantidad_servicio_contrato_editar'+id).value;
+      //Inicia validacion
+      if (isNaN(cantidad_planes_servicio) || cantidad_planes_servicio===0 || cantidad_planes_servicio==="")
+      {
+      alert('Ingrese una Cantidad');
+      document.getElementById('cantidad_planes_servicio'+id).focus();
+      return false;
+      }      
+      //Fin validacion
+      
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_servicio="+id+"&precio_venta="+precio_venta_planes_servicio+"&cantidad="+cantidad_planes_servicio,
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS EDITAR CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR FAMILIAR INDIRECTO CONTRATO EDITAR
+
+function agregar_contrato_editar_familiaresin()
+    {
+      var parentezcoin_contrato=document.getElementById('familiaresin_parentezco_contrato_editar').value;
+      var nombrein_contrato=document.getElementById('familiaresin_nombre_contrato_editar').value;
+      var edadin_contrato=document.getElementById('familiaresin_edad_contrato_editar').value;
+      var costoin_contrato=document.getElementById('familiaresin_costo_contrato_editar').value;
+      //Inicia validacion
+      if (parentezcoin_contrato==="" )
+      {
+      alert('Ingrese Parentezco');
+      document.getElementById('familiaresin_parentezco_contrato_editar').focus();
+      return false;
+      }
+
+      if (nombrein_contrato==="" )
+      {
+      alert('Ingrese Nombre');
+      document.getElementById('familiaresin_nombre_contrato_editar').focus();
+      return false;
+      }
+      if (isNaN(edadin_contrato) || edadin_contrato==="")
+      {
+      alert('Esto no es un numero, ingrese una edad correcta');
+      document.getElementById('familiaresin_edad_contrato_editar').focus();
+      return false;
+      }
+
+      if (isNaN(costoin_contrato) || costoin_contrato==="")
+      {
+      alert('Esto no es un numero, ingrese un costo correcto');
+      document.getElementById('familiaresin_costo_contrato_editar').focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "parentezcoin_contrato="+parentezcoin_contrato+"&nombrein_contrato="+nombrein_contrato+"&edadin_contrato="+edadin_contrato+"&costoin_contrato="+costoin_contrato,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR FAMILIAR INDIRECTO CONTRATO EDITAR CIERRO
+
+
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR FAMILIAR DIRECTO CONTRATO EDITAR
+
+function agregar_contrato_editar_familiaresdi()
+    {
+      var parentezcodi_contrato=document.getElementById('familiaresdi_parentezco_contrato_editar').value;
+      var nombredi_contrato=document.getElementById('familiaresdi_nombre_contrato_editar').value;
+      var edaddi_contrato=document.getElementById('familiaresdi_edad_contrato_editar').value;
+      //Inicia validacion
+      if (parentezcodi_contrato==="" )
+      {
+      alert('Ingrese Parentezco');
+      document.getElementById('familiaresdi_parentezco_contrato_editar').focus();
+      return false;
+      }
+
+      if (nombredi_contrato==="" )
+      {
+      alert('Ingrese Nombre');
+      document.getElementById('familiaresdi_nombre_contrato_editar').focus();
+      return false;
+      }
+      if (isNaN(edaddi_contrato) || edaddi_contrato==="")
+      {
+      alert('Esto no es un numero, ingrese una edad correcta');
+      document.getElementById('familiaresdi_edad_contrato_editar').focus();
+      return false;
+      }
+
+      
+      //Fin validacion
+      
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "parentezcodi_contrato="+parentezcodi_contrato+"&nombredi_contrato="+nombredi_contrato+"&edaddi_contrato="+edaddi_contrato,
+     
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR FAMILIAR DIRECTO CONTRATO EDITAR CIERRO
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////SUBIR EDICION DE CONTRATO
+function actualizarDatosContrato(){ 
+  var parametros = new FormData($("#edicion_contrato")[0]);
+      $.ajax({
+          data: parametros,
+          url:"./ventas_action/update_contrato_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Editando contrato Espere...');
+          },
+          success: function(data){            
+            toastr.success('Contrato Editado!!!'); 
+            setTimeout(function () {              
+             window.location.href = './control_contratos.php';
+          }, 1000);
+          
+
+                        
+          }
+      });
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////SUBIR EDICION DE CONTRATO CIERRO
 /***********************************************************SECCION EDICION DE CONTRATOS****************************************************/
 
 ////AJAX DE LA PAGINA

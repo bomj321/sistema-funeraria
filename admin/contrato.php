@@ -18,7 +18,6 @@ include('header.php');
                 </div>
 
                  <div class="col s9">
-                    
                            <?php 
                                 include('advertencias.php');
                             ?>

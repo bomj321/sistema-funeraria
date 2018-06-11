@@ -5,9 +5,10 @@
 + imagen producto app.js linea 361
 - opcional, paginar resultados
 + Revisar venta_contrato_Action linea 118
++ Seguir con AGREGAR SERVICIOS EDITAR- BOTON
 
 # Edicion de Contratos
 + Arreglar formulario linea 915 app.js
 + Mejorar AJAX
-- Editar Contratos-Final
++ Editar Contratos-Final
 

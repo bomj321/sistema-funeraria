@@ -12,7 +12,8 @@ require_once('../connect.php');
 				$familiar_contrato= $_POST['familiar_contrato'];
 				$telefono_familiar_contrato= $_POST['telefono_familiar_contrato'];
 				$email= $_POST['email_contrato'];
-                $activo = 0;               
+                $activo = 0; 
+                $revisado = 0; 
                 $idUser=$_POST['id_cliente_contrato'];
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS///////////////////////////////////
           $sql_costo_descuento="SELECT * FROM tmp_costo_descuento_contratp WHERE session_id='".$session_id."'";
@@ -32,9 +33,9 @@ require_once('../connect.php');
                 
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO User ( 	idUser,activo,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO User ( 	idUser,activo,revisado,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
-           	mysqli_stmt_bind_param($resultado_user, "iisssssssssii",$idUser,$activo,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion_contrato,$familiar_contrato,$telefono_familiar_contrato,$cuotas_contrato,$descuento_contrato );
+           	mysqli_stmt_bind_param($resultado_user, "iiisssssssssii",$idUser,$activo,$revisado,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion_contrato,$familiar_contrato,$telefono_familiar_contrato,$cuotas_contrato,$descuento_contrato );
             $ok=mysqli_stmt_execute($resultado_user);
             $idgenerado =$idUser;
             $idautogenerado = mysqli_insert_id($connection);
@@ -56,7 +57,7 @@ require_once('../connect.php');
   
       
   //////////////////////////////////SELECCIONAR ID SERVICIO/////////////////////////////////////
-          $sql_servicio_contrato="SELECT * FROM tmp_servicios_contratos WHERE session_id_contrato='".$session_id."'";
+          $sql_servicio_contrato="SELECT * FROM tmp_servicios_contratos ";
           $resultado_servicio_contrato= mysqli_query($connection, $sql_servicio_contrato);
           $sumador_total_servicio=0;
           while($row_servicio_contrato=mysqli_fetch_array($resultado_servicio_contrato)){
@@ -73,6 +74,17 @@ require_once('../connect.php');
                 mysqli_stmt_bind_param($resultado2, "iiiiii",$idautogenerado,$idgenerado, $id_servicio,$cantidad_servicio,$precio_servicio,$entregado);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
+           
+           if (!$ok2) {
+               echo "
+             <script>
+
+              alert('Error en la insercion de datos de Usuario');
+             </script>
+
+               ";
+              }
+           
               
 }              
 
@@ -128,25 +140,6 @@ require_once('../connect.php');
                     mysqli_stmt_bind_param($resultado_planes_product, "iiiiii",$idautogenerado,$idgenerado, $id_planes_contrato,$id_product,$entregado,$cantidad_productos);
                     $ok_planes_product=mysqli_stmt_execute($resultado_planes_product);
                     mysqli_stmt_close($resultado_planes_product);
-                     
-                     
-                     if (!$ok_planes_product) {
-            echo $id_planes_contrato;
-            echo $idautogenerado;
-             echo $idgenerado;
-             echo $id_planes_contrato;
-             echo $id_product;
-             echo $entregado;
-             echo $cantidad_productos;
-               echo "
-             <script>
-
-              alert('Error en la insercion de datos de Productos');
-             </script>
-
-               ";
-              }
-
                    }
            
                    ///////////////////////////////////INSERTAR PRODUCTOS DEL PLAN CIERRO////////////////////////////

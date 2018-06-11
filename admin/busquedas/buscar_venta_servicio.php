@@ -126,7 +126,7 @@ $tabla.='
 
             <td><a title="Exportar a PDF" href="./acciones/fpdf_servicios.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>            
 
-            <a title="Imprimir en Ticketera" href="acciones/imprimir_servicios.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
+            <a title="Imprimir en Ticketera" href="acciones/imprimir_servicios.php?id='.$fila['idUser'].'"><i class="material-icons desactivar">print</i></a>';
 if ($fila['pagado'] ==1) {
   
 

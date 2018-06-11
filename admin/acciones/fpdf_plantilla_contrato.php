@@ -47,12 +47,12 @@
 			
 		}
 		
-		/*function Footer()
+		function Footer()
 		{
 			$this->SetY(-15);
 			$this->SetFont('Arial','I', 8);
 			$this->Cell(0,10, 'Pagina '.$this->PageNo().'/{nb}',0,0,'C' );
-		}*/
+		}
 
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='')
 {

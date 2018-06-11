@@ -487,7 +487,7 @@ $interval = date_diff($nacimiento, $hoy);
               if ($fila_pago['pagado']==1) { 
                ?>
                 <a title="Imprimir en Ticketera" href="acciones/fpdf_plantilla_cuotas.php?id_cuota=<?php echo $fila_pago['id_pagos'];?>&id_user=<?php echo $id_user_session;?>">
-                <i class="material-icons desactivar">assignment_returned</i></a>
+                <i class="material-icons desactivar">print</i></a>
               <?php 
                  }
                ?>     

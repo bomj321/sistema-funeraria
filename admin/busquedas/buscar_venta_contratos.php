@@ -2,7 +2,7 @@
 require_once('../connect.php');
 
  //--------------------if--------------------
-////////////////////DESACTIVAR SERVICIOS
+////////////////////DESACTIVAR CONTRATO
 if (isset($_GET['id_contrato_desactivar']))//codigo elimina un elemento del array
 {
     $id_user=intval($_GET['id_contrato_desactivar']);
@@ -11,9 +11,9 @@ if (isset($_GET['id_contrato_desactivar']))//codigo elimina un elemento del arra
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_user);
         $ok=mysqli_stmt_execute($resultado);  
 }
-////////////////////DESACTIVAR SERVICIOS CIERRO 
+////////////////////DESACTIVAR CONTRATO CIERRO 
 
-////////////////////ACTIVAR SERVICIOS
+////////////////////ACTIVAR CONTRATO
 if (isset($_GET['id_contrato_activar']))//codigo elimina un elemento del array
 {
     $id_user=intval($_GET['id_contrato_activar']);
@@ -22,7 +22,18 @@ if (isset($_GET['id_contrato_activar']))//codigo elimina un elemento del array
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_user);
         $ok=mysqli_stmt_execute($resultado);  
 }
-////////////////////ACTIVAR SERVICIOS CIERRO  
+////////////////////ACTIVAR CONTRATO CIERRO
+
+////////////////////REVISAR CONTRATO
+if (isset($_GET['id_contrato_revisar']))//codigo elimina un elemento del array
+{
+    $id_user=intval($_GET['id_contrato_revisar']);
+    $sql_revisar="UPDATE User SET revisado='1' WHERE idUser_user= ? ";
+        $resultado=mysqli_prepare($connection, $sql_revisar);
+        $ok=mysqli_stmt_bind_param($resultado, "i", $id_user);
+        $ok=mysqli_stmt_execute($resultado);  
+}
+////////////////////REVISAR CONTRATO CIERRO  
        
 
  
@@ -125,7 +136,7 @@ $tabla.='
 
             
 
-            <a title="Imprimir Contrato" href="./acciones/imprimir_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons desactivar">assignment_returned</i></a>';
+            <a title="Imprimir Contrato" href="./acciones/imprimir_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons desactivar">print</i></a>';
 if ($fila['activo'] ==1) {
 	
 
@@ -139,6 +150,20 @@ $tabla.='
 
 
 }
+                    
+if ($fila['revisado'] ==0) {
+	
+
+
+			$tabla.='
+      <a title="Contrato no revisado" onclick="revisar_contrato('.$fila["idUser_user"].')"><i class="material-icons pdf">find_in_page</i></a> ';
+}else{
+
+$tabla.='	
+            <a title="Contrato Revisado"><i class="material-icons word">find_in_page</i></a> ';
+
+
+}                    
 
 
 

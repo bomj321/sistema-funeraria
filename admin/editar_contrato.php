@@ -24,7 +24,7 @@ $fila=mysqli_fetch_array($resultado);
      <!--MODALES-->
               <div class="col s12 m12">
                 <?php 
-                  include("modales/buscar_todo_contrato.php");                  
+                  include("modales/buscar_todo_contrato_editar.php");                  
                  ?> 
               </div>
               <!--MODALES-->
@@ -33,7 +33,6 @@ $fila=mysqli_fetch_array($resultado);
                               include('aside.php');
                             ?>
       </div>
-<!--$fechaBD= date_format($edad, 'Y-m-d H:i:s');-->
       <div class="col s9">
             <div class="row">
               <?php 
@@ -43,12 +42,12 @@ $fila=mysqli_fetch_array($resultado);
             </div>
 
             <div class="row">
-              <h4>Edicion del Contrato(No se puede editar los pagos ni las cuotas)</h4>
+              <h4>Edicion del Contrato(No se puede editar °N de cuotas y descuento)</h4>
 
-                  <form name="editar_servicio" class="col s12" action=" " onsubmit="actualizarDatosServicio(); return false" style="margin-bottom: 3rem;">
+                  <form name="editar_servicio" class="col s12" action="./ventas_action/update_contrato_action.php" enctype="multipart/form-data" id="edicion_contrato" onsubmit="actualizarDatosContrato(); return false" style="margin-bottom: 3rem;">
 
                     <div class="row">
-                        <input name="id_servicio" id="id_servicio" type="hidden" class="validate" required="true" value="<?php echo $fila['idUser']; ?>">
+                        <input name="editar_id" id="id_servicio" type="hidden" class="validate" required="true" value="<?php echo $fila['idUser_user']; ?>">
 
                         <div class="input-field col s12 m4">
                           <input name="editar_nombre" id="editar_nombre" type="text" class="validate" required="true" value="<?php echo $fila['nombre'];?>">
@@ -56,7 +55,7 @@ $fila=mysqli_fetch_array($resultado);
                         </div>
 
                         <div class="input-field col s12  m4">
-                          <input  onpaste="false" name="editar_nacimiento" id="editar_nacimiento" type="text" class="validate" required="true" value="<?php echo date('d-m-Y',strtotime($fila["nacimiento"]))?>">
+                          <input  onpaste="false" name="editar_nacimiento" id="editar_nacimiento" type="text" class="validate" required="true" value="<?php echo date('Y-m-d',strtotime($fila["nacimiento"]))?>">
                           <label for="editar_nacimiento">Fecha de Nacimiento </label>
                         </div>
                         
@@ -87,15 +86,21 @@ $fila=mysqli_fetch_array($resultado);
                      
                      
                      <div class="row">
-                        <div class="input-field col s12  m6">
+                       <div class="input-field col s12  m4">
+                          <input  onpaste="false" name="estado_editar" id="estado_editar" type="text" class="validate" required="true" value="<?php echo $fila['estado'];?>">
+                          <label for="estado_editar">Estado Civil</label>
+                        </div>
+                        
+                        <div class="input-field col s12  m4">
                           <input name="nombre_familiar_editar" id="nombre_familiar_editar" type="text" class="validate" required="true" value="<?php echo $fila['nombre_familiar'];?>">
                           <label for="nombre_familiar_editar">Nombre del Familiar</label>
                         </div>
 
-                        <div class="input-field col s12  m6">
+                        <div class="input-field col s12  m4">
                           <input  onpaste="false" name="numero_familiar_editar" id="numero_familiar_editar" type="text" class="validate" required="true" value="<?php echo $fila['numero_familiar'];?>">
                           <label for="numero_familiar_editar">Numero del Familiar</label>
-                        </div>
+                        </div>                        
+                        
                     </div>
                     
 <!--AJAX EDITAR CONTRATO-->                         

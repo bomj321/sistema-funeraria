@@ -10,7 +10,7 @@ $cuotaid_limpio = mysqli_escape_string($connection,$cuotaid);
 
 include('fpdf_plantilla_cuotas_header.php');
 
-/*class PDF_AutoPrint extends PDF
+class PDF_AutoPrint extends PDF
 {
    function AutoPrint($printer='')
     {
@@ -27,7 +27,7 @@ include('fpdf_plantilla_cuotas_header.php');
             $script = 'print(true);';
         $this->IncludeJS($script);
     }
-}*/
+}
 
 
 $sql_usuario= "SELECT * FROM User WHERE idUser = '$usuarioid_limpio'";
@@ -68,7 +68,7 @@ mysqli_close($connection);
 
 $pdf->Cell(40,10, 'Gracias por Preferirnos!!!',0,1,'C');
 
-/*$pdf->AutoPrint();*/
+$pdf->AutoPrint();
 $pdf->Output();
  ?>
 
