@@ -78,7 +78,7 @@
 
              <td>
               <div>
-           <input  type="text" class="form-control"  id="familiaresdi_edad_contrato_editar">
+           <input  type="date" class="form-control"  id="familiaresdi_edad_contrato_editar">
              </div>
            </td>
 
@@ -121,7 +121,7 @@
 
              <td>
               <div>
-           <input  type="text" class="form-control"  id="familiaresin_edad_contrato_editar">
+           <input  type="date" class="form-control"  id="familiaresin_edad_contrato_editar">
              </div>
            </td>
 

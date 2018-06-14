@@ -156,14 +156,15 @@ require_once('../connect.php');
           $parentezco_familiares_directo=$row_familiares_directo['parentezco'];
           $nombre_familiares_directo=$row_familiares_directo['nombre'];
           $edad_familiares_directo=$row_familiares_directo['edad'];
+          $numerodi=$row_familiares_directo['identificacion']; 
 //////////////////////////////////SELECCIONAR  FAMILIARES DIRECTOS CIERRO/////////////////////////////////////
 
 /////////////////////////////////////INSERT PARA LOS FAMILIARES DIRECTOS///////////////////////////////////
 
 
-            $sql_familiardi="INSERT INTO User_family (id_User_family,User_idUser, Parentezco,nombre,edad) VALUES (?,?,?,?,?)";
+            $sql_familiardi="INSERT INTO User_family (id_User_family,User_idUser, Parentezco,nombre,edad,identificacion) VALUES (?,?,?,?,?,?)";
             $resultado_familiardi=mysqli_prepare($connection, $sql_familiardi);
-            mysqli_stmt_bind_param($resultado_familiardi, "iissi",$idautogenerado,$idgenerado, $parentezco_familiares_directo,$nombre_familiares_directo,$edad_familiares_directo);
+            mysqli_stmt_bind_param($resultado_familiardi, "iissss",$idautogenerado,$idgenerado, $parentezco_familiares_directo,$nombre_familiares_directo,$edad_familiares_directo,$numerodi);
             $ok_familiardi=mysqli_stmt_execute($resultado_familiardi);
             mysqli_stmt_close($resultado_familiardi);
 
@@ -185,14 +186,15 @@ require_once('../connect.php');
           $nombre_familiares_indirecto=$row_familiares_indirecto['nombrein'];
           $edad_familiares_indirecto=$row_familiares_indirecto['edadin'];
           $costo_familiares_indirecto=$row_familiares_indirecto['costo_adicional'];
+          $numeroin=$row_familiares_indirecto['identificacion'];  
           $sumador_familiares_indirecto+=$costo_familiares_indirecto;
 //////////////////////////////////SELECCIONAR  FAMILIARES INDIRECTOS CIERRO/////////////////////////////////////
 
 
 /////////////////////////////////////INSERT PARA LOS FAMILIARES INDIRECTOS/////////////////////////////
 
-            $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional) VALUES (?,?,?,?,?,?)";
-                    $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iissii",$idautogenerado,$idgenerado,$parentezco_familiares_indirecto,$nombre_familiares_indirecto,$edad_familiares_indirecto,$costo_familiares_indirecto);
+            $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional,identificacion) VALUES (?,?,?,?,?,?,?)";
+                    $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisssis",$idautogenerado,$idgenerado,$parentezco_familiares_indirecto,$nombre_familiares_indirecto,$edad_familiares_indirecto,$costo_familiares_indirecto,$numeroin);
                     $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
                     mysqli_stmt_close($resultado_familiarin);
 

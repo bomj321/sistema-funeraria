@@ -299,14 +299,14 @@ mysqli_stmt_execute($resultado_actualizar);
 
 /////////////////////////////////////////////////INSERTAR FAMILIARES INDIRECTOS//////////////////////////////////////
 if (isset($_GET['parentezcoin_contrato']) AND isset($_GET['nombrein_contrato']) AND isset($_GET['edadin_contrato']) AND isset($_GET['costoin_contrato'])) {
-$id_edad_familiarin=intval($_GET['edadin_contrato']); 
+$id_edad_familiarin=$_GET['edadin_contrato'].' 00:00:00.000000'; 
 $id_parentezco_familiarin=$_GET['parentezcoin_contrato']; 
 $id_nombre_familiarin=$_GET['nombrein_contrato']; 
 $id_costo_familiarin=intval($_GET['costoin_contrato']); 
  
  
  $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional) VALUES (?,?,?,?,?,?)";
- $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iissii",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiarin,$id_nombre_familiarin,$id_edad_familiarin,$id_costo_familiarin);
+ $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisssi",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiarin,$id_nombre_familiarin,$id_edad_familiarin,$id_costo_familiarin);
  $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
  mysqli_stmt_close($resultado_familiarin);
  
@@ -333,13 +333,13 @@ mysqli_stmt_execute($resultado_actualizar);
 
 /////////////////////////////////////////////////INSERTAR FAMILIARES DIRECTOS//////////////////////////////////////
 if (isset($_GET['parentezcodi_contrato']) AND isset($_GET['nombredi_contrato']) AND isset($_GET['edaddi_contrato'])) {
-$id_edad_familiardi=intval($_GET['edaddi_contrato']); 
+$id_edad_familiardi=$_GET['edaddi_contrato'].' 00:00:00.000000'; 
 $id_parentezco_familiardi=$_GET['parentezcodi_contrato']; 
 $id_nombre_familiardi=$_GET['nombredi_contrato']; 
  
  
  $sql_familiarin="INSERT INTO User_family (id_User_family,User_idUser,Parentezco,nombre,edad) VALUES (?,?,?,?,?)";
- $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iissi",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiardi,$id_nombre_familiardi,$id_edad_familiardi);
+ $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisss",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiardi,$id_nombre_familiardi,$id_edad_familiardi);
  $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
  mysqli_stmt_close($resultado_familiarin);
  
@@ -393,7 +393,10 @@ $id_nombre_familiardi=$_GET['nombredi_contrato'];
           $filas_afectadas_mostrar= mysqli_affected_rows($connection);
           
  /////////////////////////SELECCIONO PAGOS DEL CONTRATO MOSTRAR CIERRO/////////////////////////////////
-
+/*************************************************GENERAR FECHA****************************************************/
+$generar_hoy= date('Y-m-d H:i:s');
+$hoy = new DateTime($generar_hoy);    
+/*************************************************GENERAR FECHA****************************************************/
 
 $tabla_planes='';
 
@@ -443,7 +446,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
           
           $tabla_planes.='
                <div class="col s12 m12">
-                  <p style="color: black;">Servicios del Plan</p>         
+                  <h4 style="text-align:left;">Servicios del Plan</h4>         
               </div>';
           $tabla_planes.='
         <div class="col s12 m12">  
@@ -541,7 +544,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
           
           $tabla_planes.='
                <div class="col s12 m12">
-                  <p style="color: black;">Servicios  Adicionales del Contrato</p>         
+                  <h4 style="text-align:left;">Servicios adicionales del contrato</h4>         
               </div>';
           $tabla_planes.='
         <div class="col s12 m12">  
@@ -611,10 +614,13 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                   <tbody>';
 
                           while($fila_familiarin_adicional =mysqli_fetch_array($resultado_familiares_independientes)){ //WHILE DE LOS FAMILIARES INDEPENDIENTES
+                           $fecha_nacimiento= $fila_familiarin_adicional['edad'];
+                           $edad= new DateTime($fecha_nacimiento);          
+                           $interval_fecha = date_diff($edad, $hoy);  
                  $tabla_planes.=' 	
                     <tr>
                       <td>'.$fila_familiarin_adicional['nombre'].'</td>
-                      <td>'.$fila_familiarin_adicional['edad'].'</td>
+                      <td>'.$interval_fecha->format('%y años').'</td>
                       <td>'.$fila_familiarin_adicional['Parentezco'].'</td>
                       <td>'.$fila_familiarin_adicional['costo_adicional'].'RD$</td>
                       <td>
@@ -658,20 +664,23 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                     <tr>
                         <th>Nombre del Familiar</th>
                         <th>Edad</th>
-                        <th>Parentezco</th>                        
-                        <th>Acciones</th>
+                        <th class="celda" >Parentezco</th>                        
+                        <th class="celda">Acciones</th>
                     </tr>
                   </thead>
 
                   <tbody>';
 
                           while($fila_familiarde_adicional =mysqli_fetch_array($resultado_familiares_dependientes)){ //WHILE DE LOS FAMILIARES DEPENDIENTES CIERRO
+                           $fecha_nacimientode= $fila_familiarde_adicional['edad'];
+                           $edadde= new DateTime($fecha_nacimientode);          
+                           $intervalde_fecha = date_diff($edadde, $hoy);
                  $tabla_planes.=' 	
                     <tr>
                       <td>'.$fila_familiarde_adicional['nombre'].'</td>
-                      <td>'.$fila_familiarde_adicional['edad'].'</td>
-                      <td>'.$fila_familiarde_adicional['Parentezco'].'</td>
-                      <td>
+                      <td>'.$intervalde_fecha->format('%y años').'</td>
+                      <td class="celda">'.$fila_familiarde_adicional['Parentezco'].'</td>
+                      <td class="celda">
                        <a type="button" class="btn waves-effect waves-light" onclick="eliminar_editar_familiarde_contrato('.$fila_familiarde_adicional["id_actualizar_family"].')">Eliminar Familiar</a> 
                       </td>
                      </tr>';

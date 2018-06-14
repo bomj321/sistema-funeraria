@@ -1379,7 +1379,15 @@ function agregar_contrato_familiaresdi()
       var parentezcodi_contrato=document.getElementById('familiaresdi_parentezco_contrato').value;
       var nombredi_contrato=document.getElementById('familiaresdi_nombre_contrato').value;
       var edaddi_contrato=document.getElementById('familiaresdi_edad_contrato').value;
+      var identificaciondi_contrato=document.getElementById('familiaresdi_identificacion_contrato').value;
       //Inicia validacion
+      if (identificaciondi_contrato==="" )
+      {
+      alert('Ingrese un numero de Identificacion');
+      document.getElementById('familiaresdi_identificacion_contrato').focus();
+      return false;
+      }
+      
       if (parentezcodi_contrato==="" )
       {
       alert('Ingrese Parentezco');
@@ -1393,9 +1401,9 @@ function agregar_contrato_familiaresdi()
       document.getElementById('familiaresdi_nombre_contrato').focus();
       return false;
       }
-      if (isNaN(edaddi_contrato) || edaddi_contrato==="")
+      if (edaddi_contrato==="")
       {
-      alert('Esto no es un numero, ingrese una edad correcta');
+      alert('Ingrese una fecha');
       document.getElementById('familiaresdi_edad_contrato').focus();
       return false;
       }
@@ -1404,7 +1412,7 @@ function agregar_contrato_familiaresdi()
       $.ajax({
         type: "POST",
         url: "./ajax/agregar_facturacion_contrato.php",
-        data: "parentezcodi_contrato="+parentezcodi_contrato+"&nombredi_contrato="+nombredi_contrato+"&edaddi_contrato="+edaddi_contrato,
+        data: "parentezcodi_contrato="+parentezcodi_contrato+"&nombredi_contrato="+nombredi_contrato+"&edaddi_contrato="+edaddi_contrato+"&identificaciondi_contrato="+identificaciondi_contrato,
     
         success: function(datos){
     $("#resultados_contrato").html(datos);
@@ -1439,7 +1447,15 @@ function agregar_contrato_familiaresin()
       var nombrein_contrato=document.getElementById('familiaresin_nombre_contrato').value;
       var edadin_contrato=document.getElementById('familiaresin_edad_contrato').value;
       var costoin_contrato=document.getElementById('familiaresin_costo_contrato').value;
+      var identificacionin_contrato=document.getElementById('familiaresin_identificacion_contrato').value;
       //Inicia validacion
+      if (identificacionin_contrato==="" )
+      {
+      alert('Ingrese un numero de Identificacion');
+      document.getElementById('familiaresin_identificacion_contrato').focus();
+      return false;
+      }
+      
       if (parentezcoin_contrato==="" )
       {
       alert('Ingrese Parentezco');
@@ -1453,9 +1469,9 @@ function agregar_contrato_familiaresin()
       document.getElementById('familiaresin_nombre_contrato').focus();
       return false;
       }
-      if (isNaN(edadin_contrato) || edadin_contrato==="")
+      if (edadin_contrato==="")
       {
-      alert('Esto no es un numero, ingrese una edad correcta');
+      alert('Ingrese una fecha');
       document.getElementById('edadin_contrato').focus();
       return false;
       }
@@ -1471,7 +1487,7 @@ function agregar_contrato_familiaresin()
       $.ajax({
         type: "POST",
         url: "./ajax/agregar_facturacion_contrato.php",
-        data: "parentezcoin_contrato="+parentezcoin_contrato+"&nombrein_contrato="+nombrein_contrato+"&edadin_contrato="+edadin_contrato+"&costoin_contrato="+costoin_contrato,
+        data: "parentezcoin_contrato="+parentezcoin_contrato+"&nombrein_contrato="+nombrein_contrato+"&edadin_contrato="+edadin_contrato+"&costoin_contrato="+costoin_contrato+"&identificacionin_contrato="+identificacionin_contrato,
      
         success: function(datos){
     $("#resultados_contrato").html(datos);
@@ -2200,9 +2216,9 @@ function agregar_contrato_editar_familiaresin()
       document.getElementById('familiaresin_nombre_contrato_editar').focus();
       return false;
       }
-      if (isNaN(edadin_contrato) || edadin_contrato==="")
+      if (edadin_contrato==="")
       {
-      alert('Esto no es un numero, ingrese una edad correcta');
+      alert('Ingrese una fecha de nacimiento');
       document.getElementById('familiaresin_edad_contrato_editar').focus();
       return false;
       }
@@ -2250,9 +2266,9 @@ function agregar_contrato_editar_familiaresdi()
       document.getElementById('familiaresdi_nombre_contrato_editar').focus();
       return false;
       }
-      if (isNaN(edaddi_contrato) || edaddi_contrato==="")
+      if (edaddi_contrato==="")
       {
-      alert('Esto no es un numero, ingrese una edad correcta');
+      alert('Ingrese una fecha de nacimiento');
       document.getElementById('familiaresdi_edad_contrato_editar').focus();
       return false;
       }

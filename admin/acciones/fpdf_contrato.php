@@ -108,10 +108,14 @@ $pdf->Cell(60,6,'Parentezco',0,0,'C',1);
 $pdf->Cell(60,6,'Nombre',0,0,'C',1);
 $pdf->Cell(60,6,'Edad',0,1,'C',1);
 	while($row = $resultado_familiaresde->fetch_assoc())
-	{		
+	{
+	$fecha_nacimiento= $row['edad'];
+    $edad= new DateTime($fecha_nacimiento);          
+    $interval_fechade = date_diff($edad, $hoy);
+		
 	$pdf->Cell(60,6,utf8_decode($row['Parentezco']),0,0,'C');
 	$pdf->Cell(60,6,utf8_decode($row['nombre']),0,0,'C');
-	$pdf->Cell(60,6,$row['edad'],0,1,'C');
+	$pdf->Cell(60,6,utf8_decode($interval_fechade->format('%y años')),0,1,'C');
 	}
 }else{
 	$pdf->SetTextColor(231,14,14);
@@ -120,21 +124,25 @@ $pdf->Cell(60,6,'Edad',0,1,'C',1);
 $pdf->Ln(5);
 $pdf->SetTextColor(80,77,208);
 /*************************FAMILIARES INDEPENDIENTES**************************************/
-	$sql_familiaresde = "SELECT * FROM User_family_independent WHERE User_idUser = $usuarioid AND id_User_family_indepen=$unicoid";
-	$resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
+	$sql_familiaresin = "SELECT * FROM User_family_independent WHERE User_idUser = $usuarioid AND id_User_family_indepen=$unicoid";
+	$resultado_familiaresin= mysqli_query($connection, $sql_familiaresin);
 /*************************FAMILIARES INDEPENDIENTES CIERRO**************************************/
- if (mysqli_num_rows($resultado_familiaresde)>0) {
+ if (mysqli_num_rows($resultado_familiaresin)>0) {
 $pdf->Cell(180,6,'DEPENDIENTES',0,0,'C',0);
 $pdf->Ln(10);
 $pdf->Cell(45,6,'Parentezco',0,0,'C',1);
 $pdf->Cell(45,6,'Nombre',0,0,'C',1);
 $pdf->Cell(45,6,'Edad',0,0,'C',1);
 $pdf->Cell(45,6,'Costo Adicional',0,1,'C',1);
-	while($row_in = $resultado_familiaresde->fetch_assoc())
-	{		
+	while($row_in = $resultado_familiaresin->fetch_assoc())
+	{	
+	$fecha_nacimientoin= $row_in['edad'];
+    $edadin= new DateTime($fecha_nacimientoin);          
+    $interval_fechain = date_diff($edadin, $hoy); 
+		
 	$pdf->Cell(45,6,utf8_decode($row_in['Parentezco']),0,0,'C');
 	$pdf->Cell(45,6,utf8_decode($row_in['nombre']),0,0,'C');
-	$pdf->Cell(45,6,$row_in['edad'],0,0,'C');
+	$pdf->Cell(45,6,utf8_decode($interval_fechain->format('%y años')),0,0,'C');
 	$pdf->Cell(45,6,$row_in['costo_adicional'].'$',0,1,'C');
 	}
 }else{

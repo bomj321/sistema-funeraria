@@ -107,8 +107,7 @@ $interval = date_diff($nacimiento, $hoy);
 
 
   <?php             
-             }else{
-              
+             }else{               
                 ?>
 
               <table class="responsive-table" >
@@ -122,12 +121,15 @@ $interval = date_diff($nacimiento, $hoy);
 
                 <tbody>
                 <?php 
-                   while ($fila_familiaresde =mysqli_fetch_array($resultado_familiaresde)){
+                   while ($fila_familiaresde =mysqli_fetch_array($resultado_familiaresde)){                     
+                     $fecha_nacimiento= $fila_familiaresde['edad'];
+                     $edad= new DateTime($fecha_nacimiento);          
+                     $interval_fecha = date_diff($edad, $hoy);  
                  ?>                  
                   <tr>            
                     <td><?php echo $fila_familiaresde['nombre'];?></td>
                     <td><?php echo $fila_familiaresde['Parentezco'];?></td>
-                    <td><?php echo $fila_familiaresde['edad'];?></td>
+                    <td><?php echo $interval_fecha->format('%y años'); ?></td>
                   </tr>
                   <?php 
                     }
@@ -172,12 +174,15 @@ $interval = date_diff($nacimiento, $hoy);
                 
           <tbody>
             <?php 
-              while ($fila_familiaresin =mysqli_fetch_array($resultado_familiaresin)){ 
+              while ($fila_familiaresin =mysqli_fetch_array($resultado_familiaresin)){
+                     $fecha_nacimiento= $fila_familiaresin['edad'];
+                     $edad= new DateTime($fecha_nacimiento);          
+                     $interval_fecha = date_diff($edad, $hoy);  
              ?>
             <tr>            
               <td><?php echo $fila_familiaresin['nombre'];?></td>
               <td><?php echo $fila_familiaresin['Parentezco'];?></td>
-              <td><?php echo $fila_familiaresin['edad'];?></td>
+              <td><?php echo $interval_fecha->format('%y años'); ?></td>
               <td><?php echo $fila_familiaresin['costo_adicional'];?>$</td>
               </tr>
               <?php 

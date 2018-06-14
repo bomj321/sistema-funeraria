@@ -1,11 +1,15 @@
 + Autocompletado_producto---eliminarlo de la carpeta ajax y modales y usarlo despues{{"_file":"/opt/lampp/htdocs/sistema-funeraria/admin/ajax/autocompletado_producto.php"}}
 + Agregar Maestro de Clientes
-- Arreglar Front-end
-- Eliminar planes, productos o servicios enlazados a un contrato. Mensaje de Alerta.
++ Arreglar Front-end
++ Eliminar planes, productos o servicios enlazados a un contrato. Mensaje de Alerta.
 + imagen producto app.js linea 361
-- opcional, paginar resultados
++ opcional, paginar resultados
 + Revisar venta_contrato_Action linea 118
 + Seguir con AGREGAR SERVICIOS EDITAR- BOTON
++ Edad por fecha
+- control de sesiones
++ Edad por diferencia en contrato y pdf. Arreglar.
+- campo sexo y numero de identificacion(esto solo a los familiares) editar(2183) (1377)
 
 # Edicion de Contratos
 + Arreglar formulario linea 915 app.js

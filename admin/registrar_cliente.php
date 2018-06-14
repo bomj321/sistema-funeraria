@@ -28,7 +28,7 @@ include('header.php');
                     
                       <div class="row" id="spin_ajax">
                         <h4>Registro de Clientes</h4>
-                        <form method="POST" enctype="multipart/form-data" onsubmit="registroclientes(); return false" id="registro_clientes_sistema" action="./ventas_action/registrar_cliente_action.php"  class="col s12">
+                        <form method="POST" enctype="multipart/form-data" onsubmit="registroclientes(); return false" id="registro_clientes_sistema" action=""  class="col s12">
                           <div class="row">
                             <div class="input-field col s12 m4">
                               <input  name="nombre_cliente" onkeypress="return sololetras(event)" id="nombre_cliente" type="text" class="validate" required="true">
@@ -89,7 +89,7 @@ include('header.php');
                           </div>
 
                      
-                             <button class="btn waves-effect waves-light green darken-3" type="submit" name="action">Registrar Contrato
+                             <button class="btn waves-effect waves-light green darken-3" type="submit" name="action">Registrar Cliente
                                 <i class="material-icons right">send</i>
                             </button>
                       

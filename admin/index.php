@@ -26,7 +26,7 @@ include('header.php');
                               </button>
                             </div>
                             <div class="col s12 m6">
-                               <a  href="registrar_usuario.php" class="btn waves-effect waves-light green darken-2">Registrar Usuario</a>
+                               <a disabled href="registrar_usuario.php" class="btn waves-effect waves-light green darken-2">Registrar Usuario</a>
                            </div>
                       </div> 
               </form>

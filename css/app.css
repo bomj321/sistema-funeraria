@@ -3,11 +3,16 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-image: url("../images/fondo.jpg");
+    background-repeat: no-repeat;
   }
 
   main {
     flex: 1 0 auto;
   }
+h4,h3{
+  color: white;
+}
 
 /*ESTILOS DE MATERIALIZE.css (Ver la pagina)*/
 

@@ -94,27 +94,33 @@
         <thead>
               <th class="text-center">Nombre</th>
               <th class="text-center">Parentezco</th>
-              <th class="text-center">Edad</th>              
+              <th class="text-center">N° de Identificacion</th>
+              <th class="text-center">Fechas de Nacimiento</th>              
               <th colspan="2" >Agregar</th>
         </thead>
         <tbody>          
-          <tr>
-            
-            <td>
-              <div>
-           <input  type="text" class="form-control" id="familiaresdi_parentezco_contrato">
-             </div>
-           </td>
-
+          <tr> 
             <td>
               <div>
            <input  type="text" class="form-control" id="familiaresdi_nombre_contrato">
              </div>
            </td>
+            
+             <td>
+              <div>
+           <input  type="text" class="form-control" id="familiaresdi_parentezco_contrato">
+             </div>
+           </td>
+             
+             <td>
+              <div>
+           <input  type="text" class="form-control" id="familiaresdi_identificacion_contrato">
+             </div>
+           </td>
 
              <td>
               <div>
-           <input  type="text" class="form-control"  id="familiaresdi_edad_contrato">
+           <input  type="date" class="form-control"  id="familiaresdi_edad_contrato">
              </div>
            </td>
 
@@ -135,29 +141,37 @@
         <thead>
               <th class="text-center">Nombre</th>
               <th class="text-center">Parentezco</th>
-              <th class="text-center">Edad</th>
+              <th class="text-center">N° de Identificacion</th>
+              <th class="text-center">Fecha de Nacimiento</th>
               <th class="text-center">Costo Adicional</th>              
               <th class="text-center" colspan="2" >Agregar</th>
         </thead>
         <tbody>
           
           <tr>
+           
+           <td>
+              <div>
+           <input  type="text" class="form-control" id="familiaresin_nombre_contrato"  >
+             </div>
+           </td>
             
             <td>
               <div>
            <input  type="text" class="form-control" id="familiaresin_parentezco_contrato">
              </div>
            </td>
-
-            <td>
+            
+             
+             <td>
               <div>
-           <input  type="text" class="form-control" id="familiaresin_nombre_contrato"  >
+           <input  type="text" class="form-control" id="familiaresin_identificacion_contrato">
              </div>
            </td>
 
              <td>
               <div>
-           <input  type="text" class="form-control"  id="familiaresin_edad_contrato">
+           <input  type="date" class="form-control"  id="familiaresin_edad_contrato">
              </div>
            </td>
 

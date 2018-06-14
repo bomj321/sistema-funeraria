@@ -106,14 +106,6 @@ if (isset($_GET['id_servicio']))//codigo elimina un elemento del array
 ////////////////////ELIMINAR SERVICIOS CIERRO
 
 
-/////////////////////////////////////////////////VERIFICAR FAMILIARES DIRECTO//////////////////////////////////////
-if (isset($_POST['parentezcodi_contrato']) AND isset($_POST['nombredi_contrato']) AND isset($_POST['edaddi_contrato'])) {
-	   $parentezcodi=$_POST['parentezcodi_contrato'];
-	   $nombredi=$_POST['nombredi_contrato'];
-	   $edaddi=$_POST['edaddi_contrato'];
-}
-/////////////////////////////////////////////////VERIFICAR FAMILIARES DIRECTO CIERRO//////////////////////////////////////
-
 
 ////////////////////ELIMINAR SERVICIOS
 if (isset($_GET['id_servicio']))//codigo elimina un elemento del array
@@ -128,19 +120,20 @@ if (isset($_GET['id_servicio']))//codigo elimina un elemento del array
 ////////////////////ELIMINAR SERVICIOS CIERRO
 
 /////////////////////////////////////////////////VERIFICAR FAMILIARES DIRECTO//////////////////////////////////////
-if (isset($_POST['parentezcodi_contrato']) AND isset($_POST['nombredi_contrato']) AND isset($_POST['edaddi_contrato'])) {
+if (isset($_POST['parentezcodi_contrato']) AND isset($_POST['nombredi_contrato']) AND isset($_POST['edaddi_contrato']) AND isset($_POST['identificaciondi_contrato'])) {
 	   $parentezcodi=$_POST['parentezcodi_contrato'];
 	   $nombredi=$_POST['nombredi_contrato'];
-	   $edaddi=$_POST['edaddi_contrato'];
+	   $numerodi=$_POST['identificaciondi_contrato'];
+	   $edaddi=$_POST['edaddi_contrato'].' 00:00:00.000000';
 }
 
 ///////////////Insertar FAMILIARES DIRECTO
 
-if (!empty($parentezcodi) AND !empty($nombredi) AND !empty($edaddi)) {
+if (!empty($parentezcodi) AND !empty($nombredi) AND !empty($edaddi) AND !empty($numerodi)) {
 	   		mysqli_set_charset($connection, "utf8");
-            $sql_tmp_familiaresdi="INSERT INTO tmp_familiaresdi_contrato (parentezco,nombre,edad,session_id) VALUES (?,?,?,?)";
+            $sql_tmp_familiaresdi="INSERT INTO tmp_familiaresdi_contrato (parentezco,nombre,edad,identificacion,session_id) VALUES (?,?,?,?,?)";
             $resultado_tmp_familiaresdi=mysqli_prepare($connection, $sql_tmp_familiaresdi);
-            mysqli_stmt_bind_param($resultado_tmp_familiaresdi, "ssis", $parentezcodi,$nombredi,$edaddi,$session_id);
+            mysqli_stmt_bind_param($resultado_tmp_familiaresdi, "sssss", $parentezcodi,$nombredi,$edaddi,$numerodi,$session_id);
             $okdi=mysqli_stmt_execute($resultado_tmp_familiaresdi);
             mysqli_stmt_close($resultado_tmp_familiaresdi);
 }
@@ -161,20 +154,21 @@ if (isset($_GET['id_familiardi']))//codigo elimina un elemento del array
 
 
 /////////////////////////////////////////////////VERIFICAR FAMILIARES INDIRECTOS//////////////////////////////////////
-if (isset($_POST['parentezcoin_contrato']) AND isset($_POST['nombrein_contrato']) AND isset($_POST['edadin_contrato']) AND isset($_POST['costoin_contrato'])) {
+if (isset($_POST['parentezcoin_contrato']) AND isset($_POST['nombrein_contrato']) AND isset($_POST['edadin_contrato']) AND isset($_POST['costoin_contrato']) AND isset($_POST['identificacionin_contrato'])) {
 	   $parentezcoin=$_POST['parentezcoin_contrato'];
 	   $nombrein=$_POST['nombrein_contrato'];
-	   $edadin=$_POST['edadin_contrato'];
+	   $edadin=$_POST['edadin_contrato'].' 00:00:00.000000';
 	   $costoin=$_POST['costoin_contrato'];
+	   $numeroin=$_POST['identificacionin_contrato'];
 }
 
 ///////////////Insertar FAMILIARES INDIRECTOS
 
-if (!empty($parentezcoin) AND !empty($nombrein) AND !empty($edadin) AND !empty($costoin)) {
+if (!empty($parentezcoin) AND !empty($nombrein) AND !empty($edadin) AND !empty($costoin) AND !empty($numeroin)) {
 	   		mysqli_set_charset($connection, "utf8");
-            $sql_tmp_familiaresin="INSERT INTO tmp_familiaredin_contrato (parentezcoin,nombrein,edadin,costo_adicional,session_id) VALUES (?,?,?,?,?)";
+            $sql_tmp_familiaresin="INSERT INTO tmp_familiaredin_contrato (parentezcoin,nombrein,edadin,costo_adicional,identificacion,session_id) VALUES (?,?,?,?,?,?)";
             $resultado_tmp_familiaresin=mysqli_prepare($connection, $sql_tmp_familiaresin);
-            mysqli_stmt_bind_param($resultado_tmp_familiaresin, "ssiis", $parentezcoin,$nombrein,$edadin,$costoin,$session_id);
+            mysqli_stmt_bind_param($resultado_tmp_familiaresin, "sssiss", $parentezcoin,$nombrein,$edadin,$costoin,$numeroin,$session_id);
             $okin=mysqli_stmt_execute($resultado_tmp_familiaresin);
             mysqli_stmt_close($resultado_tmp_familiaresin);
 }
@@ -205,6 +199,10 @@ if (isset($_GET['id_familiarin']))//codigo elimina un elemento del array
             $resultado_familiaresin_resultado= mysqli_query($connection, $sql_familiaresin_resultado);
             $filasin= mysqli_num_rows($resultado_familiaresin_resultado);
 /////////////////////////////////////////FAMILIARES INDIRECTOS///////////////////////////////////////////////
+/*************************************************GENERAR FECHA****************************************************/
+$generar_hoy= date('Y-m-d H:i:s');
+$hoy = new DateTime($generar_hoy);    
+/*************************************************GENERAR FECHA****************************************************/
 
 if ($filasdi>0 || $filasin>0) {
 
@@ -213,6 +211,7 @@ if ($filasdi>0 || $filasin>0) {
  	<thead>
  		<th>Nombre</th>
  		<th>Parentezco</th>
+ 		<th>N° de Identificacion</th>
  		<th>Edad</th>
  		<th>Costo Adicional</th>
  	</thead>
@@ -229,13 +228,17 @@ if ($filasdi>0 || $filasin>0) {
 				while($row_familiaresdi=mysqli_fetch_array($resultado_familiaresdi_resultado)){
 				$id_tmp_familiares=$row_familiaresdi['id_tmp_familiares'];
 				$parentezcodi=$row_familiaresdi['parentezco'];
+				$identificaciondi=$row_familiaresdi['identificacion'];	
 				$nombre_tmp_familiardi=$row_familiaresdi['nombre'];
 				$edad_tmp_familiardi=$row_familiaresdi['edad'];
+                $edad= new DateTime($edad_tmp_familiardi);          
+                $interval_fecha = date_diff($edad, $hoy); 					
 			 ?>	 
 				<tr>
 					<td class="text-left">Familiar Directo-<?php echo $nombre_tmp_familiardi;?></td>
 					<td class="text-left"><?php echo $parentezcodi;?></td>
-					<td class="text-left"><?php echo $edad_tmp_familiardi;?></td>
+					<td class="text-left"><?php echo $identificaciondi;?></td>
+					<td class="text-left"><?php echo $interval_fecha->format('%y años');?></td>
 					<td class='text-left'>0$</td>
 					<td class="text-left"><a onclick="eliminar_familiardi_contrato('<?php echo $id_tmp_familiares ?>')"><i class="material-icons pdf">cancel</i></a></td>
 		 		</tr>
@@ -248,15 +251,19 @@ if ($filasdi>0 || $filasin>0) {
 				while($row_familiaresin=mysqli_fetch_array($resultado_familiaresin_resultado)){
 				$id_tmp_familiaresin=$row_familiaresin['id_tmp_familiaresin'];
 				$parentezcoin=$row_familiaresin['parentezcoin'];
+				$identificacionin=$row_familiaresin['identificacion'];	
 				$nombre_tmp_familiarin=$row_familiaresin['nombrein'];
 				$costo_tmp_familiarin=$row_familiaresin['costo_adicional'];
 				$edad_tmp_familiarin=$row_familiaresin['edadin'];
+				$edadin= new DateTime($edad_tmp_familiarin);          
+                $interval_fechain = date_diff($edadin, $hoy); 
 				$sumador_familiarin+=$costo_tmp_familiarin;
 			 ?>	 
 				<tr>
 					<td class="text-left">Familiar Indirecto-<?php echo $nombre_tmp_familiarin;?></td>
 					<td class="text-left"><?php echo $parentezcoin;?></td>
-					<td class="text-left"><?php echo $edad_tmp_familiarin;?></td>
+					<td class="text-left"><?php echo $identificacionin;?></td>
+					<td class="text-left"><?php echo $interval_fechain->format('%y años');?></td>
 					<td class='text-left'><?php echo $costo_tmp_familiarin;?>$</td>
 					<td class="text-left"><a onclick="eliminar_familiarin_contrato('<?php echo $id_tmp_familiaresin?>')"><i class="material-icons pdf">cancel</i></a></td>
 		 		</tr>

@@ -23,7 +23,7 @@ include('header.php');
                             ?>
                         <div class="divider"></div>   
                       <div class="row" id="spin_ajax">
-                        <h4>Registro de Usuario/Contratos</h4>
+                        <h4>Registro de Contratos</h4>
                         <form method="POST" enctype="multipart/form-data" id="venta_contrato_ventas" action="" onsubmit="ventaDeContratos(); return false" class="col s12">
                           <div class="row">
                                                      

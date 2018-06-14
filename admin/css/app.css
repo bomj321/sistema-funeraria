@@ -67,12 +67,16 @@ main ul li{
 /*ESTILOS DE LAS TABLAS*/
 @media screen and (min-width: 990px) {
    .tablaeditar th {
-    max-width: 50px;
+    max-width: 30px;
 }
 
 	.tablaeditar td {
-    max-width: 50px;
+    max-width: 30px;
 }
+	
+	.celda{
+		text-align: center;
+	}	
     
 }
 

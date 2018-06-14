@@ -5,7 +5,7 @@ $resultado_total= mysqli_query($connection, $sql_total);
 $filas_afectadas= mysqli_num_rows($resultado_total);
 
 
-$sql_total_suspendidos ="SELECT * FROM User WHERE revisado='0'";
+$sql_total_suspendidos ="SELECT * FROM User WHERE activo='0'";
 $resultado_total_suspendidos= mysqli_query($connection, $sql_total_suspendidos);
 $filas_afectadas_suspendidos= mysqli_num_rows($resultado_total_suspendidos);
 
