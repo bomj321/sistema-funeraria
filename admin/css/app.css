@@ -59,10 +59,14 @@ main ul li{
 }
 /*ESTILOS PARA LOS DIFERENTES COMPONENTES*/
 
+/*ESTILO PARA LA IMG DE INICIO*/
+.celda img{
+	width: 100%;
+	height: 200px;
+}
 
 
-
-
+/*ESTILO PARA LA IMG DE INICIO*/
 
 /*ESTILOS DE LAS TABLAS*/
 @media screen and (min-width: 990px) {

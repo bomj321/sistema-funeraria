@@ -1,9 +1,12 @@
 //JQUERY DE MATERIALIZE
   $(document).ready(function(){
   $('.sidenav').sidenav();
-	$('.carousel').carousel(); 
+  $('.carousel').carousel(); 
   $('select').formSelect();
-  $('.modal').modal();       
+  $('.modal').modal(); 
+  $('.carousel.carousel-slider').carousel({
+    fullWidth: true
+  });  
   });
 
   
