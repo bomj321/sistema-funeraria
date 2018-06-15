@@ -20,6 +20,7 @@ $resultado_busqueda= mysqli_query($connection, $busqueda);
 		$row_array['civil_contrato']=$row['estado'];
 		$row_array['edad_contrato']=date('Y-m-d',strtotime($row["nacimiento"]));
 		$row_array['dni_contrato']=$row['dni'];
+		$row_array['sexo_contrato']=$row['sexo'];
 		$row_array['numero_contrato']=$row['numero'];
 		$row_array['email_contrato']=$row['email'];
 		$row_array['direccion_contrato']=$row['direccion'];

@@ -69,22 +69,28 @@ include('header.php');
                           </div>
                           
                           <div class="row">
-                            <div class="input-field col s12 m4">
+                            <div class="input-field col s12 m3">
                               <input name="direccion_cliente" id="direccion_cliente" type="text" class="validate" required="true">
-                              <label for="direccion_cliente">Direccion del cliente</label>
-                              
+                              <label for="direccion_cliente">Direccion del cliente</label>                              
                             </div>
                             
-                            <div class="input-field col s12 m4">
+                            <div class="input-field col s12 m3">
+                              <input name="genero_cliente" onkeypress="return sololetras2(event)" id="genero_cliente" type="text" class="validate" required="true">
+                              <label for="genero_cliente">Genero del Cliente</label>
+                            </div>
+                            
+                            <div class="input-field col s12 m3">
                               <input name="familiar_cliente" onkeypress="return sololetras(event)" id="familiar_cliente" type="text" class="validate" required="true">
                               <label for="familiar_cliente">Familiar de Contacto</label>
                               
                             </div>
 
-                            <div class="input-field col s12 m4">
+                            <div class="input-field col s12 m3">
                               <input name="telefono_familiar_cliente" onkeypress="return solonumerosolo(event)" id="telefono_familiar_cliente" type="text" class="validate" required="true">
                               <label for="telefono_familiar_cliente">Telefono del Familiar</label>
                             </div>
+                            
+                             
                             
                           </div>
 

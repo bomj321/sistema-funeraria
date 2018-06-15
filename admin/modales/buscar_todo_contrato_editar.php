@@ -58,21 +58,28 @@
         <thead>
               <th class="text-center">Nombre</th>
               <th class="text-center">Parentezco</th>
+              <th class="text-center">N° de Identificacion</th>
               <th class="text-center">Edad</th>              
               <th colspan="2" >Agregar</th>
         </thead>
         <tbody>          
           <tr>
-            
+               
             <td>
+              <div>
+           <input  type="text" class="form-control" id="familiaresdi_nombre_contrato_editar">
+             </div>
+           </td>
+            
+             <td>
               <div>
            <input  type="text" class="form-control" id="familiaresdi_parentezco_contrato_editar">
              </div>
            </td>
-
-            <td>
+             
+             <td>
               <div>
-           <input  type="text" class="form-control" id="familiaresdi_nombre_contrato_editar">
+           <input  type="text" class="form-control" id="familiaresdi_numero_contrato_editar">
              </div>
            </td>
 
@@ -99,25 +106,31 @@
         <thead>
               <th class="text-center">Nombre</th>
               <th class="text-center">Parentezco</th>
+              <th class="text-center">N° de Identificacion</th>
               <th class="text-center">Edad</th>
               <th class="text-center">Costo Adicional</th>              
               <th class="text-center" colspan="2" >Agregar</th>
         </thead>
         <tbody>
           
-          <tr>
-            
-            <td>
-              <div>
-           <input  type="text" class="form-control" id="familiaresin_parentezco_contrato_editar">
-             </div>
-           </td>
-
+          <tr> 
             <td>
               <div>
            <input  type="text" class="form-control" id="familiaresin_nombre_contrato_editar"  >
              </div>
            </td>
+             
+            <td>
+              <div>
+           <input  type="text" class="form-control" id="familiaresin_parentezco_contrato_editar">
+             </div>
+           </td> 
+             
+           <td>
+              <div>
+           <input  type="text" class="form-control" id="familiaresin_numero_contrato_editar">
+             </div>
+           </td>   
 
              <td>
               <div>

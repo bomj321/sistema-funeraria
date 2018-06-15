@@ -298,15 +298,15 @@ mysqli_stmt_execute($resultado_actualizar);
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////AGREGAR SERVICIOS ADICIONALES CIERRO
 
 /////////////////////////////////////////////////INSERTAR FAMILIARES INDIRECTOS//////////////////////////////////////
-if (isset($_GET['parentezcoin_contrato']) AND isset($_GET['nombrein_contrato']) AND isset($_GET['edadin_contrato']) AND isset($_GET['costoin_contrato'])) {
+if (isset($_GET['parentezcoin_contrato']) AND isset($_GET['nombrein_contrato']) AND isset($_GET['edadin_contrato']) AND isset($_GET['costoin_contrato']) AND isset($_GET['numeroin_contrato'])) {
 $id_edad_familiarin=$_GET['edadin_contrato'].' 00:00:00.000000'; 
 $id_parentezco_familiarin=$_GET['parentezcoin_contrato']; 
 $id_nombre_familiarin=$_GET['nombrein_contrato']; 
 $id_costo_familiarin=intval($_GET['costoin_contrato']); 
+$numeroin=$_GET['numeroin_contrato']; 
  
- 
- $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional) VALUES (?,?,?,?,?,?)";
- $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisssi",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiarin,$id_nombre_familiarin,$id_edad_familiarin,$id_costo_familiarin);
+ $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional,identificacion) VALUES (?,?,?,?,?,?,?)";
+ $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisssis",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiarin,$id_nombre_familiarin,$id_edad_familiarin,$id_costo_familiarin,$numeroin);
  $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
  mysqli_stmt_close($resultado_familiarin);
  
@@ -332,14 +332,14 @@ mysqli_stmt_execute($resultado_actualizar);
 
 
 /////////////////////////////////////////////////INSERTAR FAMILIARES DIRECTOS//////////////////////////////////////
-if (isset($_GET['parentezcodi_contrato']) AND isset($_GET['nombredi_contrato']) AND isset($_GET['edaddi_contrato'])) {
+if (isset($_GET['parentezcodi_contrato']) AND isset($_GET['nombredi_contrato']) AND isset($_GET['edaddi_contrato']) AND isset($_GET['numerodi_contrato'])) {
 $id_edad_familiardi=$_GET['edaddi_contrato'].' 00:00:00.000000'; 
 $id_parentezco_familiardi=$_GET['parentezcodi_contrato']; 
 $id_nombre_familiardi=$_GET['nombredi_contrato']; 
+$numerodi=$_GET['numerodi_contrato']; 
  
- 
- $sql_familiarin="INSERT INTO User_family (id_User_family,User_idUser,Parentezco,nombre,edad) VALUES (?,?,?,?,?)";
- $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisss",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiardi,$id_nombre_familiardi,$id_edad_familiardi);
+ $sql_familiarin="INSERT INTO User_family (id_User_family,User_idUser,Parentezco,nombre,edad,identificacion) VALUES (?,?,?,?,?,?)";
+ $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iissss",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiardi,$id_nombre_familiardi,$id_edad_familiardi,$numerodi);
  $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
  mysqli_stmt_close($resultado_familiarin);
  
@@ -494,7 +494,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
           
           $tabla_planes.='
                <div class="col s12 m12">
-                  <p style="color: black;">Productos del Plan</p>         
+                  <h4 style="text-align:left;">Servicios del Plan</h4>         
               </div>';
           $tabla_planes.='
         <div class="col s12 m12">  
@@ -606,6 +606,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                         <th>Nombre del Familiar</th>
                         <th>Edad</th>
                         <th>Parentezco</th>
+                        <th>N° de identificacion</th>
                         <th>Costo Adicional</th>
                         <th>Acciones</th>
                     </tr>
@@ -622,6 +623,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                       <td>'.$fila_familiarin_adicional['nombre'].'</td>
                       <td>'.$interval_fecha->format('%y años').'</td>
                       <td>'.$fila_familiarin_adicional['Parentezco'].'</td>
+                      <td>'.$fila_familiarin_adicional['identificacion'].'</td>
                       <td>'.$fila_familiarin_adicional['costo_adicional'].'RD$</td>
                       <td>
                        <a type="button" class="btn waves-effect waves-light" onclick="eliminar_editar_familiarin_contrato('.$fila_familiarin_adicional["id_actualizar_familyin"].')">Eliminar Familiar</a> 
@@ -655,7 +657,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
           
           $tabla_planes.='
                <div class="col s12 m12">
-                  <p style="color: #c62828; font-size: 2rem;">Familiares dependientes del Contrato</p>         
+                  <p style="color: black; font-size: 2rem;">Familiares dependientes del Contrato</p>         
               </div>';
           $tabla_planes.='
         <div class="col s12 m12">  
@@ -664,7 +666,8 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                     <tr>
                         <th>Nombre del Familiar</th>
                         <th>Edad</th>
-                        <th class="celda" >Parentezco</th>                        
+                        <th class="celda" >Parentezco</th>
+                        <th>N° de identificacion</th>
                         <th class="celda">Acciones</th>
                     </tr>
                   </thead>
@@ -680,6 +683,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                       <td>'.$fila_familiarde_adicional['nombre'].'</td>
                       <td>'.$intervalde_fecha->format('%y años').'</td>
                       <td class="celda">'.$fila_familiarde_adicional['Parentezco'].'</td>
+                      <td>'.$fila_familiarde_adicional['identificacion'].'</td>
                       <td class="celda">
                        <a type="button" class="btn waves-effect waves-light" onclick="eliminar_editar_familiarde_contrato('.$fila_familiarde_adicional["id_actualizar_family"].')">Eliminar Familiar</a> 
                       </td>

@@ -40,8 +40,8 @@ $sql_cuota = "SELECT * FROM Pagos WHERE id_pagos='$cuotaid_limpio' AND User_id='
 /*CIERRO MULTIPLES CONSULTAS*/    
 
 /*************************PARTE PRODUCTOS****************************************/
-/*$pdf= new PDF_AutoPrint('P','mm',array(58,150));*/
-$pdf= new PDF('P','mm',array(58,95));
+$pdf= new PDF_AutoPrint('P','mm',array(58,150));
+/*$pdf= new PDF('P','mm',array(58,95));*/
 /*$pdf->AliasNbPages();*/
 $pdf->AddPage();
  $row_user=$resultado->fetch_assoc();

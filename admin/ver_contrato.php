@@ -83,6 +83,7 @@ $interval = date_diff($nacimiento, $hoy);
       <p>Edad del Usuario: <?php echo $interval->format('%y años'); ?></p>
       <p>Estado Civil del Usuario: <?php echo $fila['estado']; ?></p>
       <p>DNI del Usuario: <?php echo $fila['dni']; ?></p>
+      <p>Genero del Usuario: <?php echo $fila['sexo']; ?></p>
       <p>Numero Telefonico del Usuario: <?php echo $fila['numero']; ?></p>
       <p>Email del Usuario: <?php echo $fila['email'];?></p>
       <p>Direccion del Cliente: <?php echo $fila['direccion'];?></p>
@@ -102,8 +103,8 @@ $interval = date_diff($nacimiento, $hoy);
           $sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $id_user_session AND id_User_family=$id_user_unico";
             $resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
             if (mysqli_num_rows($resultado_familiaresde)==0) {
-?>
-              <p style="color: red;">NO HAY FAMILIARES AGREGADOS</p>
+?>    
+                    <p style="color: red;">NO HAY FAMILIARES DEPENDIENTESAGREGADOS</p>
 
 
   <?php             
@@ -154,7 +155,7 @@ $interval = date_diff($nacimiento, $hoy);
             $resultado_familiaresin= mysqli_query($connection, $sql_familiaresin);
             if (mysqli_num_rows($resultado_familiaresin)==0) {
 ?>
-              <p style="color: red;">NO HAY FAMILIARES AGREGADOS</p>
+              <p style="color: red;">NO HAY FAMILIARES INDEPENDIENTES AGREGADOS</p>
 
 
   <?php             
@@ -202,18 +203,19 @@ $interval = date_diff($nacimiento, $hoy);
     </div>
 
     <div class="col s12 m12">
-          <h4 style="text-align: center; color: #ff6f00;">Productos y Servicios Adquiridos</h4>
+          <h4 style="text-align: center;">Productos y Servicios Adquiridos</h4>
     </div>
 <!--CONSULTA PARA LOS PLANES-->
-
+<div class="row" >
         <?php 
             $sql_planes = "SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $id_user_session AND User_has_planes.id_user_plan=$id_user_unico";
               $resultado_planes= mysqli_query($connection, $sql_planes);
 
-              if (mysqli_num_rows($resultado_planes)==0) {
+              if (mysqli_num_rows($resultado_planes)==0) {                  
   ?>
-                <p style="color: #ff6f00;">NO HAY PLANES REGISTRADOS</p>
-
+                <div class="col s12 m12">
+                   <p style="color: red;">NO HAY PLANES REGISTRADOS</p>
+  				</div>  
 
     <?php             
                }else{
@@ -221,7 +223,7 @@ $interval = date_diff($nacimiento, $hoy);
                   $id_user_session=$_SESSION["usuarioid"];
                   ?>    
 <div style="border: 1px solid" >   
-    <div class="row" >
+    
                   <table class="responsive-table tablaeditar" >
                   <thead>
                     <tr>
@@ -241,6 +243,8 @@ $interval = date_diff($nacimiento, $hoy);
                   </tbody>
               </table>
   </div>
+  
+  
   <div class="row">
         <div id="contrato_todo<?php echo $fila_planes['id_planes'];?>" class="col s12 m12"> 
             <h4 style="text-align: center;">Servicios del Plan </h4>
@@ -255,8 +259,9 @@ $interval = date_diff($nacimiento, $hoy);
                            $resultado_servicios= mysqli_query($connection, $sql_servicios);
                            if (mysqli_num_rows($resultado_servicios)==0) {                          
                               ?>
-                          <p style="color: red; text-align:center;">NO HAY SERVICIOS AGREGADOS</p>   
-
+                            <div class="col s12 m12"> 
+                          		<p style="color: red; text-align:center;">NO HAY SERVICIOS AGREGADOS</p>   
+							</div> 
                    
                          
                           
@@ -320,7 +325,11 @@ $interval = date_diff($nacimiento, $hoy);
                 $resultado_productos= mysqli_query($connection, $sql_productos);
                 if (mysqli_num_rows($resultado_productos)==0) {                    
                           ?>
-                 <p style="color: red; text-align:center;">NO HAY PRODUCTOS AGREGADOS</p>                    
+                          
+                       <div class="col s12 m12">  
+                			 <p style="color: red; text-align:center;">NO HAY PRODUCTOS AGREGADOS</p> 
+                  	  </div> 
+                                                         
                     <?php
                         }else{
                     ?>
@@ -374,8 +383,7 @@ $interval = date_diff($nacimiento, $hoy);
 
              
        </div>
-    </div>     
-  </div>
+    </div>        
   <?php
 
                     
@@ -445,6 +453,9 @@ $interval = date_diff($nacimiento, $hoy);
        </div>
     </div>
 
+   
+   
+   
     <div class="row">
        <div class="col s12 m12" id="pagos_entregar_contrato">
           <h4 style="text-align: center;">Pagos de los Contratos</h4>
@@ -561,7 +572,7 @@ $interval = date_diff($nacimiento, $hoy);
       
        </div>
     </div>
-
+</div>
 </div>
 <?php
 include('footer.php');

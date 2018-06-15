@@ -77,7 +77,7 @@ $interval = date_diff($nacimiento, $hoy);
 /*CIERRO MULTIPLES CONSULTAS*/    
 
 $pdf= new PDF('P','mm','A4');
-/*$pdf->AliasNbPages();*/
+$pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->Image('../img/logo.png', 55, 8, 100);
 			$pdf->SetFont('Arial','B',10);
@@ -89,7 +89,7 @@ $pdf->Image('../img/logo.png', 55, 8, 100);
 $pdf->SetFont('Arial','B',12);
 $pdf->SetTextColor(80,77,208);
 $pdf->SetFillColor(232,232,232);
-$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D.,  y el (la) Sr.(a). ').$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').', estado civil '.$row_contrato['estado'].utf8_decode(' cuyo numero de identicación es ').$row_contrato['dni'].' y email '.$row_contrato['email'].', el (la) cual tiene el contrato numero '.$row_contrato['idUser_user'].' cuyo costo total es de '.$sum.'$.',0,'FJ',0);
+$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D., y el (la) Sr.(a). '.$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').' años, y cuyo sexo es '.$row_contrato['sexo'].', estado civil es '.$row_contrato['estado'].utf8_decode(' cuyo numero de identicación es ').$row_contrato['dni'].' y email '.$row_contrato['email'].', cuyo numero de contrato es '.$row_contrato['idUser_user'].' con un coste total de '.$sum.'$.'),0,'FJ',0);
 $pdf->Ln(10);
 $pdf->SetTextColor(231,14,14);
 $pdf->Cell(180,6,'HAN PACTADO Y CONVENIDO LO SIGUIENTE',0,0,'C',0);
@@ -212,7 +212,7 @@ $pdf->Ln(5);
 			}////CIERRO WHILE DE LOS PLANES
     }else{
     	$pdf->SetTextColor(231,14,14);
-    	$pdf->Cell(180,10, 'NO HAY PlANES REGISTRADOS',0,1,'C');
+    	$pdf->Cell(180,10, 'NO HAY PLANES REGISTRADOS',0,1,'C');
     }
 $pdf->Ln(5);
 $pdf->SetTextColor(231,14,14);
@@ -233,8 +233,10 @@ $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adici
 			}
 
        }else{
+		$pdf->SetTextColor(231,14,14);     
        	$pdf->Cell(180,10, 'NO HAY SERVICIOS ADICIONALES REGISTRADOS',0,1,'C');
        }///////////////////CIERRO IF DE LOS SERVICIOS ADICIONALES
+$pdf->SetTextColor(80,77,208);
 $pdf->Ln(5);        
 $pdf->MultiCell(180,6,utf8_decode('Las personas menores de 18 años recibirán un ataúd cuyo valor y tamaño lo determinan   la   edad  y un valor en efectivo de RD$. 2,000.00 (DOS MIL PESOS).'),0,'FJ',0);
 $pdf->Ln(5);

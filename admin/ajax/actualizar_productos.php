@@ -11,7 +11,37 @@ if (isset($_GET['id_producto_entregar']) AND isset($_GET['actualizar_producto'])
     $sql="UPDATE planes_has_products_delivered SET entregado_product ='1' WHERE id_actualizar_producto= ? ";
         $resultado=mysqli_prepare($connection, $sql);
         mysqli_stmt_bind_param($resultado, "i", $id_producto);
-        mysqli_stmt_execute($resultado);  
+        mysqli_stmt_execute($resultado);
+  /********************************************SELECCIONA PRODUCTO ID****************************************************/
+   $sql_producto = "SELECT * FROM planes_has_products_delivered WHERE id_actualizar_producto= $id_producto";
+   $resultado_producto= mysqli_query($connection, $sql_producto);
+   $producto =mysqli_fetch_array($resultado_producto);
+   $productoid= $producto['products_id_products_products'];
+   $producto_cantidad=$producto['cantidad_producto'];
+  /********************************************SELECCIONA PRODUCTO ID CIERRO**********************************************/
+
+  
+  
+/********************************************SELECCIONA PRODUCTO STOCK****************************************************/
+  
+$sql_productos="SELECT * FROM stock WHERE id=$productoid";
+$resultado_productos= mysqli_query($connection, $sql_productos);
+$stock_resultado =mysqli_fetch_array($resultado_productos);  
+$stock_cantidad= $stock_resultado['cantidad'];
+/********************************************SELECCIONA PRODUCTO STOCK CIERRO**********************************************/
+
+  
+/********************************************ACTUALIZA PRODUCTO STOCK************************************************/
+  
+$resta= $stock_cantidad-$producto_cantidad; 
+ mysqli_set_charset($connection, "utf8");
+$sql_update="UPDATE stock SET  cantidad=? WHERE id=?";
+$resultado_update=mysqli_prepare($connection, $sql_update);
+mysqli_stmt_bind_param($resultado_update, "ii", $resta,$productoid);
+$ok5=mysqli_stmt_execute($resultado_update);
+mysqli_stmt_close($resultado_update);    
+/********************************************ACTUALIZA PRODUCTO STOCK CIERRO***********************************************/
+               
 }
 ////////////////////ENTREGAR SERVICIO CIERRO
 

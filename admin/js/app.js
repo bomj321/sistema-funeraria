@@ -1683,7 +1683,7 @@ function load(){
                type: "GET",
 				url:'./ajax/buscar_productos_ajax.php',
                 data: 'producto='+producto,
-		 beforeSend: function(objeto){
+		 beforeSend: function(data){
 			$("#contenido_producto").html("CARGANDO, ESPERE POR FAVOR");
 		  },success:function(data){
 					$("#contenido_producto").html(data);
@@ -1855,7 +1855,8 @@ $(document).ready(function() {
                        $('#id_cliente_contrato').val(ui.item.id_cliente_contrato);          
                        $('#nombre_contrato').val(ui.item.nombre_contrato);
 				       $('#civil_contrato').val(ui.item.civil_contrato);
-				       $('#edad_contrato').val(ui.item.edad_contrato);				       
+				       $('#edad_contrato').val(ui.item.edad_contrato);
+                       $('#genero_contrato').val(ui.item.sexo_contrato);
 				       $('#numero_contrato').val(ui.item.numero_contrato);
                        $('#dni_contrato').val(ui.item.dni_contrato);
                        $('#email_contrato').val(ui.item.email_contrato);
@@ -1875,6 +1876,7 @@ $("#dni_contrato" ).on( "keydown", function( event ) {
                              $('#id_cliente_contrato').val(""); 
                              $('#civil_contrato').val("");
                              $('#edad_contrato').val("");
+                             $('#genero_contrato').val("");
                              $('#nombre_contrato').val("");
                              $('#numero_contrato').val("");
                              $('#edad_contrato').val("");
@@ -1889,6 +1891,7 @@ $("#dni_contrato" ).on( "keydown", function( event ) {
 							 $('#civil_contrato').val("");
                              $('#dni_contrato').val("");
                              $('#edad_contrato').val("");
+                             $('#genero_contrato').val("");
                              $('#nombre_contrato').val("");
                              $('#numero_contrato').val("");
                              $('#edad_contrato').val("");
@@ -1958,6 +1961,71 @@ function eliminar_cliente (id)
     }
 
 //////////////////////////////////////////////////////////////////////////////////ELIMINAR CLIENTE CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////ACTIVAR CLIENTE
+function activar_cliente (id)
+    {
+    
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_clientes.php",
+        data: "id_activar="+id,
+     
+        success: function(datos){
+    $("#clientes_venta").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ACTIVAR CLIENTE CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////DESACTIVAR CLIENTE
+function desactivar_cliente (id)
+    {
+        
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_clientes.php",
+        data: "id_desactivar="+id,
+     
+        success: function(datos){
+    $("#clientes_venta").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////DESACTIVAR CLIENTE CIERRO
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////SUBIR EDICION DE CONTRATO
+function actualizarDatosCliente(){ 
+  var parametros = new FormData($("#formularioactualizarcliente")[0]);
+      $.ajax({
+          data: parametros,
+          url:"./acciones/update_cliente_action.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Actualizando cliente espere...');
+          },
+          success: function(data){            
+            toastr.success('Cliente actualizado!!!'); 
+            setTimeout(function () {              
+             window.location.href = './control_de_los_clientes.php';
+          }, 1000);         
+          }
+      });
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////SUBIR EDICION DE CONTRATO CIERRO
 
 
 
@@ -2202,7 +2270,15 @@ function agregar_contrato_editar_familiaresin()
       var nombrein_contrato=document.getElementById('familiaresin_nombre_contrato_editar').value;
       var edadin_contrato=document.getElementById('familiaresin_edad_contrato_editar').value;
       var costoin_contrato=document.getElementById('familiaresin_costo_contrato_editar').value;
+      var numeroin_contrato=document.getElementById('familiaresin_numero_contrato_editar').value;
       //Inicia validacion
+      if (numeroin_contrato==="" )
+      {
+      alert('Ingrese un numero de idenficacion');
+      document.getElementById('familiaresin_numero_contrato_editar').focus();
+      return false;
+      }
+      
       if (parentezcoin_contrato==="" )
       {
       alert('Ingrese Parentezco');
@@ -2234,7 +2310,7 @@ function agregar_contrato_editar_familiaresin()
       $.ajax({
         type: "GET",
         url: "./busquedas/buscar_datos_contrato.php",
-        data: "parentezcoin_contrato="+parentezcoin_contrato+"&nombrein_contrato="+nombrein_contrato+"&edadin_contrato="+edadin_contrato+"&costoin_contrato="+costoin_contrato,
+        data: "parentezcoin_contrato="+parentezcoin_contrato+"&nombrein_contrato="+nombrein_contrato+"&edadin_contrato="+edadin_contrato+"&costoin_contrato="+costoin_contrato+"&numeroin_contrato="+numeroin_contrato,
      
         success: function(datos){
     $("#resultados_editar_contrato").html(datos);
@@ -2252,7 +2328,15 @@ function agregar_contrato_editar_familiaresdi()
       var parentezcodi_contrato=document.getElementById('familiaresdi_parentezco_contrato_editar').value;
       var nombredi_contrato=document.getElementById('familiaresdi_nombre_contrato_editar').value;
       var edaddi_contrato=document.getElementById('familiaresdi_edad_contrato_editar').value;
+      var numerodi_contrato=document.getElementById('familiaresdi_numero_contrato_editar').value;
       //Inicia validacion
+      if (numerodi_contrato==="" )
+      {
+      alert('Ingrese un numero de idenficacion');
+      document.getElementById('familiaresdi_numero_contrato_editar').focus();
+      return false;
+      }
+      
       if (parentezcodi_contrato==="" )
       {
       alert('Ingrese Parentezco');
@@ -2279,7 +2363,7 @@ function agregar_contrato_editar_familiaresdi()
       $.ajax({
         type: "GET",
         url: "./busquedas/buscar_datos_contrato.php",
-        data: "parentezcodi_contrato="+parentezcodi_contrato+"&nombredi_contrato="+nombredi_contrato+"&edaddi_contrato="+edaddi_contrato,
+        data: "parentezcodi_contrato="+parentezcodi_contrato+"&nombredi_contrato="+nombredi_contrato+"&edaddi_contrato="+edaddi_contrato+"&numerodi_contrato="+numerodi_contrato,
      
         success: function(datos){
     $("#resultados_editar_contrato").html(datos);

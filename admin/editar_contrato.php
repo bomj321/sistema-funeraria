@@ -44,25 +44,31 @@ $fila=mysqli_fetch_array($resultado);
             <div class="row">
               <h4>Edicion del Contrato(No se puede editar °N de cuotas y descuento)</h4>
 
-                  <form name="editar_servicio" class="col s12" action="./ventas_action/update_contrato_action.php" enctype="multipart/form-data" id="edicion_contrato" onsubmit="actualizarDatosContrato(); return false" style="margin-bottom: 3rem;">
+                  <form name="editar_servicio" class="col s12 m12" action="" enctype="multipart/form-data" id="edicion_contrato" onsubmit="actualizarDatosContrato(); return false" style="margin-bottom: 3rem;">
 
                     <div class="row">
                         <input name="editar_id" id="id_servicio" type="hidden" class="validate" required="true" value="<?php echo $fila['idUser_user']; ?>">
 
-                        <div class="input-field col s12 m4">
+                        <div class="input-field col s12 m3">
                           <input name="editar_nombre" id="editar_nombre" type="text" class="validate" required="true" value="<?php echo $fila['nombre'];?>">
                           <label for="editar_nombre">Nombre del Cliente</label>
                         </div>
 
-                        <div class="input-field col s12  m4">
+                        <div class="input-field col s12  m3">
                           <input  onpaste="false" name="editar_nacimiento" id="editar_nacimiento" type="text" class="validate" required="true" value="<?php echo date('Y-m-d',strtotime($fila["nacimiento"]))?>">
                           <label for="editar_nacimiento">Fecha de Nacimiento </label>
                         </div>
                         
-                        <div class="input-field col s12  m4">
+                        <div class="input-field col s12  m3">
                           <input  onpaste="false" name="editar_dni" id="editar_dni" type="text" class="validate" required="true" value="<?php echo $fila['dni'];?>">
                           <label for="editar_dni">Dni del Cliente</label>
                         </div>
+                        
+                         <div class="input-field col s12  m3">
+                          <input  onpaste="false" name="genero_editar" id="genero_editar" type="text" class="validate" required="true" value="<?php echo $fila['sexo'];?>">
+                          <label for="genero_editar">Genero del cliente</label>
+                        </div>
+                        
                     </div>
                      
                      

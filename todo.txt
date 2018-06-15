@@ -9,7 +9,11 @@
 + Edad por fecha
 - control de sesiones
 + Edad por diferencia en contrato y pdf. Arreglar.
-- campo sexo y numero de identificacion(esto solo a los familiares) editar(2183) (1377)
++ campo sexo y numero de identificacion(esto solo a los familiares) editar(2183) (1377)
+- agregar comentario en editar
++ edicion de clientes
++ suspender cliente
++ disminuir stock por el contrato
 
 # Edicion de Contratos
 + Arreglar formulario linea 915 app.js
