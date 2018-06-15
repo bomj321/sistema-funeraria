@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once('../connect.php');
 mysqli_set_charset($connection,'utf8');  
  //--------------------if--------------------
@@ -30,24 +31,41 @@ $tabla.='
               <th>Cantidad</th>
               <th>Precio</th>
               <th>Comentario</th>
-              <th>Imagen</th>
-              <th colspan="2" >Acciones</th>
+              <th>Imagen</th>';
+ if($_SESSION['perfil']=='admin'){ //IF 
+ $tabla.='
+ 
+              <th colspan="2" >Acciones</th>';
+  } //CIERRE DE IF               
+  $tabla.='
+             
           </tr>
         </thead>
 
         <tbody>';
         	
-        		while($fila =mysqli_fetch_array($resultado))                      {
+        		while($fila =mysqli_fetch_array($resultado)){
             $tabla.='
             <tr>
             <td>'.$fila['id'].'</td>
             <td>'.$fila['objeto'].'</td>
             <td>'.$fila['cantidad'].'</td>
             <td>'.$fila['precio'].'$</td>
-            <td>'.$fila['comentario'].'</td>
-            <td><img style="width: 3rem; height: 3rem;" src="img/'.$fila["image"].'"></td>
-            <td><a title="Editar Producto" href="editar_stock.php?id='.$fila["id"].'"><i class="material-icons">border_color</i></a></td></tr>';
+            <td>'.$fila['comentario'].'</td>';
             
+            
+           
+             $tabla.='
+            <td><img style="width: 3rem; height: 3rem;" src="img/'.$fila["image"].'"></td>
+            ';
+                 
+                 
+           if($_SESSION['perfil']=='admin'){ //IF   
+            $tabla.='
+            <td><a title="Editar Producto" href="editar_stock.php?id='.$fila["id"].'"><i class="material-icons">border_color</i></a></td>';
+             } //CIERRE DE IF
+             $tabla.=' 
+               </tr>  ';
                   }
             
           

@@ -1,18 +1,16 @@
 <?php
-session_start();
 include('connect.php');
 
 
         $usuario= $_POST['usuario'];
         $password= $_POST['password'];        
-        $_SESSION['usuario']=$usuario;
-        $_SESSION['password']=$password;
+        
         
 
       
        
 
-$sql="SELECT usuario,pass FROM usuario_admin WHERE usuario= ? ";
+$sql="SELECT usuario,pass,perfil FROM usuario_admin WHERE usuario= ? ";
 $resultado=mysqli_prepare($connection, $sql);
   mysqli_stmt_bind_param($resultado, "s", $usuario);    
   mysqli_stmt_execute($resultado);
@@ -23,15 +21,19 @@ $resultado=mysqli_prepare($connection, $sql);
                                echo "
                                  <script>
                                         alert('Usuario Incorrecto');
-                                        window.location.href ='index.php';
+                                        window.location.href ='../index.php';
                                  </script>  
                             ";
                        }
 
-  mysqli_stmt_bind_result($resultado, $usuario2, $pass_cifrado);
+  mysqli_stmt_bind_result($resultado, $usuario2, $pass_cifrado,$perfil);
         while (mysqli_stmt_fetch($resultado)) {  
 
               if (password_verify($password, $pass_cifrado)) {
+                     session_start();
+                     $_SESSION['perfil']=$perfil;
+                     $_SESSION['usuario']=$usuario;
+                     $_SESSION['password']=$password;
                             echo "
                                  <script>
                                         alert('Registro Completo');
@@ -40,10 +42,11 @@ $resultado=mysqli_prepare($connection, $sql);
                             ";
 
                 }else {
+                     session_destroy();
                                  echo "
                                  <script>
                                         alert('Contraseña Incorrecta');
-                                        window.location.href ='index.php';
+                                        window.location.href ='../index.php';
                                  </script>  
                             ";
                             

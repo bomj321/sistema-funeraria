@@ -24,7 +24,8 @@ $fila=mysqli_fetch_array($resultado);
      <!--MODALES-->
               <div class="col s12 m12">
                 <?php 
-                  include("modales/buscar_todo_contrato_editar.php");                  
+                  include("modales/buscar_todo_contrato_editar.php"); 
+                  include("modales/comentario_editar.php"); 
                  ?> 
               </div>
               <!--MODALES-->
@@ -113,9 +114,13 @@ $fila=mysqli_fetch_array($resultado);
                           
 
                           <div class="row">
-                              <div class="col s12 m4 ">
+                              <div class="col s12 m4">
                                 <a class="waves-effect waves-light btn modal-trigger" href="#modal_contrato_editar"><i class="material-icons right">add_circle</i>Editar Contrato</a>
                               </div>
+                              
+                          <div class="col s12 m6 ">
+                                <a class="waves-effect waves-light btn modal-trigger" href="#modal_comentario_editar"><i class="material-icons right">add_circle</i>Agregar Comentario</a>
+                              </div>    
 
                               
                           </div>                         

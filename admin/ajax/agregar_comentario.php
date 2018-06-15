@@ -3,13 +3,13 @@ session_start();
 require_once('../connect.php');
 $id_user_unico=$_SESSION["unicoid"];
 $id_user=$_SESSION["usuarioid"];
-////////////////////////////////VERIFICAR OBSERVACIONES////////////////////////////////////////////
+////////////////////////////////VERIFICAR COMENTARIOS////////////////////////////////////////////
 if (isset($_POST['actividad']) AND isset($_POST['observaciones']) AND isset($_POST['id_user'])) {
 	   $actividad=$_POST['actividad'];
 	   $observaciones=$_POST['observaciones'];
 	   $id_user=$_POST['id_user'];	  
 }
-/////////////////////VERIFICAR VARIABLES OBSERVACIONES CIERRO
+/////////////////////VERIFICAR VARIABLES COMENTARIOS CIERRO
 
 //////////////INSERTAR COMENTARIO
 if (isset($actividad) AND isset($observaciones) AND isset($id_user)) {
@@ -23,7 +23,7 @@ if (isset($actividad) AND isset($observaciones) AND isset($id_user)) {
 }
 ///////////////INSERTAR COMENTARIO CIERRO
 
-////////////////////ELIMINAR COSTO Y DESCUENTO
+////////////////////ELIMINAR COMENTARIO
 if (isset($_GET['id_comentario']))//codigo elimina un elemento del array
 {
 		$id_comentario=$_GET['id_comentario'];
@@ -33,7 +33,7 @@ if (isset($_GET['id_comentario']))//codigo elimina un elemento del array
 		mysqli_stmt_bind_param($resultado_comentario_eliminar, "i", $id_comentario);
 		mysqli_stmt_execute($resultado_comentario_eliminar);	
 }
-////////////////////ELIMINAR COSTO Y DESCUENTO CIERRO
+////////////////////ELIMINAR COMENTARIO CIERRO
 
 
  ?>

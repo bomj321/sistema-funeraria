@@ -398,6 +398,41 @@ $generar_hoy= date('Y-m-d H:i:s');
 $hoy = new DateTime($generar_hoy);    
 /*************************************************GENERAR FECHA****************************************************/
 
+
+
+
+/*************************************************************************COMENTARIO*****************************************************/
+////////////////////////////////VERIFICAR COMENTARIOS////////////////////////////////////////////
+if (isset($_POST['actividad_editar']) AND isset($_POST['observaciones_editar'])) {
+	   $actividad_editar=$_POST['actividad_editar'];
+	   $observaciones_editar=$_POST['observaciones_editar'];
+ 
+            $hoy_comentario = date('d-m-Y H:i:s');
+	  	    mysqli_set_charset($connection, "utf8");
+            $sql_tmp_comentario="INSERT INTO comentario_contrato(id_user_user,id_user,actividad,observaciones,fecha) VALUES (?,?,?,?,?)";
+            $resultado_tmp_comentario=mysqli_prepare($connection, $sql_tmp_comentario);
+            mysqli_stmt_bind_param($resultado_tmp_comentario, "iisss",$id_unico_contrato_editar,$id_normal_contrato_editar,$actividad_editar,$observaciones_editar,$hoy_comentario);
+            mysqli_stmt_execute($resultado_tmp_comentario);
+            mysqli_stmt_close($resultado_tmp_comentario);
+}
+/////////////////////VERIFICAR VARIABLES COMENTARIOS CIERRO
+
+
+
+////////////////////ELIMINAR COMENTARIO
+if (isset($_GET['id_comentario_editar']))//codigo elimina un elemento del array
+{
+		$id_comentario_editar=$_GET['id_comentario_editar'];
+		mysqli_set_charset($connection, "utf8");
+		$sql_comentario_eliminar="DELETE FROM comentario_contrato WHERE id=? ";
+		$resultado_comentario_eliminar=mysqli_prepare($connection, $sql_comentario_eliminar);
+		mysqli_stmt_bind_param($resultado_comentario_eliminar, "i", $id_comentario_editar);
+		mysqli_stmt_execute($resultado_comentario_eliminar);	
+}
+////////////////////ELIMINAR COMENTARIO CIERRO
+
+/*****************************************************************************COMENTARIO CIERRO*************************************************/
+
 $tabla_planes='';
 
 $tabla_planes.='
@@ -553,7 +588,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                     <tr>
                         <th>Nombre del Producto</th>
                         <th>Costo del Producto</th>
-                        <th>Acciones</th>
+                        <th class="celda_editar">Acciones</th>
                     </tr>
                   </thead>
 
@@ -564,7 +599,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                     <tr>
                       <td>'.$fila_servicio_adicional['descripcion_servicio'].'</td>
                       <td>'.$fila_servicio_adicional['costo']*$fila_servicio_adicional['cantidad_servicios'].'RD$</td>
-                      <td>
+                      <td class="celda_editar">
                        <a type="button" class="btn waves-effect waves-light" onclick="eliminar_editar_servicio_contrato('.$fila_servicio_adicional["id_actualizar"].')">Eliminar Servicio</a> 
                       </td>
                      </tr>';
@@ -702,7 +737,55 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
 /////////////////////FAMILIARES DEPENDIENTES DEL CONTRATO CIERRE//////////////////////////////////////// 
 
 
+/**********************************************COMENTARIOS******************************************************/
+ $sql_comentarios= "SELECT * FROM comentario_contrato WHERE id_user=$id_normal_contrato_editar AND id_user_user=$id_unico_contrato_editar";
+ $resultado_comentarios= mysqli_query($connection, $sql_comentarios);
+if (mysqli_num_rows($resultado_comentarios)==0) {
+    $tabla_planes.='
+               <div class="col s12 m12">
+                <p style="color: #c62828; font-size: 2rem;">No existen comentarios agregados.</p>         
+              </div>';
+}else{
+ $tabla_planes.='
+               <div class="col s12 m12">
+                  <p style="color: black; font-size: 2rem;">Comentarios Agregados</p>         
+              </div>';
+  $tabla_planes.='
+        <div class="col s12 m12">  
+          <table class="responsive-table tablaeditar">
+                  <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        <th>Observaciones</th>                        
+                        <th>Fecha</th>
+                        <th class="celda">Acciones</th>
+                    </tr>
+                  </thead>
 
+                  <tbody>';
+
+                          while($comentarios=mysqli_fetch_array($resultado_comentarios)){ //WHILE DE LOS  COMENTARIOS CIERRO                           
+                 $tabla_planes.=' 	
+                    <tr>
+                      <td>'.$comentarios['actividad'].'</td> 
+                      <td>'.$comentarios['observaciones'].'</td>
+                      <td>'.$comentarios['fecha'].'</td> 
+                      <td class="celda">
+                       <a type="button" class="btn waves-effect waves-light" onclick="eliminar_comentario_editar('.$comentarios["id"].')">Eliminar Comentario</a> 
+                      </td>
+                     </tr>';
+
+                            }  //CIERRE DEL WHILE DE LOS  COMENTARIOS CIERRO
+
+                $tabla_planes.='    
+                  </tbody>
+                </table>
+             </div> 
+              ';
+ 
+}
+
+/**********************************************COMENTARIOS CIERRE******************************************************/
 
 	echo $tabla_planes;
        

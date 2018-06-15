@@ -23,9 +23,7 @@ include('header.php');
                     
                            <?php 
                                 include('advertencias.php');
-                            ?>
-                        <div class="divider"></div>                   
-                    
+                            ?>                    
                       <div class="row" id="spin_ajax">
                         <h4>Registro de Clientes</h4>
                         <form method="POST" enctype="multipart/form-data" onsubmit="registroclientes(); return false" id="registro_clientes_sistema" action=""  class="col s12">

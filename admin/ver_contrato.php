@@ -104,7 +104,7 @@ $interval = date_diff($nacimiento, $hoy);
             $resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
             if (mysqli_num_rows($resultado_familiaresde)==0) {
 ?>    
-                    <p style="color: red;">NO HAY FAMILIARES DEPENDIENTESAGREGADOS</p>
+                    <p style="color: red;">NO HAY FAMILIARES DEPENDIENTES AGREGADOS</p>
 
 
   <?php             
@@ -222,7 +222,7 @@ $interval = date_diff($nacimiento, $hoy);
                  while ($fila_planes =mysqli_fetch_array($resultado_planes)){
                   $id_user_session=$_SESSION["usuarioid"];
                   ?>    
-<div style="border: 1px solid" >   
+<div style="border: 1px solid; margin-top:10px;" >   
     
                   <table class="responsive-table tablaeditar" >
                   <thead>
@@ -242,7 +242,7 @@ $interval = date_diff($nacimiento, $hoy);
                       </tr>
                   </tbody>
               </table>
-  </div>
+  
   
   
   <div class="row">
@@ -383,7 +383,8 @@ $interval = date_diff($nacimiento, $hoy);
 
              
        </div>
-    </div>        
+    </div>
+  </div> <!--BORDER RADIUS-->          
   <?php
 
                     

@@ -24,9 +24,6 @@ include('header.php');
                              <?php 
                                   include('advertencias.php');
                               ?>
-                     
-                        <div class="divider pink"></div>                        
-
                 <div class="row">
                   <h4>Venta de Servicios</h4>                  
                     <form method="POST"  enctype="multipart/form-data" id="venta_servicio_ventas" name="venta_servicio_ventas"   class="col s12 m12" action="" onsubmit="ventaDeServicios(); return false" style="margin-bottom: 3rem;">

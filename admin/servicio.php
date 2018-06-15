@@ -15,7 +15,6 @@ include('header.php');
                            <?php 
                                 include('advertencias.php');
                             ?>
-                        <div class="divider"></div>
                     </div>  
 
                       <div class="row">

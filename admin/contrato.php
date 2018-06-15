@@ -11,20 +11,19 @@ include('header.php');
                  ?> 
               </div>
               <!--MODALES-->
-                 <div class="col s3" >
+                 <div class="col s3 m3" >
                             <?php
                               include('aside.php');
                             ?>
                 </div>
 
-                 <div class="col s9">
+                 <div class="col s9 m9">
                            <?php 
                                 include('advertencias.php');
                             ?>
-                        <div class="divider"></div>   
                       <div class="row" id="spin_ajax">
                         <h4>Registro de Contratos</h4>
-                        <form method="POST" enctype="multipart/form-data" id="venta_contrato_ventas" action="" onsubmit="ventaDeContratos(); return false" class="col s12">
+                        <form method="POST" enctype="multipart/form-data" id="venta_contrato_ventas" action="" onsubmit="ventaDeContratos(); return false" class="col s12 m12">
                           <div class="row">
                                                      
                            <div class="input-field col s12 m3">

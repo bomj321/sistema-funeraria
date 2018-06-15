@@ -15,9 +15,6 @@ include('header.php');
                              <?php 
                                   include('advertencias.php');
                               ?>
-                     
-                        <div class="divider pink"></div>
-
                   <div class="row" style="margin-top: 50px;">
                         <div class="row">
                               <h4>Busqueda de los Servicios</h4>

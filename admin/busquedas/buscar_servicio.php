@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once('../connect.php');
 
  //--------------------if--------------------
@@ -60,8 +61,14 @@ $tabla.='
             <tr>
             <td>'.$fila['id_servicios'].'</td>
             <td>'.$fila['descripcion_servicio'].'</td>
-            <td>'.$fila['costo'].'</td>            
-            <td><a title="Editar Servicio" href="editar_servicio.php?id_servicio='.$fila["id_servicios"].'"><i class="material-icons">border_color</i></a>';
+            <td>'.$fila['costo'].'</td>
+             <td> ';    
+    if($_SESSION['perfil']=='admin'){ //IF
+     
+             $tabla.='
+           <a title="Editar Servicio" href="editar_servicio.php?id_servicio='.$fila["id_servicios"].'"><i class="material-icons">border_color</i></a>';
+     
+     } //CIERRE DE IF 
             if($serviciosestado =='1'){
             $tabla.='
 

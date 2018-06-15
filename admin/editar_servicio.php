@@ -21,7 +21,6 @@ $fila=mysqli_fetch_array($resultado);
                            <?php 
                                 include('advertencias.php');
                             ?>
-                        <div class="divider"></div>
                     </div>  
 
                       <div class="row">

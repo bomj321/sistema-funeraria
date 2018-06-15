@@ -15,9 +15,6 @@ include('header.php');
                              <?php 
                                   include('advertencias.php');
                               ?>
-                     
-                        <div class="divider pink"></div>
-
                   <div class="row" style="margin-top: 50px;">                                   
                                 <div class=" input-field col s12 m12">                              
                                    <input name="buscar_contrato_input" id="buscar_contrato_input" type="text" class="validate" required="">

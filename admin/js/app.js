@@ -505,7 +505,7 @@ function registrarNuevoUsuario(){
   //recogemos los valores de los inputs
   usuario=document.nuevo_usuario.usuario.value;
   password=document.nuevo_usuario.password.value;
-  
+  perfil=document.nuevo_usuario.perfil.value;
   //instanciamos el objetoAjax
   ajax=objetoAjax();
  
@@ -528,7 +528,7 @@ function registrarNuevoUsuario(){
     }, 4800); 
 
     setTimeout(function () {
-      window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
+      window.location.href = "./registrar_usuario.php"; //will redirect to your blog page (an ex: blog.html)
     }, 6000); 
   }else if(ajax.readyState==0){
     toastr.error('Registro Erroneo, contacta con el administrador!!!'); //mensaje
@@ -536,13 +536,14 @@ function registrarNuevoUsuario(){
  }
   ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
   //enviando los valores a registro.php para que inserte los datos
-  ajax.send("usuario="+usuario+"&password="+password)
+  ajax.send("usuario="+usuario+"&password="+password+"&perfil="+perfil)
 }
 //función para limpiar los campos
 function LimpiarCamposNuevoUsuario(){
 
   document.nuevo_usuario.usuario.value="";
   document.nuevo_usuario.password.value="";
+  document.nuevo_usuario.perfil.value="";
 }
 //////////////////////////////////////////////////////AJAX PARA REGISTRAR USUARIO
 
@@ -2403,6 +2404,58 @@ function actualizarDatosContrato(){
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////SUBIR EDICION DE CONTRATO CIERRO
+
+//////////////////////////////////////////////////////////////////////////////////AGREGAR COMENTARIO 
+
+function agregar_comentario_editar()
+    {
+      var actividad_editar=document.getElementById('comentario_actividad_editar').value;
+      var observaciones_editar=document.getElementById('comentario_observaciones_editar').value;
+      //Inicia validacion
+      if (actividad_editar==="")
+      {
+      alert('Ingrese una actividad');
+      document.getElementById('comentario_actividad_editar').focus();
+      return false;
+      }
+      if (observaciones_editar==="")
+      {
+      alert('Agregue una observacion');
+      document.getElementById('comentario_observaciones_editar').focus();
+      return false;
+      }
+      //Fin validacion
+      
+      $.ajax({
+        type: "POST",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "actividad_editar="+actividad_editar+"&observaciones_editar="+observaciones_editar,
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+    }
+//////////////////////////////////////////////////////////////////////////////////AGREGAR COMENTARIO CIERRO
+
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR COMENTARIO 
+function eliminar_comentario_editar(id)
+    {
+      
+      $.ajax({
+        type: "GET",
+        url: "./busquedas/buscar_datos_contrato.php",
+        data: "id_comentario_editar="+id,
+        success: function(datos){
+    $("#resultados_editar_contrato").html(datos);
+    }
+      });
+
+    }
+
+//////////////////////////////////////////////////////////////////////////////////ELIMINAR COMENTARIO CIERRO
+
+
 /***********************************************************SECCION EDICION DE CONTRATOS****************************************************/
 
 ////AJAX DE LA PAGINA

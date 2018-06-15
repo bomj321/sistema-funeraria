@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start();
 require_once('../connect.php');
 
  //--------------------if--------------------
@@ -41,8 +42,13 @@ $tabla.='
               <th>Precio</th>                            
               <th>Imagen</th>
               <th>Servicios a ofrecer</th>
-              <th>Productos a ofrecer</th>              
-              <th>Acciones</th>
+              <th>Productos a ofrecer</th>';
+              
+           if($_SESSION['perfil']=='admin'){ //IF   
+              $tabla.='<th>Acciones</th>';
+            } //CIERRE DE IF
+$tabla.='
+ 
           </tr>
         </thead>
 
@@ -98,19 +104,18 @@ $tabla.='
                 
                    }
                 }
+    
+     if($_SESSION['perfil']=='admin'){ //IF
+      
+          
            $tabla.='        
             </td>            
             <td>
-            <a title="Eliminar Plan" onclick="eliminar_plan('.$fila["id_planes"].')"><i class="material-icons desactivar">delete</i></a>';
-
-
-
-
-       $tabla.='
-            </td>   
-
-          </tr>';
-            
+            <a title="Eliminar Plan" onclick="eliminar_plan('.$fila["id_planes"].')"><i class="material-icons desactivar">delete</i></a>      
+            </td>';
+        } //CIERRE DE IF 
+             $tabla.='    
+              </tr>';   
                   }
             
           

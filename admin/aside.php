@@ -1,7 +1,13 @@
-
  <ul id="slide-out" class="sidenav ">    
                       
                 <li><a class="subheader">Sistema Funeraria</a></li>
+                <?php
+                  if($_SESSION['perfil']=='admin'){ //IF
+              ?>
+                <li><a class="waves-effect" href="registrar_usuario.php">Registro de Usuarios</a></li>
+                <?php
+                    } //CIERRE DE IF 
+                ?>
                 <li><a class="waves-effect" href="registrar_cliente.php">Registro de clientes</a></li>
                 <li><a class="waves-effect" href="control_de_los_clientes.php">Control de Clientes</a></li>
                 <li><a class="waves-effect" href="contrato.php">Nuevo Contrato</a></li>

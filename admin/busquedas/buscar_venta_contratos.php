@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once('../connect.php');
 
  //--------------------if--------------------
@@ -38,14 +39,30 @@ if (isset($_GET['id_contrato_revisar']))//codigo elimina un elemento del array
 
  
 $tabla="";
+
+if($_SESSION['perfil']=='admin'){ //IF      
+
 $sql = "SELECT * FROM User ORDER BY  idUser desc ";
 
-
+}else{//CIERRE IF
+   $sql = "SELECT * FROM User WHERE revisado='1' ORDER BY  idUser desc "; 
+}
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['ventas']))
 {
-	$buscar=$connection->real_escape_string($_POST['ventas']);
+    
+ if($_SESSION['perfil']=='admin'){ //IF      
+
+$buscar=$connection->real_escape_string($_POST['ventas']);
 	$sql="SELECT * FROM User WHERE name LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' OR idUser LIKE '%".$buscar."%' ORDER BY   	idUser_user desc  ";
+    
+
+}else{//CIERRE IF
+   $buscar=$connection->real_escape_string($_POST['ventas']);
+	$sql="SELECT * FROM User WHERE name LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' OR idUser LIKE '%".$buscar."%' WHERE revisado='1' ORDER BY   	idUser_user desc  ";
+    
+}   
+ 
 } 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);
@@ -129,44 +146,65 @@ $tabla.='
 
             <a title="Ver Contrato" href="./ver_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons ">remove_red_eye</i></a>
 
-            <a title="Exportar a PDF" href="./acciones/fpdf_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>
+            <a title="Exportar a PDF" href="./acciones/fpdf_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>';
+ if($_SESSION['perfil']=='admin'){ //IF            
+        $tabla.='    
+            <a title="Editar Contrato" href="./editar_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons word">border_color</i></a>';
+} //CIERRE DE IF  
             
-            
-            <a title="Editar Contrato" href="./editar_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons word">border_color</i></a>
-
-            
-
+$tabla.='
             <a title="Imprimir Contrato" href="./acciones/imprimir_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons desactivar">print</i></a>';
+                    
 if ($fila['activo'] ==1) {
 	
 
+    
+if($_SESSION['perfil']=='admin'){ //IF      
+    
+    
 
 			$tabla.='
       <a title="Desactivar Contrato" onclick="desactivar_contrato('.$fila["idUser_user"].')"><i class="material-icons pagar">sentiment_very_satisfied</i></a> ';
+    
+    
+} //CIERRE DE IF     
+    
+    
+    
+    
+    
+    
 }else{
+    
 
+        if($_SESSION['perfil']=='admin'){ //IF   
 $tabla.='	
             <a title="Activar Contrato" onclick="activar_contrato('.$fila["idUser_user"].')"><i class="material-icons negro">sentiment_very_dissatisfied</i></a> ';
-
+            } //CIERRE DE IF  
+    
 
 }
                     
 if ($fila['revisado'] ==0) {
 	
+            if($_SESSION['perfil']=='admin'){ //IF      
 
 
 			$tabla.='
       <a title="Contrato no revisado" onclick="revisar_contrato('.$fila["idUser_user"].')"><i class="material-icons pdf">find_in_page</i></a> ';
+    
+            } //CIERRE DE IF     
+   
+    
 }else{
+            if($_SESSION['perfil']=='admin'){ //IF      
 
 $tabla.='	
             <a title="Contrato Revisado"><i class="material-icons word">find_in_page</i></a> ';
 
+            } //CIERRE DE IF     
 
 }                    
-
-
-
        $tabla.='
             </td>   
 

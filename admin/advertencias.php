@@ -12,10 +12,15 @@ $filas_afectadas_suspendidos= mysqli_num_rows($resultado_total_suspendidos);
 $sql_clientes_suspendidos = "SELECT * FROM Clientes WHERE activo='0'";
 $resultado_clientes_suspendidos= mysqli_query($connection, $sql_clientes_suspendidos);
 $filas_clientes_suspendidos= mysqli_num_rows($resultado_clientes_suspendidos);
+
+$sql_servicios_suspendidos = "SELECT * FROM Servicios WHERE servicio_activo='0'";
+$resultado_servicios_suspendidos= mysqli_query($connection, $sql_servicios_suspendidos);
+$filas_servicios_suspendidos= mysqli_num_rows($resultado_servicios_suspendidos);
+if($_SESSION['perfil']=='admin'){ //IF
 ?>
     
                
-    <div class="col s4 m4">
+    <div class="col s3 m3">
          <?php
            if ($filas_afectadas==0){
          ?>      
@@ -24,42 +29,64 @@ $filas_clientes_suspendidos= mysqli_num_rows($resultado_clientes_suspendidos);
            }else{ 
           ?>
           
-              <a href="control_contratos.php"><p style="color:#f50057; font-weight: bold;">Existen contratos sin revisar(<?php echo $filas_afectadas; ?>)</p></a>
+              <a href="control_contratos.php"><p style="color:#f50057; font-weight: bold;">Contratos sin revisar(<?php echo $filas_afectadas; ?>)</p></a>
              
           <?php
           }
           ?>
                       
     </div>
-     <div class="col s4 m4">
+     <div class="col s3 m3">
                 <?php
            if ($filas_afectadas_suspendidos==0){
          ?>      
-                <p style="color:black;">Todos los contratos estan activos</p>
+                <p style="color:black;">Contratos estan activos</p>
             <?php
            }else{ 
           ?>
           
-              <a href="control_contratos.php"><p style="color:#f50057; font-weight: bold;">Existen contratos inactivos(<?php echo $filas_afectadas_suspendidos; ?>)</p></a>
+              <a href="control_contratos.php"><p style="color:#f50057; font-weight: bold;">Contratos inactivos(<?php echo $filas_afectadas_suspendidos; ?>)</p></a>
              
           <?php
           }
           ?>
      </div>
                        
-     <div class="col s4 m4">
+     <div class="col s3 m3">
                 <?php
            if ($filas_clientes_suspendidos==0){
          ?>      
-                <p style="color:black;">Ningun cliente ha sido suspendido</p>
+                <p style="color:black;">Ningun cliente suspendido</p>
             <?php
            }else{ 
           ?>
           
-              <a href="control_contratos.php"><p style="color:#f50057; font-weight: bold;">Existen clientes suspendidos(<?php echo $filas_clientes_suspendidos; ?>)</p></a>
+              <a href="control_contratos.php"><p style="color:#f50057; font-weight: bold;">Clientes suspendidos(<?php echo $filas_clientes_suspendidos; ?>)</p></a>
              
           <?php
           }
           ?>
-     </div>                  
-                        
+     </div>
+     
+     <div class="col s3 m3">
+         <?php
+           if ($filas_servicios_suspendidos==0){
+         ?>      
+                <p style="color:black;">Servicios Activos</p>
+            <?php
+           }else{ 
+          ?>
+          
+              <a href="control_servicios.php"><p style="color:#f50057; font-weight: bold;">Servicios Inactivos(<?php echo $filas_servicios_suspendidos; ?>)</p></a>
+             
+          <?php
+          }
+          ?>
+                      
+    </div>
+     
+                        <div class="divider"></div>   
+                                         
+ <?php
+}
+?>                       

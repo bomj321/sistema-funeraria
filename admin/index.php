@@ -1,5 +1,6 @@
 <?php
 $resultado2='Administracion > Sistema Interno';
+$variable_de_inicio= 1;
 include('header.php');
 ?>
 <main>
@@ -24,10 +25,7 @@ include('header.php');
                                 <button class="btn waves-effect waves-light" type="submit" name="action">Entrar al Sistema
                               <i class="material-icons right"></i>
                               </button>
-                            </div>
-                            <div class="col s12 m6">
-                               <a disabled href="registrar_usuario.php" class="btn waves-effect waves-light green darken-2">Registrar Usuario</a>
-                           </div>
+                            </div>                            
                       </div> 
               </form>
         </div>        

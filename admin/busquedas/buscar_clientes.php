@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start();
 require_once('../connect.php');
 ////////////////////ELIMINAR CLIENTE
 if (isset($_GET['id_eliminar']))//codigo elimina un elemento del array
@@ -88,8 +89,14 @@ $tabla.='
             <td>'.$fila['direccion'].'</td>
             <td>'.$fila['numero_familiar'].'</td>
             <td>
-             <a title="Editar Cliente" href="./editar_cliente.php?id_cliente='.$fila["id_cliente"].'"><i class="material-icons">border_color</i></a>             
+             <a title="Editar Cliente" href="./editar_cliente.php?id_cliente='.$fila["id_cliente"].'"><i class="material-icons">border_color</i></a>'; 
+                  
+           if($_SESSION['perfil']=='admin'){ //IF  
+              $tabla.='
             <a title="Eliminar Cliente" onclick="eliminar_cliente('.$fila["id_cliente"].')"><i class="material-icons desactivar">delete</i></a>';
+          } //CIERRE DE IF        
+                  
+                  
             if($estadocliente =='1'){
             $tabla.='
 

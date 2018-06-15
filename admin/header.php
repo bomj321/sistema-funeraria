@@ -1,6 +1,16 @@
 <?php
-session_start();?>
-<?php  
+session_start();
+if(!isset($variable_de_inicio)){
+    if(!$_SESSION['usuario'] AND !$_SESSION['password']){
+  echo "
+                    <script>
+                            alert('Usuario No logueado');
+                            window.location.href ='../index.php';
+                    </script>  
+                            ";
+}
+}
+
 include('connect.php');
 ?>
 <!DOCTYPE html>
