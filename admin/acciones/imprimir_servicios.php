@@ -53,7 +53,7 @@ $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
 
 /*************************PARTE PRODUCTOS****************************************/
 $pdf= new PDF_AutoPrint('P','mm',array(58,150));
-/*$pdf->AliasNbPages();*/
+$pdf->AliasNbPages();
 $pdf->AddPage();
 if ($fila_producto_consulta>0) {
 	$pdf->SetFillColor(232,232,232);

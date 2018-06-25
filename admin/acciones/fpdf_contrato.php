@@ -80,27 +80,27 @@ $pdf= new PDF('P','mm','A4');
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->Image('../img/logo.png', 55, 8, 100);
-			$pdf->SetFont('Arial','B',10);
-			$pdf->Ln(25);
-			$pdf->SetX(55);
-			$pdf->Cell(100,10, 'Calle Santome # 102,  Tel.:809-521-3511,  Cel.:809-250-3711  y  809-627-7485
- 			Azua R.D.',0,1,'C');
-			$pdf->Ln(0);
+$pdf->SetFont('Arial','B',10);
+$pdf->Ln(25);
+$pdf->SetX(55);
+$pdf->Cell(100,10, 'Calle Santome # 102,  Tel.:809-521-3511,  Cel.:809-250-3711  y  809-627-7485 Azua R.D.',0,1,'C');
+$pdf->Ln(10);
 $pdf->SetFont('Arial','B',12);
 $pdf->SetTextColor(80,77,208);
 $pdf->SetFillColor(232,232,232);
-$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D., y el (la) Sr.(a). '.$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').' años, y cuyo sexo es '.$row_contrato['sexo'].', estado civil es '.$row_contrato['estado'].utf8_decode(' cuyo numero de identicación es ').$row_contrato['dni'].' y email '.$row_contrato['email'].', cuyo numero de contrato es '.$row_contrato['idUser_user'].' con un coste total de '.$sum.'$.'),0,'FJ',0);
+$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D., y el (la) Sr.(a). '.$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').' años, cuyo sexo es '.$row_contrato['sexo'].', adicionalmente su estado civil es '.$row_contrato['estado'].utf8_decode(' el cual posee la siguiente cedula de identidad ').$row_contrato['dni'].', y el siguiente numero de contrato '.$row_contrato['idUser_user'].'.'),0,'FJ',0);
 $pdf->Ln(10);
 $pdf->SetTextColor(231,14,14);
 $pdf->Cell(180,6,'HAN PACTADO Y CONVENIDO LO SIGUIENTE',0,0,'C',0);
 $pdf->SetTextColor(80,77,208);
 $pdf->Ln(10);
-$pdf->MultiCell(180,6,utf8_decode('A) El señor(a). '.$row_contrato['nombre'].' y demás miembros de su familia, los cuales se detallan a continuación:'),0,'L',0);
+$pdf->MultiCell(185,6,utf8_decode('A) El señor(a). '.$row_contrato['nombre'].' y demás miembros de su familia, los cuales se detallan a continuación:'),0,'L',0);
 $pdf->Ln(5);
 /*************************FAMILIARES DEPENDIENTES**************************************/
 	$sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $usuarioid AND id_User_family=$unicoid";
 	$resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
 /*************************FAMILIARES DEPENDIENTES CIERRO**************************************/
+$pdf->SetTextColor(0, 0, 0);
  if (mysqli_num_rows($resultado_familiaresde)>0) {
 $pdf->Cell(180,6,'DEPENDIENTES',0,0,'C',0);
 $pdf->Ln(10);
@@ -122,13 +122,13 @@ $pdf->Cell(60,6,'Edad',0,1,'C',1);
 	$pdf->Cell(180,10, 'No hay Familiares Dependientes Inscritos',0,1,'C');
 }
 $pdf->Ln(5);
-$pdf->SetTextColor(80,77,208);
+$pdf->SetTextColor(0,0,0);
 /*************************FAMILIARES INDEPENDIENTES**************************************/
 	$sql_familiaresin = "SELECT * FROM User_family_independent WHERE User_idUser = $usuarioid AND id_User_family_indepen=$unicoid";
 	$resultado_familiaresin= mysqli_query($connection, $sql_familiaresin);
 /*************************FAMILIARES INDEPENDIENTES CIERRO**************************************/
  if (mysqli_num_rows($resultado_familiaresin)>0) {
-$pdf->Cell(180,6,'DEPENDIENTES',0,0,'C',0);
+$pdf->Cell(180,6,'INDEPENDIENTES',0,0,'C',0);
 $pdf->Ln(10);
 $pdf->Cell(45,6,'Parentezco',0,0,'C',1);
 $pdf->Cell(45,6,'Nombre',0,0,'C',1);
@@ -168,7 +168,7 @@ $pdf->Ln(5);
 
 				$pdf->Cell(90,6,$fila_planes['nombre'],0,0,'C');
 				$pdf->Cell(90,6,$fila_planes['precio_plan'].'$',0,1,'C');
-				$pdf->SetTextColor(23,242,5);
+	        	$pdf->SetTextColor(0, 0, 0);
     			$pdf->Cell(180,10, 'SERVICIOS DEL PLAN',0,1,'C');
     			$pdf->SetTextColor(80,77,208);
 /*************************SERVICIOS DEL PLAN**************************************/    			
@@ -192,7 +192,7 @@ $pdf->Ln(5);
                 $resultado_productos= mysqli_query($connection, $sql_productos);
 /*************************************PRODUCTOS DEL PLAN CIERRO**************************************/
 			if (mysqli_num_rows($resultado_productos)>0) {
-					$pdf->SetTextColor(23,242,5);
+			        $pdf->SetTextColor(0, 0, 0);
 				    $pdf->Cell(180,10, 'PRODUCTOS DEL PLAN',0,1,'C');
 				    $pdf->SetTextColor(80,77,208); 
 					$pdf->Cell(120,6,'Nombre del Producto',0,0,'C',1);
@@ -215,7 +215,7 @@ $pdf->Ln(5);
     	$pdf->Cell(180,10, 'NO HAY PLANES REGISTRADOS',0,1,'C');
     }
 $pdf->Ln(5);
-$pdf->SetTextColor(231,14,14);
+$pdf->SetTextColor(0, 0, 0);
 $pdf->Cell(180,10, 'SERVICIOS ADICIONALES',0,1,'C');
 $pdf->SetTextColor(80,77,208);
 /*************************************SERVICIOS ADICIONALES**********************************************/    			
@@ -275,7 +275,7 @@ $pdf->Ln(10);
 $hoy = date('d-m-Y');
 $pdf->MultiCell(180,6,utf8_decode('Hecho y firmado, en la ciudad de Azua De Compostela, hoy: '.$hoy.'.'),0,'FJ',0);
 $pdf->Ln(30);
-$pdf->SetTextColor(231,14,14);
+$pdf->SetTextColor(0, 0, 0);
 $pdf->Cell(90,6,'Firma de la Empresa',0,0,'C',0);
 $pdf->Cell(90,6,'Firma del Cliente',0,1,'C',0);
 /*$pdf->AutoPrint();*/

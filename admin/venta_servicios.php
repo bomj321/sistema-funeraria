@@ -36,33 +36,33 @@ include('header.php');
                             </div>
 
                             <div class="input-field col s12 m4">
-                              <input onkeypress="return solonumeros2(event)" onpaste="false" name="edad_usuario" id="edad_usuario_venta" type="text" class="validate" required="true">
+                              <input onkeypress="return solonumeros2(event)" onpaste="false" name="edad_usuario" id="edad_usuario_venta" type="text" class="validate">
                               <label for="edad_usuario_venta">Edad del Usuario</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
                             </div>
 
                             <div class="input-field col s12 m4">
-                              <input onkeypress="return sololetras2(event)" onpaste="false" name="civil_usuario" id="civil_usuario_venta" type="text" class="validate" required="true">
-                              <label for="civil_usuario_venta">Estado civil</label>
+                              <input onkeypress="return sololetras2(event)" onpaste="false" name="civil_usuario" id="direccion_usuario" type="text" class="validate">
+                              <label for="direccion_usuario">Dirección</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra2"></p>
                             </div> 
                           </div>
 
                           <div class="row"> 
                             <div class="input-field col s12 m4">
-                              <input onkeypress="return solonumeros(event)" onpaste="false" name="dni_usuario" id="dni_usuario_venta" type="text" class="validate" required="true">
-                              <label for="dni_usuario_venta">DNI</label>
+                              <input onkeypress="return solonumeros(event)" onpaste="false" name="dni_usuario" id="dni_usuario_venta" type="text" class="validate">
+                              <label for="dni_usuario_venta">Cedula de Identidad</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
 
                             <div class="input-field col s12 m4">
-                              <input onkeypress="return sololetras3(event)" onpaste="false" name="comentario_usuario" id="comentario_usuario_venta" type="text" class="validate" required="true">
+                              <input onkeypress="return sololetras3(event)" onpaste="false" name="comentario_usuario" id="comentario_usuario_venta" type="text" class="validate">
                               <label for="comentario_usuario_venta">Comentario</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra3"></p>
                             </div>
 
                             <div class="input-field col s12 m4">
-                              <input onkeypress="return solonumeros4(event)" onpaste="false" name="numero" id="numero" type="text" class="validate" required="true">
+                              <input onkeypress="return solonumeros4(event)" onpaste="false" name="numero" id="numero" type="text" class="validate">
                               <label for="numero">Numero Telefonico</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos4"></p>
                             </div>

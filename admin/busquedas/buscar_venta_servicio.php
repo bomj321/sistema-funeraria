@@ -45,17 +45,18 @@ $row_cnt = mysqli_num_rows($resultado);
 
 if ($row_cnt > 0)
 {
-$tabla.='
+$tabla.= '
 <table class="responsive-table" >
         <thead>
           <tr>
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Comentario</th>
-              <th>DNI</th>                                          
+              <th>Cédula</th>                                          
               <th>Servicios</th>
               <th>Productos</th>  
               <th>Total</th>
+              <th>Direccion</th>
               <th>Acciones a Realizar</th>
           </tr>
         </thead>
@@ -123,6 +124,7 @@ $tabla.='
 
     
             <td>'.$sum.'$</td>
+            <td>' . $fila['direccion'] . '</td>
 
             <td><a title="Exportar a PDF" href="./acciones/fpdf_servicios.php?id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>            
 
@@ -144,8 +146,9 @@ $tabla.='
 
 
 
-       $tabla.='
-            </td>   
+       $tabla.= '
+            </td> 
+               
 
           </tr>';
             

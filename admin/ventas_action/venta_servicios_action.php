@@ -5,7 +5,7 @@ require_once('../connect.php');
 
                 $usu= $_POST['nombre_usuario'];
                 $edad= $_POST['edad_usuario'];
-                $estado_civil= $_POST['civil_usuario'];
+                $direccion_usuario= $_POST['direccion_usuario'];
                 $dni_usuario= $_POST['dni_usuario'];                
                 $comentario_usuario= $_POST['comentario_usuario'];
                 $numero=$_POST['numero'];
@@ -16,9 +16,9 @@ require_once('../connect.php');
 
 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql="INSERT INTO User_servicios_individuales (nombre,edad,estado_civil,dni,comentario,numero_telefonico,pagado) VALUES (?,?,?,?,?,?,?)";
+            $sql="INSERT INTO User_servicios_individuales (nombre,edad,direccion,dni,comentario,numero_telefonico,pagado) VALUES (?,?,?,?,?,?,?)";
             $resultado=mysqli_prepare($connection, $sql);
-            $ok=mysqli_stmt_bind_param($resultado, "sissssi", $usu,$edad,$estado_civil,$dni_usuario,$comentario_usuario,$numero,$pagado_usuario);
+            $ok=mysqli_stmt_bind_param($resultado, "sissssi", $usu,$edad,$direccion_usuario,$dni_usuario,$comentario_usuario,$numero,$pagado_usuario);
             $ok=mysqli_stmt_execute($resultado);        
                     
             $idgenerado =mysqli_insert_id($connection);

@@ -60,9 +60,17 @@ $sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
 $pdf= new PDF('P','mm',array(58,150));
 /*$pdf->AliasNbPages();*/
 $pdf->AddPage();
+$pdf->SetFont('Arial', 'B', 5);
+$pdf->SetX(10);
+$pdf->Cell(10, 2, 'Cliente: '. $fila['nombre'], 0, 1, 'C', 0);
+$pdf->SetX(12.5);
+$pdf->Cell(10, 2, 'Fecha: ' . date('d-m-Y'), 0, 1, 'C', 0);
+$pdf->SetX(12.5);
+$pdf->Cell(10, 2, 'Factura: #00000'.$planid, 0, 1, 'C', 0);
+$pdf->Ln(5);
+
 if ($fila_producto_consulta>0) {
 	$pdf->SetFillColor(232,232,232);
-	$pdf->SetFont('Arial','B',8);
 	$pdf->Cell(10,6,'Cant.',0,0,'C',1);
 	$pdf->Cell(20,6,'Producto',0,0,'C',1);
 	$pdf->Cell(10,6,'Total',0,1,'C',1);
@@ -96,12 +104,13 @@ $pdf->Cell(10,6,'Cant.',0,0,'C',1);
 $pdf->Cell(20,6,'Servicio',0,0,'C',1);
 $pdf->Cell(10,6,'Total',0,1,'C',1);
 
-$pdf->SetFont('Arial','',5);
+$pdf->SetFont('Arial','',4);
 
 while($row = $resultado_servicios->fetch_assoc())
 {
 	
 $pdf->Cell(10,6,$row['cantidad_servicio'],0,0,'C');
+
 $pdf->Cell(20,6,utf8_decode($row['descripcion_servicio']),0,0,'C');
 $pdf->Cell(10,6,'RD$'.$row['cantidad_servicio']*$row['precio_total'].',00',0,1,'C');
 }
