@@ -1422,6 +1422,12 @@ function agregar_contrato_familiaresdi()
     $("#resultados_contrato").html(datos);
     }
       });
+//función para limpiar los campos
+  document.getElementById('familiaresdi_parentezco_contrato').value = "";
+  document.getElementById('familiaresdi_nombre_contrato').value = "";
+  document.getElementById('familiaresdi_edad_contrato').value = "";
+  document.getElementById('familiaresdi_identificacion_contrato').value = "";
+
     }
 //////////////////////////////////////////////////////////////////////////////////AGREGAR FAMILIAR DIRECTO CONTRATO CIERRO
 
@@ -1497,6 +1503,13 @@ function agregar_contrato_familiaresin()
     $("#resultados_contrato").html(datos);
     }
       });
+
+    document.getElementById('familiaresin_parentezco_contrato').value = "";
+    document.getElementById('familiaresin_nombre_contrato').value = "";
+    document.getElementById('familiaresin_edad_contrato').value = "";
+    document.getElementById('familiaresin_costo_contrato').value = "";
+    document.getElementById('familiaresin_identificacion_contrato').value = "";
+
     }
 //////////////////////////////////////////////////////////////////////////////////AGREGAR FAMILIAR INDIRECTO CONTRATO CIERRO
 
