@@ -41,7 +41,7 @@
 			$this->_put('/Names <</JavaScript '.($this->n_js).' 0 R>>');
 		}
 	}
-	
+
 		function Header()
 		{
 			
