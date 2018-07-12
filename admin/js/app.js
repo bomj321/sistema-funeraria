@@ -1382,15 +1382,15 @@ function agregar_contrato_familiaresdi()
     {
       var parentezcodi_contrato=document.getElementById('familiaresdi_parentezco_contrato').value;
       var nombredi_contrato=document.getElementById('familiaresdi_nombre_contrato').value;
-      var edaddi_contrato=document.getElementById('familiaresdi_edad_contrato').value;
-      var identificaciondi_contrato=document.getElementById('familiaresdi_identificacion_contrato').value;
+    /*  var edaddi_contrato=document.getElementById('familiaresdi_edad_contrato').value;*/
+     /* var identificaciondi_contrato=document.getElementById('familiaresdi_identificacion_contrato').value;*/
       //Inicia validacion
-      if (identificaciondi_contrato==="" )
+     /* if (identificaciondi_contrato==="" )
       {
       alert('Ingrese un numero de Identificacion');
       document.getElementById('familiaresdi_identificacion_contrato').focus();
       return false;
-      }
+      }*/
       
       if (parentezcodi_contrato==="" )
       {
@@ -1405,12 +1405,12 @@ function agregar_contrato_familiaresdi()
       document.getElementById('familiaresdi_nombre_contrato').focus();
       return false;
       }
-      if (edaddi_contrato==="")
+     /* if (edaddi_contrato==="")
       {
       alert('Ingrese una fecha');
       document.getElementById('familiaresdi_edad_contrato').focus();
       return false;
-      }
+      }*/
       //Fin validacion
       
       $.ajax({
@@ -1455,16 +1455,16 @@ function agregar_contrato_familiaresin()
     {
       var parentezcoin_contrato=document.getElementById('familiaresin_parentezco_contrato').value;
       var nombrein_contrato=document.getElementById('familiaresin_nombre_contrato').value;
-      var edadin_contrato=document.getElementById('familiaresin_edad_contrato').value;
+     /* var edadin_contrato=document.getElementById('familiaresin_edad_contrato').value;*/
       var costoin_contrato=document.getElementById('familiaresin_costo_contrato').value;
-      var identificacionin_contrato=document.getElementById('familiaresin_identificacion_contrato').value;
+     /* var identificacionin_contrato=document.getElementById('familiaresin_identificacion_contrato').value;*/
       //Inicia validacion
-      if (identificacionin_contrato==="" )
+     /* if (identificacionin_contrato==="" )
       {
       alert('Ingrese un numero de Identificacion');
       document.getElementById('familiaresin_identificacion_contrato').focus();
       return false;
-      }
+      }*/
       
       if (parentezcoin_contrato==="" )
       {
@@ -1479,12 +1479,12 @@ function agregar_contrato_familiaresin()
       document.getElementById('familiaresin_nombre_contrato').focus();
       return false;
       }
-      if (edadin_contrato==="")
+     /* if (edadin_contrato==="")
       {
       alert('Ingrese una fecha');
       document.getElementById('edadin_contrato').focus();
       return false;
-      }
+      }*/
 
       if (isNaN(costoin_contrato) || costoin_contrato==="")
       {

@@ -52,7 +52,7 @@ $tabla.= '
               <th>Nombre</th>
               <th>Telefono</th>
               <th>Comentario</th>
-              <th>Cédula</th>                                          
+              <th>#N de Identificacion</th>                                          
               <th>Servicios</th>
               <th>Productos</th>  
               <th>Total</th>

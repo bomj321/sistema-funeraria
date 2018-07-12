@@ -49,7 +49,7 @@ include('header.php');
                           <div class="row">
                             <div class="input-field col s12 m4">
                               <input name="dni_cliente" onkeypress="return solonumeros(event)" id="dni_cliente" type="text" class="validate" required="true">
-                              <label for="dni_cliente">DNI</label>
+                              <label for="dni_cliente">Numero de Identidad</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
                             

@@ -75,7 +75,7 @@ $tabla.='
           <tr>
               <th>Numero de Contrato</th>
               <th>Nombre</th>              
-              <th>DNI</th>
+              <th>#N de Identificacion</th>
               <th>Total</th>
               <th>Acciones</th>
           </tr>

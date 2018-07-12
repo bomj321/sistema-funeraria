@@ -71,7 +71,9 @@ $nacimiento = $row_contrato['nacimiento'];
 $nacimiento = new DateTime($nacimiento);
 $interval = date_diff($nacimiento, $hoy); 
 //////////////////////////////////////////FORMATEO CIERRO
-
+$sql_pagos = "SELECT * FROM Pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
+$resultado_pagos= mysqli_query($connection, $sql_pagos);
+$fila_pago =mysqli_fetch_array($resultado_pagos);
 
 
 /*CIERRO MULTIPLES CONSULTAS*/
@@ -84,11 +86,13 @@ $pdf->SetFont('Arial', 'B', 10);
 $pdf->Ln(25);
 $pdf->SetX(55);
 $pdf->Cell(100, 10, 'Calle Santome # 102,  Tel.:809-521-3511,  Cel.:809-250-3711  y  809-627-7485 Azua R.D.', 0, 1, 'C');
-$pdf->Ln(10);
+$pdf->SetX(122);
+$pdf->Cell(100, 10, utf8_decode('Contrato N° #00000'.$row_contrato['idUser_user'].''), 0, 1, 'C');
+$pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetTextColor(80, 77, 208);
 $pdf->SetFillColor(232, 232, 232);
-$pdf->MultiCell(180, 6, utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D., y el (la) Sr.(a). ' . $row_contrato['nombre'] . ' domiciliado(a) y residente en Republica Dominicana, con el telefono ' . $row_contrato['numero'] . ', de edad ' . $interval->format('%y') . ' años, cuyo sexo es ' . $row_contrato['sexo'] . ', adicionalmente su estado civil es ' . $row_contrato['estado'] . utf8_decode(' el cual posee la siguiente cedula de identidad ') . $row_contrato['dni'] . ', y el siguiente numero de contrato ' . $row_contrato['idUser_user'] . '.'), 0, 'FJ', 0);
+$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D., y el (la) Sr.(a). '.$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').' años, cuyo sexo es '.$row_contrato['sexo'].', adicionalmente su estado civil es '.$row_contrato['estado'].utf8_decode(', el cual posee la siguiente cedula de identidad ').$row_contrato['dni'].' y esta de acuerdo con el pago de '.$row_contrato['cuotas'].' cuotas cada una de '.$fila_pago['pago'].'$ (Pesos Dominicanos).'),0,'FJ',0);
 $pdf->Ln(10);
 $pdf->SetTextColor(231, 14, 14);
 $pdf->Cell(180, 6, 'HAN PACTADO Y CONVENIDO LO SIGUIENTE', 0, 0, 'C', 0);
@@ -257,18 +261,7 @@ $pdf->Ln(5);
 $pdf->MultiCell(180, 6, utf8_decode('J) Una persona en caso de muerte comprobada y determinada por las autoridades competentes, no podrá recibir mas de un servicio (especificado en el acápite (A) ) aunque  este inscrito  en otro  con  trato por otro familiar o persona.'), 0, 'FJ', 0);
 $pdf->Ln(5);
 $pdf->MultiCell(180, 6, utf8_decode('K) En caso de fuerza mayor tales como: Huracanes, huelgas, desobediencia civil, revolución, terremotos, etc. La protectora San José, Se reserva los derechos de brindar los servicios contratados por los afiliados.'), 0, 'FJ', 0);
-$pdf->Ln(5);
-$pdf->SetTextColor(231, 14, 14);
-$pdf->Cell(180, 10, 'PAGOS', 0, 1, 'C');
-$pdf->SetTextColor(80, 77, 208);
-$sql_pagos = "SELECT * FROM Pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
-$resultado_pagos = mysqli_query($connection, $sql_pagos);
-$pdf->Cell(90, 6, 'Monto del Pago', 0, 0, 'C', 1);
-$pdf->Cell(90, 6, 'Fecha a Pagar', 0, 1, 'C', 1);
-while ($fila_pago = mysqli_fetch_array($resultado_pagos)) {
-	$pdf->Cell(90, 6, $fila_pago['pago'] . '$', 0, 0, 'C');
-	$pdf->Cell(90, 6, $fila_pago['fecha'], 0, 1, 'C');
-}
+
 $pdf->Ln(10);
 $hoy = date('d-m-Y');
 $pdf->MultiCell(180, 6, utf8_decode('Hecho y firmado, en la ciudad de Azua De Compostela, hoy: ' . $hoy . '.'), 0, 'FJ', 0);

@@ -587,8 +587,9 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                   <thead>
                     <tr>
                         <th>Nombre del Producto</th>
-                        <th>Costo del Producto</th>
-                        <th class="celda_editar">Acciones</th>
+                        <th >Costo del Producto</th>
+                        <th ></th>
+                        <th >Acciones</th>
                     </tr>
                   </thead>
 
@@ -599,8 +600,9 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
                     <tr>
                       <td>'.$fila_servicio_adicional['descripcion_servicio'].'</td>
                       <td>'.$fila_servicio_adicional['costo']*$fila_servicio_adicional['cantidad_servicios'].'RD$</td>
-                      <td class="celda_editar">
-                       <a type="button" class="btn waves-effect waves-light" onclick="eliminar_editar_servicio_contrato('.$fila_servicio_adicional["id_actualizar"].')">Eliminar Servicio</a> 
+                      <td></td>
+                      <td>
+                       <a  type="button" class="btn waves-effect waves-light" onclick="eliminar_editar_servicio_contrato('.$fila_servicio_adicional["id_actualizar"].')">Eliminar Servicio</a> 
                       </td>
                      </tr>';
 

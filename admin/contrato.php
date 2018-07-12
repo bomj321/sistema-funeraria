@@ -28,7 +28,7 @@ include('header.php');
                                                      
                            <div class="input-field col s12 m3">
                               <input name="dni_contrato" onkeypress="return solonumeros(event)" id="dni_contrato" type="text" class="validate" required="true">
-                              <label for="dni_contrato">DNI</label>
+                              <label for="dni_contrato">Documento de Identidad</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
                             
@@ -70,18 +70,22 @@ include('header.php');
                           </div>
                           
                           <div class="row">
-                            <div class="input-field col s12 m4">
+                            <div class="input-field col s12 m3">
                               <input  readonly name="direccion_contrato" id="direccion_contrato" type="text" class="validate" required="true">
                               
                             </div>
                             
-                            <div class="input-field col s12 m4">
+                            <div class="input-field col s12 m3">
                               <input  readonly name="familiar_contrato" onkeypress="return sololetras(event)" id="familiar_contrato" type="text" class="validate" required="true">
                               
                             </div>
 
-                            <div class="input-field col s12 m4">
+                            <div class="input-field col s12 m3">
                               <input  readonly name="telefono_familiar_contrato" onkeypress="return solonumerosolo(event)" id="telefono_familiar_contrato" type="text" class="validate" required="true">
+                            </div>
+
+                            <div class="input-field col s12 m3">
+                              <input  readonly name="tipo_contrato"  id="tipo_cotrato" type="text" class="validate" required="true">
                             </div>
                             
                           </div>

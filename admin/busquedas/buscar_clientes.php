@@ -59,7 +59,7 @@ $tabla.='
           <tr>
               <th>Nombre</th>
               <th>Estado Civil</th>
-              <th>DNI</th>
+              <th>#N Identidad</th>
               <th>Edad</th>
               <th>Genero</th>
               <th>Numero</th>                            

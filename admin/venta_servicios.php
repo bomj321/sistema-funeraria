@@ -51,7 +51,7 @@ include('header.php');
                           <div class="row"> 
                             <div class="input-field col s12 m4">
                               <input onkeypress="return solonumeros(event)" onpaste="false" name="dni_usuario" id="dni_usuario_venta" type="text" class="validate">
-                              <label for="dni_usuario_venta">Cedula de Identidad</label>
+                              <label for="dni_usuario_venta">Numero de Identidad</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                             </div>
 
