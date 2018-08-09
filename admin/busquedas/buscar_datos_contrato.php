@@ -4,11 +4,13 @@ require_once('../connect.php');
 $id_unico_contrato_editar=$_SESSION["unicoid_contrato"];
 $id_normal_contrato_editar=$_SESSION["usuarioid_contrato"];
 
+
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-$sql_contrato_descuento = "SELECT descuento FROM User WHERE idUser=$id_normal_contrato_editar AND idUser_user=$id_unico_contrato_editar";
+$sql_contrato_descuento = "SELECT descuento,tipo_contrato FROM User WHERE idUser=$id_normal_contrato_editar AND idUser_user=$id_unico_contrato_editar";
 $resultado_contrato_descuento= mysqli_query($connection, $sql_contrato_descuento);
 $row_contrato_descuento = mysqli_fetch_assoc($resultado_contrato_descuento);
 $sum_descuento = $row_contrato_descuento['descuento'];
+$row_tipo_contrato = $row_contrato_descuento['tipo_contrato'];
 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
 
@@ -441,7 +443,7 @@ $tabla_planes.='
          <p style="color: black; font-size: 2rem;">Posee '.$filas_afectadas_mostrar.' cuotas, cada una de '.$sum_total_pagos_mostrar.'RD$</p>         
        </div>
         ';
-
+if ($row_tipo_contrato==1) {
 $sql_planes_editar="SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $id_normal_contrato_editar AND User_has_planes.id_user_plan=$id_unico_contrato_editar";
 $resultado_planes_editar= mysqli_query($connection, $sql_planes_editar);
 
@@ -561,11 +563,11 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
               ';
           
           
-         }  //CIERRE DEL ELSE DE LOS PRODUCTOS   
-/////////////////////PRODUCTOS DEL PLAN CIERRE////////////////////////////////////////
-	}	//CIERRE DE LOS WHILE DE LOS PLANES
-} //CIERRE DEL ELSE DE LOS PLANES
-
+           }  //CIERRE DEL ELSE DE LOS PRODUCTOS   
+  /////////////////////PRODUCTOS DEL PLAN CIERRE////////////////////////////////////////
+  	}	//CIERRE DE LOS WHILE DE LOS PLANES
+  } //CIERRE DEL ELSE DE LOS PLANES
+} //IF DEL TIPO DEL CONTRATO
 /////////////////////SERVICIOS ADICIONALES DEL CONTRATO////////////////////////////////////////     
        $sql_servicio_adicionales= "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_normal_contrato_editar AND User_has_Servicios_Adicionales.id_user_servicio=$id_unico_contrato_editar";
        $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicio_adicionales);
@@ -577,10 +579,18 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
           
          }else{ //ELSE DE LOS SERVICIOS ADICIONALES
           
+if ($row_tipo_contrato==1) {          
           $tabla_planes.='
                <div class="col s12 m12">
                   <h4 style="text-align:left;">Servicios adicionales del contrato</h4>         
               </div>';
+}else{
+  $tabla_planes.='
+               <div class="col s12 m12">
+                  <h4 style="text-align:left;">Servicios del contrato</h4>         
+              </div>';
+}
+
           $tabla_planes.='
         <div class="col s12 m12">  
           <table class="responsive-table tablaeditar">
@@ -617,8 +627,8 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
           
          }  //ELSE DE LOS SERVICIOS ADICIONALES CIERRE 
 /////////////////////SERVICIOS ADICIONALES DEL CONTRATO CIERRE//////////////////////////////////////// 
-
-
+if ($row_tipo_contrato==1) {
+ 
 
 /////////////////////FAMILIARES INDEPENDIENTES DEL CONTRATO////////////////////////////////////////     
        $sql_familiares_independientes= "SELECT * FROM User_family_independent WHERE User_idUser=$id_normal_contrato_editar AND id_User_family_indepen=$id_unico_contrato_editar";
@@ -738,7 +748,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
          }  //ELSE DE LOS FAMILIARES DEPENDIENTES CIERRE
 /////////////////////FAMILIARES DEPENDIENTES DEL CONTRATO CIERRE//////////////////////////////////////// 
 
-
+}
 /**********************************************COMENTARIOS******************************************************/
  $sql_comentarios= "SELECT * FROM comentario_contrato WHERE id_user=$id_normal_contrato_editar AND id_user_user=$id_unico_contrato_editar";
  $resultado_comentarios= mysqli_query($connection, $sql_comentarios);

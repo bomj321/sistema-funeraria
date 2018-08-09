@@ -94,7 +94,9 @@ $interval = date_diff($nacimiento, $hoy);
        </div>
     </div>
 
-
+<?php 
+if ($fila['tipo_contrato']==1) {
+ ?>
     <div class="row">
        <div class="col s12 m12">
           <h4 style="text-align: center;">FAMILIARES DEPENDIENTES</h4>
@@ -391,10 +393,23 @@ $interval = date_diff($nacimiento, $hoy);
                     } //CIERRO WHILE DE PLANES
                          } // CIERRO ELSE
                  ?>           
-
+ <?php 
+}// IF DEL TIPO DE CONTRATO
+     ?>
     <div class="row">
        <div class="col s12 m12" id="servicios_adicionales_contrato">
+          <?php 
+        if ($fila['tipo_contrato']==1) {
+         ?>
           <h4 style="text-align: center;">SERVICIOS ADICIONALES</h4>
+         <?php 
+        }else{
+          ?>
+            <h4 style="text-align: center;">SERVICIOS</h4>
+
+        <?php 
+          }
+         ?>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
           $sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_user_session AND User_has_Servicios_Adicionales.id_user_servicio=$id_user_unico";
@@ -459,7 +474,7 @@ $interval = date_diff($nacimiento, $hoy);
    
     <div class="row">
        <div class="col s12 m12" id="pagos_entregar_contrato">
-          <h4 style="text-align: center;">Pagos de los Contratos</h4>
+          <h4 style="text-align: center;">Pagos del Contrato</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
                
         <table class="responsive-table" >

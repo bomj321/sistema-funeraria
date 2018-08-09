@@ -13,13 +13,13 @@ include('header.php');
           </div>
             <!--MODALES-->
 
-                 <div class="col s3" >
+                 <div class="col s12 m3" >
                             <?php
                               include('aside.php');
                             ?>
                 </div>
 
-            <div class="col s9">
+                 <div class="col s12 m9">
                       
                              <?php 
                                   include('advertencias.php');

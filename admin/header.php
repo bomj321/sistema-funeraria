@@ -57,11 +57,12 @@ include('connect.php');
     
                             ?>
                                              
-    <div class="row">                
+    <div class="row"> 
+            
               
                       <nav>
                         <div class="nav-wrapper">
-                         <span id="url"><?php echo $resultado ?></span>
+                         <span id="url" class="tituloheader" style="font-size: 18px;"><?php echo $resultado ?></span>
                           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                           <ul class="right hide-on-med-and-down">
                             <li><a href="cierre.php">Salir del Sistema</a></li>                      

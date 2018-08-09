@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Venta de servicios y productos que ayuden a personas con su duelo en la funeraria">
-    <meta name="keywords" content="funeraria, servicios funerarios, planes funerarios">
+  <meta name="keywords" content="funeraria, servicios funerarios, planes funerarios">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>Funeraria, venta de servicios funerarios y planes funerarios</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="css/materialize.css">

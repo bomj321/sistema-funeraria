@@ -1,6 +1,6 @@
 <?php include_once'funciones/templates/header.php';?>
 <?php include_once'funciones/connect.php';
-    
+
 $sql = "SELECT * FROM stock ORDER BY id desc "; 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);   

@@ -10,13 +10,13 @@ $fila=mysqli_fetch_array($resultado);
 ?>
 <main>  
         <div class="row">
-                 <div class="col s3" >
+                  <div class="col s12 m3" >
                             <?php
                               include('aside.php');
                             ?>
-                 </div>
+                </div>
 
-                 <div class="col s9">
+                 <div class="col s12 m9">
                     <div class="row">
                            <?php 
                                 include('advertencias.php');

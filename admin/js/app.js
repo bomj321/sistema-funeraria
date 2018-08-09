@@ -2474,5 +2474,23 @@ function eliminar_comentario_editar(id)
 
 /***********************************************************SECCION EDICION DE CONTRATOS****************************************************/
 
+
+
+/*****************TIPO CONTRATO*****************************/
+
+/*****************TIPO CONTRATO*****************************/
+function tipocontrato(valor) {
+  if (valor == "1") {
+       document.getElementById("familiares_mostrar").style.display = "initial";
+       document.getElementById("planes_mostrar").style.display = "initial";
+
+    } else { 
+            document.getElementById("familiares_mostrar").style.display = "none";
+            document.getElementById("planes_mostrar").style.display = "none";
+
+        
+    }
+}
+
 ////AJAX DE LA PAGINA
 

@@ -76,6 +76,7 @@ $tabla.='
               <th>Numero de Contrato</th>
               <th>Nombre</th>              
               <th>#N de Identificacion</th>
+              <th>Tipo del Contrato</th>
               <th>Total</th>
               <th>Acciones</th>
           </tr>
@@ -86,11 +87,13 @@ $tabla.='
         		while($fila =mysqli_fetch_array($resultado))                      {
             $contratoid_unico=$fila['idUser_user'];
             $contratoid =$fila['idUser'];
+            $tipo_contrato=$fila['tipo_contrato'];
        $tabla.=' 	
           <tr>
             <td>'.$fila['idUser_user'].'</td>
             <td>'.$fila['nombre'].'</td>            
-            <td>'.$fila['dni'].'</td>';
+            <td>'.$fila['dni'].'</td>
+            <td>'.$fila['tipo_contrato'].'</td>';
 
            
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
@@ -144,17 +147,30 @@ $tabla.='
 
             <td>
 
-            <a title="Ver Contrato" href="./ver_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons ">remove_red_eye</i></a>
+            <a title="Ver Contrato" href="./ver_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons ">remove_red_eye</i></a>';
 
-            <a title="Exportar a PDF" href="./acciones/fpdf_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>';
- if($_SESSION['perfil']=='admin'){ //IF            
+    if ($tipo_contrato==1) {
+$tabla.='
+            <a target="_blank" title="Exportar a PDF" href="./acciones/fpdf_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>';
+          }else{
+            $tabla.='<a target="_blank" title="Exportar a PDF" href="./acciones/fpdf_contrato_tipo_2.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons pdf">picture_as_pdf</i></a>';
+          }  
+
+ if($_SESSION['perfil']=='admin'){ //IF
+
         $tabla.='    
             <a title="Editar Contrato" href="./editar_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons word">border_color</i></a>';
 } //CIERRE DE IF  
             
-$tabla.='
-            <a title="Imprimir Contrato" href="./acciones/imprimir_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons desactivar">print</i></a>';
-                    
+
+ if ($tipo_contrato==1) {
+        $tabla.='
+            <a  target="_blank" title="Imprimir Contrato" href="./acciones/imprimir_contrato.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons desactivar">print</i></a>';
+ }else{
+            $tabla.='
+            <a  target="_blank" title="Imprimir Contrato" href="./acciones/imprimir_contrato_tipo_2.php?idunico='.$fila['idUser_user'].'&id='.$fila['idUser'].'"><i class="material-icons desactivar">print</i></a>';
+          }  
+
 if ($fila['activo'] ==1) {
 	
 

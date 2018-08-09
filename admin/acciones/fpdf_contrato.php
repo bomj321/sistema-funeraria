@@ -93,7 +93,7 @@ $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetTextColor(80, 77, 208);
 $pdf->SetFillColor(232, 232, 232);
-$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102, de la calle Santome, en esta ciudad de Azua, R.D., y el (la) Sr.(a). '.$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').' años, cuyo sexo es '.$row_contrato['sexo'].', adicionalmente su estado civil es '.$row_contrato['estado'].utf8_decode(', el cual posee la siguiente cedula de identidad ').$row_contrato['dni'].' y esta de acuerdo con el pago de '.$row_contrato['cuotas'].' cuotas cada una de '.$fila_pago['pago'].'$ (Pesos Dominicanos).'),0,'FJ',0);
+$pdf->MultiCell(180,6,utf8_decode('En la Protectora San José, ubicada en la casa #102,calle Santome,en la Ciudad de Azua, R.D., y el (la) Sr.(a). '.$row_contrato['nombre'].' domiciliado(a) y residente en Republica Dominicana, con el telefono '.$row_contrato['numero'].', de edad '.$interval->format('%y').' años, cuyo sexo es '.$row_contrato['sexo'].', de estado civil '.$row_contrato['estado'].utf8_decode(', el cual posee la siguiente cedula de identidad ').$row_contrato['dni'].' y esta de acuerdo con el pago de '.$row_contrato['cuotas'].' cuotas cada una de '.$fila_pago['pago'].'$ (Pesos Dominicanos).'),0,'FJ',0);
 $pdf->Ln(10);
 $pdf->SetTextColor(231, 14, 14);
 $pdf->Cell(180, 6, 'HAN PACTADO Y CONVENIDO LO SIGUIENTE', 0, 0, 'C', 0);

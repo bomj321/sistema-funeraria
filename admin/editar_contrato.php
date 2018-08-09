@@ -24,17 +24,17 @@ $fila=mysqli_fetch_array($resultado);
      <!--MODALES-->
               <div class="col s12 m12">
                 <?php 
-                  include("modales/buscar_todo_contrato_editar.php"); 
-                  include("modales/comentario_editar.php"); 
+                include("modales/comentario_editar.php"); 
                  ?> 
               </div>
               <!--MODALES-->
-      <div class="col s3">
+       <div class="col s12 m3" >
                             <?php
                               include('aside.php');
                             ?>
-      </div>
-      <div class="col s9">
+                </div>
+
+                 <div class="col s12 m9">
             <div class="row">
               <?php 
                                     include('advertencias.php');
@@ -114,9 +114,26 @@ $fila=mysqli_fetch_array($resultado);
                           
 
                           <div class="row">
+
+                          <?php 
+                            if ($fila['tipo_contrato']==1) { 
+                              include("modales/buscar_todo_contrato_editar.php");   
+                           ?>
                               <div class="col s12 m4">
                                 <a class="waves-effect waves-light btn modal-trigger" href="#modal_contrato_editar"><i class="material-icons right">add_circle</i>Editar Contrato</a>
                               </div>
+
+                          <?php 
+                             }else{
+                              include("modales/buscar_todo_contrato_editar_2.php"); 
+                           ?>
+                           <div class="col s12 m4">
+                                <a class="waves-effect waves-light btn modal-trigger" href="#modal_contrato_editar_2"><i class="material-icons right">add_circle</i>Editar Contrato</a>
+                            </div>
+                           <?php  
+                            }
+
+                            ?>    
                               
                           <div class="col s12 m6 ">
                                 <a class="waves-effect waves-light btn modal-trigger" href="#modal_comentario_editar"><i class="material-icons right">add_circle</i>Agregar Comentario</a>

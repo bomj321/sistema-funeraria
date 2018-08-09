@@ -35,7 +35,7 @@
       </table>
 
 
-      
+    <div id="planes_mostrar"><!--PLANES MOSTRAR-->  
        <?php 
           $sql_planes = "SELECT * FROM planes ";
       $resultado_planes= mysqli_query($connection, $sql_planes);
@@ -48,20 +48,20 @@
              <?php
               }else{
               ?>
-           
-            <h4>Agregar Planes</h4>
-          <div class="input-field col s12 m12" onkeyup="load_planes(1)">
-            <input name="planes_contrato" id="planes_contrato" type="text" >
-            <label for="planes_contrato">Buscar Planes</label>
-          </div>
-    <div id="id_contenido_contrato">        
-          <!--RESULTADO AJAX-->
-   
-    </div>        
-            <?php 
-              }              
-          ?> 
-           
+            
+                  <h4>Agregar Planes</h4>
+                <div class="input-field col s12 m12" onkeyup="load_planes(1)">
+                  <input name="planes_contrato" id="planes_contrato" type="text" >
+                  <label for="planes_contrato">Buscar Planes</label>
+                </div>
+          <div id="id_contenido_contrato">        
+                <!--RESULTADO AJAX-->
+         
+          </div>        
+                  <?php 
+                    }              
+                ?> 
+    </div><!--PLANES MOSTRAR-->        
        
 
         <?php 
@@ -88,7 +88,7 @@
     <?php
          }
       ?>    
-
+<div id="familiares_mostrar"><!--FAMILIARES-->
       <h4>Agregar Familiares Dependientes</h4>
       <table class="responsive-table">
         <thead>
@@ -189,7 +189,8 @@
           </tr>         
 
         </tbody>        
-      </table>
+      </table><!--FAMILIARES-->
+     </div> 
     </div>
     <div class="modal-footer">
       <a type="button" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>

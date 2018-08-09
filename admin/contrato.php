@@ -5,19 +5,17 @@ include('header.php');
   <div class="container">
         <div class="row">
           <!--MODALES-->
-              <div class="col s12 m12">
-                <?php 
-                  include("modales/buscar_todo_contrato.php");                  
-                 ?> 
-              </div>
+              <?php 
+                include("modales/buscar_todo_contrato.php");
+               ?>
               <!--MODALES-->
-                 <div class="col s3 m3" >
+                  <div class="col s12 m3" >
                             <?php
                               include('aside.php');
                             ?>
                 </div>
 
-                 <div class="col s9 m9">
+                 <div class="col s12 m9">
                            <?php 
                                 include('advertencias.php');
                             ?>
@@ -84,19 +82,20 @@ include('header.php');
                               <input  readonly name="telefono_familiar_contrato" onkeypress="return solonumerosolo(event)" id="telefono_familiar_contrato" type="text" class="validate" required="true">
                             </div>
 
-                            <div class="input-field col s12 m3">
-                              <input  readonly name="tipo_contrato"  id="tipo_cotrato" type="text" class="validate" required="true">
-                            </div>
-                            
-                          </div>
+                           <div class="input-field col s12 m3">
+                              <select required name="tipo_contrato" onchange="tipocontrato(this.value);">
+                                <option value="" disabled selected>Tipo de Contrato</option>
+                                <option value="1">Contrato tipo 1</option>
+                                <option value="2">Contrato tipo 2</option>
+                              </select>
+                              <label>Tipo de Contrato</label>
+                           </div>
 <!--AJAX CONTRATO-->
 
-                          <div class="row">
+                          <div class="row" id="resultado_tipo_contrato">
                               <div class="col s12 m4 ">
                                 <a class="waves-effect waves-light btn modal-trigger" href="#modal_contrato_servicio"><i class="material-icons right">add_circle</i>Diseñar Contrato</a>
                               </div>
-
-                              
                           </div>                         
 
                           <div class="row" id="resultados_contrato">

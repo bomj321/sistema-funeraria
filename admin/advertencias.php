@@ -20,7 +20,7 @@ if($_SESSION['perfil']=='admin'){ //IF
 ?>
     
                
-    <div class="col s3 m3">
+    <div class="col s12 m3">
          <?php
            if ($filas_afectadas==0){
          ?>      
@@ -36,11 +36,11 @@ if($_SESSION['perfil']=='admin'){ //IF
           ?>
                       
     </div>
-     <div class="col s3 m3">
+     <div class="col s12 m3">
                 <?php
            if ($filas_afectadas_suspendidos==0){
          ?>      
-                <p style="color:black;">Contratos estan activos</p>
+                <p style="color:black;">Contratos activos</p>
             <?php
            }else{ 
           ?>
@@ -52,11 +52,11 @@ if($_SESSION['perfil']=='admin'){ //IF
           ?>
      </div>
                        
-     <div class="col s3 m3">
+     <div class="col s12 m3">
                 <?php
            if ($filas_clientes_suspendidos==0){
          ?>      
-                <p style="color:black;">Ningun cliente suspendido</p>
+                <p style="color:black;">Sin Clientes Suspendidos</p>
             <?php
            }else{ 
           ?>
@@ -68,7 +68,7 @@ if($_SESSION['perfil']=='admin'){ //IF
           ?>
      </div>
      
-     <div class="col s3 m3">
+     <div class="col s12 m3">
          <?php
            if ($filas_servicios_suspendidos==0){
          ?>      

@@ -20,9 +20,15 @@
                 <li><a class="waves-effect" href="control_servicios.php">Control de Servicios</a></li>
                 <li><a class="waves-effect" href="nuevoplan.php">Registrar Plan</a></li>
                 <li><a class="waves-effect" href="control_planes.php">Control de los Planes</a></li>
-
+                <?php
+                  if($_SESSION['perfil']=='admin'){ //IF
+              ?>
+                <li><a class="waves-effect" href="contenido.php">Manejar Contenido</a></li>
+                <?php
+                    } //CIERRE DE IF 
+                ?>
 
 
 
 </ul>
-   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class=" large material-icons">playlist_add</i></a>  
+   <a href="#" data-target="slide-out" class="sidenav-trigger waves-effect waves-light btn">MENU</a>  

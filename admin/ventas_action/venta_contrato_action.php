@@ -5,17 +5,19 @@ require_once('../connect.php');
                 $dni= $_POST['dni_contrato'];
                 $estado_civil= $_POST['civil_contrato'];              
                 $edad= $_POST['edad_contrato'].' 00:00:00.000000';
-				$usu= $_POST['nombre_contrato'];
+			         	$usu= $_POST['nombre_contrato'];
                 $numero= $_POST['numero_contrato'];                   
                 $email= $_POST['email_contrato'];
                 $direccion_contrato= $_POST['direccion_contrato'];
-				$familiar_contrato= $_POST['familiar_contrato'];
-				$telefono_familiar_contrato= $_POST['telefono_familiar_contrato'];
-				$email= $_POST['email_contrato'];
+        				$familiar_contrato= $_POST['familiar_contrato'];
+        				$telefono_familiar_contrato= $_POST['telefono_familiar_contrato'];
+        				$email= $_POST['email_contrato'];
                 $genero= $_POST['genero_contrato'];
                 $activo = 0; 
                 $revisado = 0; 
                 $idUser=$_POST['id_cliente_contrato'];
+                $tipo_contrato=$_POST['tipo_contrato'];
+                $hoy=date('d-m-Y');
 //////////////////////////////////SELECCIONAR COSTO, DESCUENTO Y CUOTAS///////////////////////////////////
           $sql_costo_descuento="SELECT * FROM tmp_costo_descuento_contratp WHERE session_id='".$session_id."'";
           $resultado_costo_descuento= mysqli_query($connection, $sql_costo_descuento);
@@ -34,9 +36,9 @@ require_once('../connect.php');
                 
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO User ( 	idUser,activo,revisado,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento,sexo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO User ( 	idUser,activo,revisado,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento,sexo,tipo_contrato,fecha_contrato) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
-           	mysqli_stmt_bind_param($resultado_user, "iiisssssssssiis",$idUser,$activo,$revisado,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion_contrato,$familiar_contrato,$telefono_familiar_contrato,$cuotas_contrato,$descuento_contrato,$genero);
+           	mysqli_stmt_bind_param($resultado_user, "iiisssssssssiisss",$idUser,$activo,$revisado,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion_contrato,$familiar_contrato,$telefono_familiar_contrato,$cuotas_contrato,$descuento_contrato,$genero,$tipo_contrato,$hoy);
             $ok=mysqli_stmt_execute($resultado_user);
             $idgenerado =$idUser;
             $idautogenerado = mysqli_insert_id($connection);

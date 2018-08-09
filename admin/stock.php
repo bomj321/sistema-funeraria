@@ -5,11 +5,13 @@ include('header.php');
 <main> 
       <div class="container">
             <div class="row">
-                    <div class="col s3" >
-                            <?php include('aside.php');?>
-                   </div>
+                     <div class="col s12 m3" >
+                            <?php
+                              include('aside.php');
+                            ?>
+                </div>
 
-                    <div class="col s9">
+                 <div class="col s12 m9">
                       
                         <div class="row">
                            <?php 
