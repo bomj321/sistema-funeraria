@@ -4,13 +4,13 @@ include('header.php');
 <main>
   <div class="container">
         <div class="row">
-                  <div class="col s12 m3" >
+                  <div class="col s12 m2" >
                             <?php
                               include('aside.php');
                             ?>
                 </div>
 
-                 <div class="col s12 m9">
+                 <div class="col s12 m10">
                            <?php 
                                 include('advertencias.php');
                             ?>
@@ -21,7 +21,7 @@ include('header.php');
 
                           <div class="row">
                             <div class="input-field col s6">
-                              <input name="descripcion_servicio" id="descripcion_servicio" type="text" class="validate" required="true">
+                              <input data-length="40" maxlength="40" name="descripcion_servicio" id="descripcion_servicio" type="text" class="validate" required="true">
                               <label for="descripcion_servicio">Descripcion del Servicio</label>
                             </div>
 

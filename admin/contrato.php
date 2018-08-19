@@ -9,13 +9,13 @@ include('header.php');
                 include("modales/buscar_todo_contrato.php");
                ?>
               <!--MODALES-->
-                  <div class="col s12 m3" >
+                  <div class="col s12 m2" >
                             <?php
                               include('aside.php');
                             ?>
                 </div>
 
-                 <div class="col s12 m9">
+                 <div class="col s12 m10">
                            <?php 
                                 include('advertencias.php');
                             ?>

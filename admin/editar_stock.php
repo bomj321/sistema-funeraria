@@ -13,9 +13,11 @@ $fila=mysqli_fetch_array($resultado);
   <div class="container">
   
         <div class="row">
+                  <div class="col s12 m2" >
                             <?php
                               include('aside.php');
                             ?>
+                         </div>   
 
                  <div class="col s12 m9">
                            <?php 
@@ -31,31 +33,31 @@ $fila=mysqli_fetch_array($resultado);
                             <div class="row">
                             <input name="id" id="id" type="hidden" class="validate" required="true" value="<?php echo $fila['id']; ?>">
 
-                              <div class="input-field col s3">
+                              <div class="input-field col s12 m6 l6">
                                 <input name="objeto" id="objeto" type="text" class="validate" required="true" value="<?php echo $fila['objeto'];?>">
                                 <label for="objeto">Objeto</label>
                               </div>
 
-                              <div class="input-field col s3">
+                              <div class="input-field col s12 m6 l6">
                                 <input onkeypress="return solonumeros(event)" name="cantidad" id="cantidad" type="text" class="validate" required="true" value="<?php echo $fila['cantidad'];?>">
                                 <label for="cantidad">Cantidad Existente</label>
                                 <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                               </div>  
 
-                              <div class="input-field col s12 m3">
+                              <div class="input-field col s12 m6 l6">
                                 <input onkeypress="return solonumeros2(event)" onpaste="false" name="precio" id="precio" type="text" class="validate" required="true" value="<?php echo $fila['precio'];?>">
                                 <label for="precio">Precio Unitario</label>
                                 <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
                               </div>                          
 
-                              <div class="input-field col s3">
+                              <div class="input-field col s12 m6 l6">
                                 <input name="comentario" id="comentario" type="text" class="validate" required="true" value="<?php echo $fila['comentario']; ?>">
                                 <label for="comentario">Comentario</label>
                               </div>
                             </div> 
                             
                             <div class="row">
-                                     <div class="file-field input-field col s12 m6">
+                                     <div class="file-field input-field col s12 m12 l12">
                                          <div class="btn">
                                         <span>File</span>
                                         <input id="file" type="file" name="image">

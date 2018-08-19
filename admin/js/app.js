@@ -5,14 +5,12 @@
   $('select').formSelect();
   $('.modal').modal(); 
   $('.carousel.carousel-slider').carousel({
-    fullWidth: true
+    fullWidth: true    
   });  
+  $('textarea#quienessomos,textarea#quehacemos,textarea#frasecelebre,input#descripcion_servicio').characterCounter();
   });
 
-$(document).ready(function() {
-    $('textarea#quienessomos,textarea#quehacemos,textarea#frasecelebre').characterCounter();
-  });
-  
+
 //JQUERY DE MATERIALIZE
 
 

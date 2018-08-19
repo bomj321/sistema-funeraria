@@ -10,13 +10,13 @@ include('connect.php');
 <main>
  <div class="container"> 
         <div class="row">
-             <div class="col s12 m3" >
+             <div class="col s12 m2" >
                             <?php
                               include('aside.php');
                             ?>
                 </div>
 
-                 <div class="col s12 m9">
+                 <div class="col s12 m10">
 
                        <?php 
                             include('advertencias.php');

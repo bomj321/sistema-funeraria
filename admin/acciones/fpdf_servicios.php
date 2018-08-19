@@ -75,17 +75,17 @@ if ($fila_producto_consulta>0) {
 	$pdf->Cell(20,6,'Producto',0,0,'C',1);
 	$pdf->Cell(10,6,'Total',0,1,'C',1);
 
-	$pdf->SetFont('Arial','',5);
+	$pdf->SetFont('Arial','',3.5);
 	while($row = $resultado_productos->fetch_assoc())
 	{
 		
 	$pdf->Cell(10,6,$row['cantidad_comprada'],0,0,'C');
-	$pdf->Cell(20,6,utf8_decode($row['objeto']),0,0,'C');
+	$pdf->Cell(20,6,utf8_decode($row['objeto']),0,0,'L');
 	$pdf->Cell(10,6,'RD$'.$row['cantidad_comprada']*$row['precio_total'].',00',0,1,'C');
 	}
 	$pdf->SetFont('Arial','B',5);
 	$pdf->SetX(21);
-	$pdf->Cell(15,6,'Subtotal',0,0,'C',0);
+	$pdf->Cell(15,6,'Subtotal',0,0,'L',0);
     $pdf->SetX(40);
 	$pdf->Cell(10,6,'RD$'.$sum_producto.',00',0,1,'C',0);
 	
@@ -104,19 +104,20 @@ $pdf->Cell(10,6,'Cant.',0,0,'C',1);
 $pdf->Cell(20,6,'Servicio',0,0,'C',1);
 $pdf->Cell(10,6,'Total',0,1,'C',1);
 
-$pdf->SetFont('Arial','',4);
+$pdf->SetFont('Arial','',3.5);
 
 while($row = $resultado_servicios->fetch_assoc())
 {
 	
 $pdf->Cell(10,6,$row['cantidad_servicio'],0,0,'C');
-
-$pdf->Cell(20,6,utf8_decode($row['descripcion_servicio']),0,0,'C');
+$pdf->SetX(18);
+$pdf->Cell(20,6,utf8_decode($row['descripcion_servicio']),0,0,'L');
+$pdf->SetX(41);
 $pdf->Cell(10,6,'RD$'.$row['cantidad_servicio']*$row['precio_total'].',00',0,1,'C');
 }
 $pdf->SetFont('Arial','B',5);
 $pdf->SetX(21);
-$pdf->Cell(15,6,'Subtotal',0,0,'C',0);
+$pdf->Cell(15,6,'Subtotal',0,0,'L',0);
 $pdf->SetX(40); 
 $pdf->Cell(10,6,'RD$'.$sum_servicio.',00',0,1,'C',0);
 }else{
