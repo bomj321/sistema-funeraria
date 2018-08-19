@@ -19,7 +19,7 @@ if (isset($_GET['id_servicio_entregar']) AND isset($_GET['actualizar_servicio'])
  ?>
  <h4 style="text-align: center;">Servicios del Plan </h4>
               <?php
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session 
+                    $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session 
                     AND planes_has_services_delivered.id_user_delivered=$id_user_unico 
                     AND planes_has_services_delivered.planes_id_planes=$id_plan";
                            $resultado_servicios= mysqli_query($connection, $sql_servicios);

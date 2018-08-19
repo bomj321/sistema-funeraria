@@ -9,6 +9,9 @@
   });  
   });
 
+$(document).ready(function() {
+    $('textarea#quienessomos,textarea#quehacemos,textarea#frasecelebre').characterCounter();
+  });
   
 //JQUERY DE MATERIALIZE
 
@@ -2493,4 +2496,35 @@ function tipocontrato(valor) {
 }
 
 ////AJAX DE LA PAGINA
+
+
+/////////////////////////////////////////////////////////////////SUBIR CONTENIDO
+function manejocontenido(){  
+var parametros = new FormData($("#form_manejo_contenido")[0]);
+      $.ajax({
+          data: parametros,
+          url:"./acciones/contenido_registrar.php",
+          type:"POST",
+          contentType:false,
+          processData:false,
+          beforesend: function(){
+            toastr.options.progressBar = true;
+            toastr.warning('Registrando Contenido Espere...');
+          },
+          success: function(data){                    
+          toastr.options.progressBar = false;
+           setTimeout(function () {
+            toastr.success('Contenido Registrado!!!');
+          }, 1000);
+           //LimpiarVentaDeServicios();
+          setTimeout(function () {
+              location.reload();
+          }, 2000);
+          }
+      });
+
+}
+
+
+////////////////////////////////////////////////////////////////SUBIR CONTENIDO
 

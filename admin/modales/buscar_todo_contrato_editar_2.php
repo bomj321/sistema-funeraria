@@ -2,7 +2,7 @@
     <div class="modal-content">
      
         <?php 
-          $sql_servicio = "SELECT * FROM Servicios WHERE servicio_activo=1 ";
+          $sql_servicio = "SELECT * FROM servicios WHERE servicio_activo=1 ";
           $resultado_servicio= mysqli_query($connection, $sql_servicio);
             $fila_servicio_consulta= mysqli_num_rows($resultado_servicio);
          if ($fila_servicio_consulta==0) {

@@ -21,7 +21,7 @@ $row_cnt = mysqli_num_rows($resultado);
                         while($fila =mysqli_fetch_array($resultado)){ //WHILE
                             $planid =$fila['id_planes'];
                             
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = Servicios.id_servicios && planes_has_services.planes_id_planes= $planid ";
+                    $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = servicios.id_servicios && planes_has_services.planes_id_planes= $planid ";
                     $resultado_servicios= mysqli_query($connection, $sql_servicios);
                     $fila_servicio_consulta= mysqli_num_rows($resultado_servicios); 
                             
@@ -29,12 +29,12 @@ $row_cnt = mysqli_num_rows($resultado);
                     $resultado_products= mysqli_query($connection, $sql_products);
                     $fila_producto_consulta= mysqli_num_rows($resultado_products);        
                     ?>   
-                    <div class="col s12 m4">
-                          <div class="card " style="margin-bottom:100px; height:40rem;">
+                    <div class="col s12 m6 l4">
+                          <div class="card blue-grey lighten-2 carta" style="margin-bottom:100px;">
                             <div class="card-image">
-                              <img style="widht:50px; height:200px;" src="admin/img/<?php echo $fila['image']?>" >
+                              <img style="widht:50px; height:300px;" src="admin/img/<?php echo $fila['image']?>" >
                             </div>
-                            <div class="card-content">
+                            <div class="card-content" style="font-weight: bold; font-size: 18px;">
                                  <hr>
                                   <h4 style="text-align:center;"><?php echo $fila['nombre']?></h4>
                                   <p><?php echo $fila['descripcion']?></p>
@@ -118,5 +118,27 @@ $row_cnt = mysqli_num_rows($resultado);
                     ?>                                                      
                 </div>
             </div>
-</main>            
+</main>
+<!--MEDIA QUERYS-->
+<style>
+
+@media only screen and (min-width: 600px) {
+    .carta{
+      height:70rem
+    }
+
+
+@media only screen and (min-width: 740px) {
+    .carta{
+      height:60rem
+    }
+
+@media only screen and (min-width: 1000px) {
+    .carta{
+      height:59rem
+    }
+
+}
+</style>
+ <!--MEDIA QUERYS-->            
 <?php include_once'funciones/templates/footer.php';?>

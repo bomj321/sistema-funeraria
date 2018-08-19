@@ -8,7 +8,7 @@ if (isset($_GET['id_pagar']))//codigo elimina un elemento del array
     $id_usuario= $_GET['id_pagar'];
     $pagado_usuario=1;
     mysqli_set_charset($connection, "utf8");
-    $sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
+    $sql="UPDATE user_servicios_individuales SET pagado= ? WHERE idUser= ?";
     $resultado=mysqli_prepare($connection, $sql);
     $ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
     $ok=mysqli_stmt_execute($resultado); 
@@ -21,7 +21,7 @@ if (isset($_GET['id_nopagar']))//codigo elimina un elemento del array
     $id_usuario= $_GET['id_nopagar'];
     $pagado_usuario=0;
     mysqli_set_charset($connection, "utf8");
-    $sql="UPDATE User_servicios_individuales SET pagado= ? WHERE idUser= ?";
+    $sql="UPDATE user_servicios_individuales SET pagado= ? WHERE idUser= ?";
     $resultado=mysqli_prepare($connection, $sql);
     $ok=mysqli_stmt_bind_param($resultado, "ii", $pagado_usuario, $id_usuario);
     $ok=mysqli_stmt_execute($resultado);  
@@ -31,14 +31,14 @@ if (isset($_GET['id_nopagar']))//codigo elimina un elemento del array
 
  
 $tabla="";
-$sql = "SELECT * FROM User_servicios_individuales ORDER BY  idUser desc ";
+$sql = "SELECT * FROM user_servicios_individuales ORDER BY  idUser desc ";
 
 
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['ventas']))
 {
   $buscar=$connection->real_escape_string($_POST['ventas']);
-  $sql="SELECT * FROM User_servicios_individuales WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY  idUser desc  ";
+  $sql="SELECT * FROM user_servicios_individuales WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY  idUser desc  ";
 } 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);
@@ -57,7 +57,7 @@ $tabla.= '
               <th>Productos</th>  
               <th>Total</th>
               <th>Direccion</th>
-              <th>Acciones a Realizar</th>
+              <th id="acciones">Acciones a Realizar</th>
           </tr>
         </thead>
 
@@ -74,12 +74,12 @@ $tabla.= '
             <td>'.$fila['dni'].'</td>
             <td>';
                 
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
+                    $sql_servicios = "SELECT * FROM servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
                     $resultado_servicios= mysqli_query($connection, $sql_servicios);
                     $fila_servicio_consulta= mysqli_num_rows($resultado_servicios);
 
 
-                    $sql_total_servicios ="SELECT SUM(precio_total) AS value_sum FROM user_has_services INNER JOIN Servicios ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
+                    $sql_total_servicios ="SELECT SUM(precio_total) AS value_sum FROM user_has_services INNER JOIN servicios ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
                     $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
                     $row_servicio = mysqli_fetch_assoc($resultado_total_servicios);
                     $sum_servicio = $row_servicio['value_sum'];
@@ -168,3 +168,21 @@ $tabla.='
 
   mysqli_close($connection);    
  ?>
+
+ <!--MEDIA QUERYS-->
+<style>
+  @media only screen and (max-width: 990px) {
+    th{
+        padding-top: 24px;
+    }
+    td{
+      padding-top: 24px;
+    }
+    #acciones{
+      padding-top: 55px;
+    }
+
+
+}
+</style>
+ <!--MEDIA QUERYS-->

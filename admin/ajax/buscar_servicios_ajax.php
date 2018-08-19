@@ -14,7 +14,7 @@ if(!$buscador_limpio){
  
 <?php  
 }else{
-$sql_corroborar = "SELECT * FROM Servicios WHERE descripcion_servicio LIKE '%".$buscador_limpio."%' AND servicio_activo=1";
+$sql_corroborar = "SELECT * FROM servicios WHERE descripcion_servicio LIKE '%".$buscador_limpio."%' AND servicio_activo=1";
 $resultado_corroborar= mysqli_query($connection, $sql_corroborar);
 $filas= mysqli_num_rows($resultado_corroborar);  
 if($filas >0){
@@ -31,7 +31,7 @@ if($filas >0){
       	</thead>
       	<tbody>
       		<?php 
-      		$sql = "SELECT * FROM Servicios WHERE  descripcion_servicio LIKE '%".$buscador_limpio."%' AND servicio_activo=1 ";
+      		$sql = "SELECT * FROM servicios WHERE  descripcion_servicio LIKE '%".$buscador_limpio."%' AND servicio_activo=1 ";
 			$resultado= mysqli_query($connection, $sql);
       		 ?>
 			<?php 

@@ -7,7 +7,7 @@ $id_user_unico=$_SESSION["unicoid"];
 if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
 {
     $id_pagos=intval($_GET['id_pagos']);
-    $sql="UPDATE Pagos SET pagado='1' WHERE id_pagos= ? ";
+    $sql="UPDATE pagos SET pagado='1' WHERE id_pagos= ? ";
         $resultado=mysqli_prepare($connection, $sql);
         mysqli_stmt_bind_param($resultado, "i", $id_pagos);
         mysqli_stmt_execute($resultado);  
@@ -31,7 +31,7 @@ if (isset($_GET['id_pagos']))//codigo elimina un elemento del array
 
           <tbody>
              <?php 
-          $sql_pagos = "SELECT * FROM Pagos WHERE User_id= $id_user_session AND id_pagos_user=$id_user_unico";
+          $sql_pagos = "SELECT * FROM pagos WHERE User_id= $id_user_session AND id_pagos_user=$id_user_unico";
             $resultado_pagos= mysqli_query($connection, $sql_pagos);
 
                while ($fila_pago =mysqli_fetch_array($resultado_pagos)){

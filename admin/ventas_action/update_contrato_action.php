@@ -16,7 +16,7 @@ require_once('../connect.php');
                
 
 mysqli_set_charset($connection, "utf8");
-		$sql="UPDATE User SET nombre= ?, estado= ?, nacimiento= ?, dni= ?, numero= ?, email= ?, direccion= ?, nombre_familiar= ?, numero_familiar= ?, sexo=?  WHERE idUser_user= ?";
+		$sql="UPDATE user SET nombre= ?, estado= ?, nacimiento= ?, dni= ?, numero= ?, email= ?, direccion= ?, nombre_familiar= ?, numero_familiar= ?, sexo=?  WHERE idUser_user= ?";
 		$resultado=mysqli_prepare($connection, $sql);
 		$ok=mysqli_stmt_bind_param($resultado, "ssssssssssi", $nombre, $estado_civil, $nacimiento,$dni,$numero_cliente,$email,$direccion,$nombre_familiar,$numero_familiar,$genero,$id);
 		$ok=mysqli_stmt_execute($resultado);

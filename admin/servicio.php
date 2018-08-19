@@ -11,11 +11,9 @@ include('header.php');
                 </div>
 
                  <div class="col s12 m9">
-                    <div class="row">
                            <?php 
                                 include('advertencias.php');
                             ?>
-                    </div>  
 
                       <div class="row">
                         <h4>Registro de Servicios</h4>

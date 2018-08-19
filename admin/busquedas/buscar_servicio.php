@@ -8,7 +8,7 @@ require_once('../connect.php');
 if (isset($_GET['id_servicio_desactivar']))//codigo elimina un elemento del array
 {
 		$id_servicio=intval($_GET['id_servicio_desactivar']);
-		$sql="UPDATE Servicios SET servicio_activo='0' WHERE id_servicios= ? ";
+		$sql="UPDATE servicios SET servicio_activo='0' WHERE id_servicios= ? ";
         $resultado=mysqli_prepare($connection, $sql);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_servicio);
         $ok=mysqli_stmt_execute($resultado);	
@@ -19,7 +19,7 @@ if (isset($_GET['id_servicio_desactivar']))//codigo elimina un elemento del arra
 if (isset($_GET['id_servicio_activar']))//codigo elimina un elemento del array
 {
 		$id_servicio=intval($_GET['id_servicio_activar']);
-		$sql_activar="UPDATE Servicios SET servicio_activo='1' WHERE id_servicios= ? ";
+		$sql_activar="UPDATE servicios SET servicio_activo='1' WHERE id_servicios= ? ";
         $resultado=mysqli_prepare($connection, $sql_activar);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_servicio);
         $ok=mysqli_stmt_execute($resultado);	
@@ -28,14 +28,14 @@ if (isset($_GET['id_servicio_activar']))//codigo elimina un elemento del array
 
  
 $tabla="";
-$sql = "SELECT * FROM Servicios ORDER BY id_servicios desc ";
+$sql = "SELECT * FROM servicios ORDER BY id_servicios desc ";
 
 
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['servicio']))
 {
 	$buscar=$connection->real_escape_string($_POST['servicio']);
-	$sql="SELECT * FROM Servicios WHERE descripcion_servicio LIKE '%".$buscar."%' ORDER BY  id_servicios desc ";
+	$sql="SELECT * FROM servicios WHERE descripcion_servicio LIKE '%".$buscar."%' ORDER BY  id_servicios desc ";
 } 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);

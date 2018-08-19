@@ -81,7 +81,7 @@ if (isset($_GET['id_producto']))//codigo elimina un elemento del array
  	<tbody>
  		<?php
  			$sumador_total=0; 
- 			$sql_servicios="SELECT * FROM Servicios,tmp_servicios_inviduales WHERE Servicios.id_servicios=tmp_servicios_inviduales.id_servicio AND tmp_servicios_inviduales.session_id='".$session_id."'";
+ 			$sql_servicios="SELECT * FROM servicios,tmp_servicios_inviduales WHERE servicios.id_servicios=tmp_servicios_inviduales.id_servicio AND tmp_servicios_inviduales.session_id='".$session_id."'";
                  $resultado_servicios= mysqli_query($connection, $sql_servicios);
                  $sumador_total_producto=0;
                   

@@ -18,6 +18,9 @@ $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('.modal').modal();
 
+/*COLLAPSIBLE*/
+    $('.collapsible').collapsible();
+
 //Cierre de Jquery
   });
 

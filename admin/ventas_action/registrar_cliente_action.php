@@ -17,7 +17,7 @@ require_once('../connect.php');
 
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO Clientes (activo,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,sexo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO clientes (activo,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,sexo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
            	mysqli_stmt_bind_param($resultado_user, "issssssssss",$activo,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion,$familiar_contacto,$telefono_familiar,$genero);
             $ok=mysqli_stmt_execute($resultado_user);

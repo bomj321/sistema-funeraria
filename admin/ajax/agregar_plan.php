@@ -128,7 +128,7 @@ if (isset($_GET['id_producto']))//codigo elimina un elemento del array
 
 
  			/////////////////////////////////////////////SELECT SERVICIOS///////////////////////////////////// 
- 			$sql_servicios="SELECT * FROM Servicios,tmp_servicios_planes WHERE Servicios.id_servicios=tmp_servicios_planes.id_servicio_planes AND tmp_servicios_planes.session_id='".$session_id."'";
+ 			$sql_servicios="SELECT * FROM servicios,tmp_servicios_planes WHERE servicios.id_servicios=tmp_servicios_planes.id_servicio_planes AND tmp_servicios_planes.session_id='".$session_id."'";
                  $resultado_servicios= mysqli_query($connection, $sql_servicios);
  			/////////////////////////////////////////////SELECT SERVICIOS CIERRO///////////////////////////////////// 
      

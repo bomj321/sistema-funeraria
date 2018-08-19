@@ -30,11 +30,11 @@ class PDF_AutoPrint extends PDF
 }
 
 
-$sql_usuario= "SELECT * FROM User WHERE idUser = '$usuarioid_limpio'";
+$sql_usuario= "SELECT * FROM user WHERE idUser = '$usuarioid_limpio'";
       $resultado= mysqli_query($connection, $sql_usuario); 
             
 
-$sql_cuota = "SELECT * FROM Pagos WHERE id_pagos='$cuotaid_limpio' AND User_id='$usuarioid_limpio' ";
+$sql_cuota = "SELECT * FROM pagos WHERE id_pagos='$cuotaid_limpio' AND User_id='$usuarioid_limpio' ";
                $resultado_cuota= mysqli_query($connection, $sql_cuota);
 
 /*CIERRO MULTIPLES CONSULTAS*/    

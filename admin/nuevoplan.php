@@ -44,9 +44,9 @@ include('header.php');
                             </div>
 
                             <div class="row">
-                                 <div class="file-field input-field col s12 m6">
+                                 <div class="file-field input-field col s12 m12 l12">
                                      <div class="btn">
-                                    <span>File</span>
+                                    <span>Imagen</span>
                                     <input id="file" type="file" name="image">
                                   </div>
                                     <div class="file-path-wrapper">
@@ -56,7 +56,7 @@ include('header.php');
                             </div>
                               
                             <div class="row">
-                              <div class="col s12 m4 ">
+                              <div class="col s12 m12 l12 ">
                                 <a class="waves-effect waves-light btn modal-trigger" href="#modal_planes"><i class="material-icons right">add_circle</i>Diseñar plan</a>
                               </div>
                           </div>                         

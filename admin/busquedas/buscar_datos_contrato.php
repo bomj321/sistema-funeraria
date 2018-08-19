@@ -6,7 +6,7 @@ $id_normal_contrato_editar=$_SESSION["usuarioid_contrato"];
 
 
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-$sql_contrato_descuento = "SELECT descuento,tipo_contrato FROM User WHERE idUser=$id_normal_contrato_editar AND idUser_user=$id_unico_contrato_editar";
+$sql_contrato_descuento = "SELECT descuento,tipo_contrato FROM user WHERE idUser=$id_normal_contrato_editar AND idUser_user=$id_unico_contrato_editar";
 $resultado_contrato_descuento= mysqli_query($connection, $sql_contrato_descuento);
 $row_contrato_descuento = mysqli_fetch_assoc($resultado_contrato_descuento);
 $sum_descuento = $row_contrato_descuento['descuento'];
@@ -21,7 +21,7 @@ if (isset($_GET['id_eliminar_contrato_plan']))//codigo elimina un elemento del a
        $id_contrato_plan=intval($_GET['id_eliminar_contrato_plan']);
        $id_contrato_limpio= mysqli_escape_string($connection,$id_contrato_plan);
 /////////////////////////SELECCIONO PRECIO DEL PLAN/////////////////////////////////
-       $sql_planes_contrato="SELECT * FROM User_has_planes WHERE id_actualizar_editar='".$id_contrato_limpio."'";
+       $sql_planes_contrato="SELECT * FROM user_has_planes WHERE id_actualizar_editar='".$id_contrato_limpio."'";
        $sql_planes_contrato_resultado= mysqli_query($connection, $sql_planes_contrato); 
        $array_resultado=mysqli_fetch_array($sql_planes_contrato_resultado);
        $sql_resultado=$array_resultado['precio_total']-($array_resultado['precio_total']*($sum_descuento/100));
@@ -29,7 +29,7 @@ if (isset($_GET['id_eliminar_contrato_plan']))//codigo elimina un elemento del a
 
 /////////////////////////SELECCIONO PAGOS DEL CONTRATO CIERRO/////////////////////////////////
  
-          $sql_total_pagos ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+          $sql_total_pagos ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
           $resultado_total_pagos= mysqli_query($connection, $sql_total_pagos);
           $row_contrato_pagos = mysqli_fetch_array($resultado_total_pagos);
           $sum_total_pagos = $row_contrato_pagos['pago'];
@@ -41,12 +41,12 @@ if (isset($_GET['id_eliminar_contrato_plan']))//codigo elimina un elemento del a
   
  /////////////////////////ACTUALIZAR PAGOS DEL CONTRATO/////////////////////////////////
  
-$sql = "SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql = "SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado = mysqli_query($connection, $sql);
 while ($row=mysqli_fetch_array($resultado)){
 $nuevo_precio=$costo_nuevo;
 mysqli_set_charset($connection, "utf8");
-$sql_actualizar="UPDATE Pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
+$sql_actualizar="UPDATE pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
 $resultado_actualizar=mysqli_prepare($connection, $sql_actualizar);
 mysqli_stmt_bind_param($resultado_actualizar, "iii",$nuevo_precio,$id_unico_contrato_editar,$id_normal_contrato_editar);
 mysqli_stmt_execute($resultado_actualizar);
@@ -56,7 +56,7 @@ mysqli_stmt_execute($resultado_actualizar);
  
 ////BORRAR PLAN 
 mysqli_set_charset($connection, "utf8");
-$sql="DELETE FROM User_has_planes WHERE id_actualizar_editar=? ";
+$sql="DELETE FROM user_has_planes WHERE id_actualizar_editar=? ";
 $resultado=mysqli_prepare($connection, $sql);
 mysqli_stmt_bind_param($resultado, "i", $id_contrato_limpio);
 $ok=mysqli_stmt_execute($resultado);
@@ -76,7 +76,7 @@ if (isset($_GET['id_eliminar_contrato_servicio']))//codigo elimina un elemento d
        $id_contrato_servicio=intval($_GET['id_eliminar_contrato_servicio']);
        $id_contrato_limpio_servicio= mysqli_escape_string($connection,$id_contrato_servicio);
 /////////////////////////SELECCIONO PRECIO DEL PLAN/////////////////////////////////
-       $sql_planes_servicio="SELECT * FROM User_has_Servicios_Adicionales WHERE id_actualizar='".$id_contrato_limpio_servicio."'";
+       $sql_planes_servicio="SELECT * FROM user_has_servicios_adicionales WHERE id_actualizar='".$id_contrato_limpio_servicio."'";
        $sql_planes_servicio_resultado= mysqli_query($connection, $sql_planes_servicio); 
        $array_resultado=mysqli_fetch_array($sql_planes_servicio_resultado);
        $sql_resultado=($array_resultado['costo']*$array_resultado['cantidad_servicios'])-(($array_resultado['costo']*$array_resultado['cantidad_servicios'])*($sum_descuento/100));
@@ -84,7 +84,7 @@ if (isset($_GET['id_eliminar_contrato_servicio']))//codigo elimina un elemento d
 
 /////////////////////////SELECCIONO PAGOS DEL CONTRATO CIERRO/////////////////////////////////
  
-          $sql_total_pagos ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+          $sql_total_pagos ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
           $resultado_total_pagos= mysqli_query($connection, $sql_total_pagos);
           $row_contrato_pagos = mysqli_fetch_array($resultado_total_pagos);
           $sum_total_pagos = $row_contrato_pagos['pago'];
@@ -96,12 +96,12 @@ if (isset($_GET['id_eliminar_contrato_servicio']))//codigo elimina un elemento d
   
  /////////////////////////ACTUALIZAR PAGOS DEL CONTRATO/////////////////////////////////
  
-$sql = "SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql = "SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado = mysqli_query($connection, $sql);
 while ($row=mysqli_fetch_array($resultado)){
 $nuevo_precio=$costo_nuevo;
 mysqli_set_charset($connection, "utf8");
-$sql_actualizar="UPDATE Pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
+$sql_actualizar="UPDATE pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
 $resultado_actualizar=mysqli_prepare($connection, $sql_actualizar);
 mysqli_stmt_bind_param($resultado_actualizar, "iii",$nuevo_precio,$id_unico_contrato_editar,$id_normal_contrato_editar);
 mysqli_stmt_execute($resultado_actualizar);
@@ -111,7 +111,7 @@ mysqli_stmt_execute($resultado_actualizar);
  
 ////BORRAR PLAN 
 mysqli_set_charset($connection, "utf8");
-$sql="DELETE FROM User_has_Servicios_Adicionales WHERE id_actualizar=? ";
+$sql="DELETE FROM user_has_servicios_adicionales WHERE id_actualizar=? ";
 $resultado=mysqli_prepare($connection, $sql);
 mysqli_stmt_bind_param($resultado, "i", $id_contrato_limpio_servicio);
 $ok=mysqli_stmt_execute($resultado);
@@ -132,7 +132,7 @@ if (isset($_GET['id_eliminar_contrato_familiarin']))//codigo elimina un elemento
        $id_contrato_familiarin=intval($_GET['id_eliminar_contrato_familiarin']);
        $id_contrato_limpio_familiarin= mysqli_escape_string($connection,$id_contrato_familiarin);
 /////////////////////////SELECCIONO PRECIO DE LOS SERVICIOS ADICIONALES/////////////////////////////////
-       $sql_familiarin="SELECT * FROM User_family_independent WHERE id_actualizar_familyin='".$id_contrato_limpio_familiarin."'";
+       $sql_familiarin="SELECT * FROM user_family_independent WHERE id_actualizar_familyin='".$id_contrato_limpio_familiarin."'";
        $sql_familiarin_resultado= mysqli_query($connection, $sql_familiarin); 
        $array_resultado_familiarin=mysqli_fetch_array($sql_familiarin_resultado);
        $sql_resultado=$array_resultado_familiarin['costo_adicional']-($array_resultado_familiarin['costo_adicional']*($sum_descuento/100));
@@ -140,7 +140,7 @@ if (isset($_GET['id_eliminar_contrato_familiarin']))//codigo elimina un elemento
 
 /////////////////////////SELECCIONO PAGOS DEL CONTRATO CIERRO/////////////////////////////////
  
-          $sql_total_pagos ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+          $sql_total_pagos ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
           $resultado_total_pagos= mysqli_query($connection, $sql_total_pagos);
           $row_contrato_pagos = mysqli_fetch_array($resultado_total_pagos);
           $sum_total_pagos = $row_contrato_pagos['pago'];
@@ -152,12 +152,12 @@ if (isset($_GET['id_eliminar_contrato_familiarin']))//codigo elimina un elemento
   
  /////////////////////////ACTUALIZAR PAGOS DEL CONTRATO/////////////////////////////////
  
-$sql = "SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql = "SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado = mysqli_query($connection, $sql);
 while ($row=mysqli_fetch_array($resultado)){
 $nuevo_precio=$costo_nuevo;
 mysqli_set_charset($connection, "utf8");
-$sql_actualizar="UPDATE Pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
+$sql_actualizar="UPDATE pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
 $resultado_actualizar=mysqli_prepare($connection, $sql_actualizar);
 mysqli_stmt_bind_param($resultado_actualizar, "iii",$nuevo_precio,$id_unico_contrato_editar,$id_normal_contrato_editar);
 mysqli_stmt_execute($resultado_actualizar);
@@ -167,7 +167,7 @@ mysqli_stmt_execute($resultado_actualizar);
  
 ////BORRAR SERVICIO ADICIONAL 
 mysqli_set_charset($connection, "utf8");
-$sql="DELETE FROM User_family_independent WHERE id_actualizar_familyin=? ";
+$sql="DELETE FROM user_family_independent WHERE id_actualizar_familyin=? ";
 $resultado=mysqli_prepare($connection, $sql);
 mysqli_stmt_bind_param($resultado, "i", $id_contrato_familiarin);
 $ok=mysqli_stmt_execute($resultado);
@@ -182,7 +182,7 @@ $id_contrato_familiarde=intval($_GET['id_eliminar_contrato_familiarde']);
  
 ////BORRAR SERVICIO ADICIONAL 
 mysqli_set_charset($connection, "utf8");
-$sql="DELETE FROM User_family WHERE id_actualizar_family=? ";
+$sql="DELETE FROM user_family WHERE id_actualizar_family=? ";
 $resultado=mysqli_prepare($connection, $sql);
 mysqli_stmt_bind_param($resultado, "i", $id_contrato_familiarde);
 $ok=mysqli_stmt_execute($resultado);
@@ -199,13 +199,13 @@ $id_contrato_precio_planes=intval($_GET['precio_venta_planes']);
 //////////////////////////////////SELECCIONAR ID PLANES CIERRO/////////////////////////////////////    
 
                 mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO User_has_planes (id_user_plan,User_idUser, planes_id_planes,precio_total) VALUES (?,?,?,?)";
+                $sql2="INSERT INTO user_has_planes (id_user_plan,User_idUser, planes_id_planes,precio_total) VALUES (?,?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
                 mysqli_stmt_bind_param($resultado2, "iiii",$id_unico_contrato_editar,$id_normal_contrato_editar, $id_contrato_planes,$id_contrato_precio_planes);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
 ///////////////////////////////////INSERTAR SERVICIOS DEL PLAN/////////////////////////////////////////////////7
-                $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = Servicios.id_servicios && planes_has_services.planes_id_planes=$id_contrato_planes";
+                $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = servicios.id_servicios && planes_has_services.planes_id_planes=$id_contrato_planes";
                   $resultado_servicios= mysqli_query($connection, $sql_servicios);
                   while($fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                     $id_servicios = $fila_servicio['id_servicios'];
@@ -237,19 +237,19 @@ $id_contrato_precio_planes=intval($_GET['precio_venta_planes']);
                     mysqli_stmt_close($resultado_planes_product);
                    }
 
-$sql_total_pagos ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql_total_pagos ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado_total_pagos= mysqli_query($connection, $sql_total_pagos);          
 $filas_afectadas= mysqli_num_rows($resultado_total_pagos); 
  
  
  
 $precio_descuento= ($id_contrato_precio_planes-($id_contrato_precio_planes*($sum_descuento/100)))/$filas_afectadas;
-$sql = "SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql = "SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado = mysqli_query($connection, $sql);
 while ($row=mysqli_fetch_array($resultado)){
 $precio_total=$row[0]+$precio_descuento; 
 mysqli_set_charset($connection, "utf8");
-$sql_actualizar="UPDATE Pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
+$sql_actualizar="UPDATE pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
 $resultado_actualizar=mysqli_prepare($connection, $sql_actualizar);
 mysqli_stmt_bind_param($resultado_actualizar, "iii",$precio_total,$id_unico_contrato_editar,$id_normal_contrato_editar);
 mysqli_stmt_execute($resultado_actualizar);
@@ -273,24 +273,24 @@ $id_contrato_precio_servicio=intval($_GET['precio_venta']);
 //////////////////////////////////SELECCIONAR ID SERVICIO CIERRO///////////////////////////////////// 
                 $entregado = 0;
                 mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO User_has_Servicios_Adicionales (id_user_servicio,User_idUser,Servicios_Adicionales_id,  cantidad_servicios,costo,entregado) VALUES (?,?,?,?,?,?)";
+                $sql2="INSERT INTO user_has_servicios_adicionales (id_user_servicio,User_idUser,Servicios_Adicionales_id,  cantidad_servicios,costo,entregado) VALUES (?,?,?,?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
                 mysqli_stmt_bind_param($resultado2, "iiiiii",$id_unico_contrato_editar,$id_normal_contrato_editar, $id_contrato_servicios,$id_contrato_servicio_cantidad,$id_contrato_precio_servicio,$entregado);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
  
-$sql_total_pagos ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql_total_pagos ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado_total_pagos= mysqli_query($connection, $sql_total_pagos);          
 $filas_afectadas= mysqli_num_rows($resultado_total_pagos); 
  
 $precio_descuento= (($id_contrato_precio_servicio*$id_contrato_servicio_cantidad)-(($id_contrato_precio_servicio*$id_contrato_servicio_cantidad)*($sum_descuento/100)))/$filas_afectadas;
  
-$sql = "SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql = "SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado = mysqli_query($connection, $sql);
 while ($row=mysqli_fetch_array($resultado)){
 $precio_total=$row[0]+$precio_descuento; 
 mysqli_set_charset($connection, "utf8");
-$sql_actualizar="UPDATE Pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
+$sql_actualizar="UPDATE pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
 $resultado_actualizar=mysqli_prepare($connection, $sql_actualizar);
 mysqli_stmt_bind_param($resultado_actualizar, "iii",$precio_total,$id_unico_contrato_editar,$id_normal_contrato_editar);
 mysqli_stmt_execute($resultado_actualizar);
@@ -307,23 +307,23 @@ $id_nombre_familiarin=$_GET['nombrein_contrato'];
 $id_costo_familiarin=intval($_GET['costoin_contrato']); 
 $numeroin=$_GET['numeroin_contrato']; 
  
- $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional,identificacion) VALUES (?,?,?,?,?,?,?)";
+ $sql_familiarin="INSERT INTO user_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional,identificacion) VALUES (?,?,?,?,?,?,?)";
  $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisssis",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiarin,$id_nombre_familiarin,$id_edad_familiarin,$id_costo_familiarin,$numeroin);
  $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
  mysqli_stmt_close($resultado_familiarin);
  
- $sql_total_pagos ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+ $sql_total_pagos ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado_total_pagos= mysqli_query($connection, $sql_total_pagos);          
 $filas_afectadas= mysqli_num_rows($resultado_total_pagos); 
  
 $precio_descuento= (($id_costo_familiarin)-(($id_costo_familiarin)*($sum_descuento/100)))/$filas_afectadas;
  
-$sql = "SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+$sql = "SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
 $resultado = mysqli_query($connection, $sql);
 while ($row=mysqli_fetch_array($resultado)){
 $precio_total=$row[0]+$precio_descuento; 
 mysqli_set_charset($connection, "utf8");
-$sql_actualizar="UPDATE Pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
+$sql_actualizar="UPDATE pagos SET pago= ? WHERE id_pagos_user=? AND User_id=?";
 $resultado_actualizar=mysqli_prepare($connection, $sql_actualizar);
 mysqli_stmt_bind_param($resultado_actualizar, "iii",$precio_total,$id_unico_contrato_editar,$id_normal_contrato_editar);
 mysqli_stmt_execute($resultado_actualizar);
@@ -340,7 +340,7 @@ $id_parentezco_familiardi=$_GET['parentezcodi_contrato'];
 $id_nombre_familiardi=$_GET['nombredi_contrato']; 
 $numerodi=$_GET['numerodi_contrato']; 
  
- $sql_familiarin="INSERT INTO User_family (id_User_family,User_idUser,Parentezco,nombre,edad,identificacion) VALUES (?,?,?,?,?,?)";
+ $sql_familiarin="INSERT INTO user_family (id_User_family,User_idUser,Parentezco,nombre,edad,identificacion) VALUES (?,?,?,?,?,?)";
  $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iissss",$id_unico_contrato_editar,$id_normal_contrato_editar,$id_parentezco_familiardi,$id_nombre_familiardi,$id_edad_familiardi,$numerodi);
  $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
  mysqli_stmt_close($resultado_familiarin);
@@ -353,7 +353,7 @@ $numerodi=$_GET['numerodi_contrato'];
 
                 /////////////////////////////////////////COSTO PLANES//////////////////////////////////
 
-                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$id_normal_contrato_editar AND id_user_plan=$id_unico_contrato_editar";
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM user_has_planes WHERE User_idUser=$id_normal_contrato_editar AND id_user_plan=$id_unico_contrato_editar";
                     $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
                     $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
                     $sum_total_planes = $row_contrato_planes['value_planes'];
@@ -363,7 +363,7 @@ $numerodi=$_GET['numerodi_contrato'];
                 
                 /////////////////////////////////////////COSTO PLANES CIERRO//////////////////////////////////
 
-                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$id_normal_contrato_editar AND id_user_servicio=$id_unico_contrato_editar";
+                    $sql_total_servicio ="SELECT * FROM user_has_servicios_adicionales WHERE User_idUser=$id_normal_contrato_editar AND id_user_servicio=$id_unico_contrato_editar";
                     $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
                     $sumador_total_servicios=0;
                     while ($row_contrato_servicio = mysqli_fetch_array($resultado_total_servicio)) {
@@ -379,7 +379,7 @@ $numerodi=$_GET['numerodi_contrato'];
                 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
 
-                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $id_normal_contrato_editar AND id_User_family_indepen=$id_unico_contrato_editar";
+                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM user_family_independent WHERE User_idUser= $id_normal_contrato_editar AND id_User_family_indepen=$id_unico_contrato_editar";
                     $resultado_total_contrato= mysqli_query($connection, $sql_total_contrato);
                     $row_contrato_familiares = mysqli_fetch_assoc($resultado_total_contrato);
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];
@@ -388,7 +388,7 @@ $numerodi=$_GET['numerodi_contrato'];
 
 /////////////////////////SELECCIONO PAGOS DEL CONTRATO MOSTRAR /////////////////////////////////
  
-          $sql_total_pagos_mostrar ="SELECT pago FROM Pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
+          $sql_total_pagos_mostrar ="SELECT pago FROM pagos WHERE id_pagos_user=$id_unico_contrato_editar AND User_id=$id_normal_contrato_editar";
           $resultado_total_pagos_mostrar= mysqli_query($connection, $sql_total_pagos_mostrar);
           $row_contrato_pagos_mostrar = mysqli_fetch_assoc($resultado_total_pagos_mostrar);
           $sum_total_pagos_mostrar = $row_contrato_pagos_mostrar['pago'];
@@ -444,7 +444,7 @@ $tabla_planes.='
        </div>
         ';
 if ($row_tipo_contrato==1) {
-$sql_planes_editar="SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $id_normal_contrato_editar AND User_has_planes.id_user_plan=$id_unico_contrato_editar";
+$sql_planes_editar="SELECT * FROM planes INNER JOIN user_has_planes ON user_has_planes.planes_id_planes = planes.id_planes && user_has_planes.User_idUser= $id_normal_contrato_editar AND user_has_planes.id_user_plan=$id_unico_contrato_editar";
 $resultado_planes_editar= mysqli_query($connection, $sql_planes_editar);
 
 if (mysqli_num_rows($resultado_planes_editar)==0)
@@ -471,7 +471,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
         ';
      
 /////////////////////SERVICIOS DEL PLAN////////////////////////////////////////     
-       $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_normal_contrato_editar AND planes_has_services_delivered.id_user_delivered=$id_unico_contrato_editar AND planes_has_services_delivered.planes_id_planes=$planes_id";
+       $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_normal_contrato_editar AND planes_has_services_delivered.id_user_delivered=$id_unico_contrato_editar AND planes_has_services_delivered.planes_id_planes=$planes_id";
        $resultado_servicios= mysqli_query($connection, $sql_servicios);
          if (mysqli_num_rows($resultado_servicios)==0) {
               $tabla_planes.='
@@ -569,7 +569,7 @@ if (mysqli_num_rows($resultado_planes_editar)==0)
   } //CIERRE DEL ELSE DE LOS PLANES
 } //IF DEL TIPO DEL CONTRATO
 /////////////////////SERVICIOS ADICIONALES DEL CONTRATO////////////////////////////////////////     
-       $sql_servicio_adicionales= "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_normal_contrato_editar AND User_has_Servicios_Adicionales.id_user_servicio=$id_unico_contrato_editar";
+       $sql_servicio_adicionales= "SELECT * FROM servicios INNER JOIN user_has_servicios_adicionales ON user_has_servicios_adicionales.Servicios_Adicionales_id = servicios.id_servicios && user_has_servicios_adicionales.User_idUser= $id_normal_contrato_editar AND user_has_servicios_adicionales.id_user_servicio=$id_unico_contrato_editar";
        $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicio_adicionales);
          if (mysqli_num_rows($resultado_servicios_adicionales)==0) {
               $tabla_planes.='
@@ -631,7 +631,7 @@ if ($row_tipo_contrato==1) {
  
 
 /////////////////////FAMILIARES INDEPENDIENTES DEL CONTRATO////////////////////////////////////////     
-       $sql_familiares_independientes= "SELECT * FROM User_family_independent WHERE User_idUser=$id_normal_contrato_editar AND id_User_family_indepen=$id_unico_contrato_editar";
+       $sql_familiares_independientes= "SELECT * FROM user_family_independent WHERE User_idUser=$id_normal_contrato_editar AND id_User_family_indepen=$id_unico_contrato_editar";
        $resultado_familiares_independientes= mysqli_query($connection, $sql_familiares_independientes);
          if (mysqli_num_rows($resultado_familiares_independientes)==0) {
               $tabla_planes.='
@@ -692,7 +692,7 @@ if ($row_tipo_contrato==1) {
 
 
 /////////////////////FAMILIARES DEPENDIENTES DEL CONTRATO////////////////////////////////////////     
-       $sql_familiares_dependientes= "SELECT * FROM User_family WHERE User_idUser = $id_normal_contrato_editar AND id_User_family=$id_unico_contrato_editar";
+       $sql_familiares_dependientes= "SELECT * FROM user_family WHERE User_idUser = $id_normal_contrato_editar AND id_User_family=$id_unico_contrato_editar";
        $resultado_familiares_dependientes= mysqli_query($connection, $sql_familiares_dependientes);
          if (mysqli_num_rows($resultado_familiares_dependientes)==0) {
               $tabla_planes.='

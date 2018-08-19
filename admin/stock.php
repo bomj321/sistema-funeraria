@@ -13,35 +13,33 @@ include('header.php');
 
                  <div class="col s12 m9">
                       
-                        <div class="row">
                            <?php 
                                 include('advertencias.php');
                             ?>
-                        </div>                          
                           <div class="row">
                                 <div class="row">
                                    <h4>Registro de Almacenaje</h4>
                                 </div>
                                     <form id="nuevo_producto" name="nuevo_servicio" class="col s12" action="" onsubmit="enviarDatosStock(); return false" enctype="multipart/form-data" method="POST" style="margin-bottom: 3rem;"> 
                                     <div class="row">
-                                    <div class="input-field col s12 m3">
+                                    <div class="input-field col s12 m6 l6">
                                       <input name="objeto" id="objeto" type="text" class="validate" required="true">
                                       <label for="objeto">Item</label>
                                     </div>
 
-                                    <div class="input-field col s12 m3">
+                                    <div class="input-field col s12 m6 l6">
                                       <input onkeypress="return solonumeros(event)" onpaste="false" name="cantidad" id="cantidad" type="text" class="validate" required="true">
                                       <label for="cantidad">Cantidad Existente</label>
                                       <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
                                     </div> 
 
-                                    <div class="input-field col s12 m3">
+                                    <div class="input-field col s12 m6 l6">
                                       <input onkeypress="return solonumeros2(event)" onpaste="false" name="precio" id="precio" type="text" class="validate" required="true">
                                       <label for="precio">Precio Unitario</label>
                                       <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costos"></p>
                                     </div>                          
 
-                                    <div class="input-field col s12 m3">
+                                    <div class="input-field col s12 m6 l6">
                                       <input name="comentario" id="comentario" type="text" class="validate" required="true">
                                       <label for="comentario">Comentario</label>
                                     </div>
@@ -50,7 +48,7 @@ include('header.php');
                                   </div> 
                                     
                                   <div class="row">
-                                     <div class="file-field input-field col s12 m6">
+                                     <div class="file-field input-field col s12 m12 l12">
                                          <div class="btn">
                                         <span>File</span>
                                         <input id="file" type="file" name="image">

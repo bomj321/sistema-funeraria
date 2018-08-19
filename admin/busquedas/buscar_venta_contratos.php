@@ -7,7 +7,7 @@ require_once('../connect.php');
 if (isset($_GET['id_contrato_desactivar']))//codigo elimina un elemento del array
 {
     $id_user=intval($_GET['id_contrato_desactivar']);
-    $sql="UPDATE User SET activo='0' WHERE idUser_user= ? ";
+    $sql="UPDATE user SET activo='0' WHERE idUser_user= ? ";
         $resultado=mysqli_prepare($connection, $sql);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_user);
         $ok=mysqli_stmt_execute($resultado);  
@@ -18,7 +18,7 @@ if (isset($_GET['id_contrato_desactivar']))//codigo elimina un elemento del arra
 if (isset($_GET['id_contrato_activar']))//codigo elimina un elemento del array
 {
     $id_user=intval($_GET['id_contrato_activar']);
-    $sql_activar="UPDATE User SET activo='1' WHERE idUser_user= ? ";
+    $sql_activar="UPDATE user SET activo='1' WHERE idUser_user= ? ";
         $resultado=mysqli_prepare($connection, $sql_activar);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_user);
         $ok=mysqli_stmt_execute($resultado);  
@@ -29,7 +29,7 @@ if (isset($_GET['id_contrato_activar']))//codigo elimina un elemento del array
 if (isset($_GET['id_contrato_revisar']))//codigo elimina un elemento del array
 {
     $id_user=intval($_GET['id_contrato_revisar']);
-    $sql_revisar="UPDATE User SET revisado='1' WHERE idUser_user= ? ";
+    $sql_revisar="UPDATE user SET revisado='1' WHERE idUser_user= ? ";
         $resultado=mysqli_prepare($connection, $sql_revisar);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_user);
         $ok=mysqli_stmt_execute($resultado);  
@@ -42,10 +42,10 @@ $tabla="";
 
 if($_SESSION['perfil']=='admin'){ //IF      
 
-$sql = "SELECT * FROM User ORDER BY  idUser desc ";
+$sql = "SELECT * FROM user ORDER BY  idUser desc ";
 
 }else{//CIERRE IF
-   $sql = "SELECT * FROM User WHERE revisado='1' ORDER BY  idUser desc "; 
+   $sql = "SELECT * FROM user WHERE revisado='1' ORDER BY  idUser desc "; 
 }
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['ventas']))
@@ -54,12 +54,12 @@ if(isset($_POST['ventas']))
  if($_SESSION['perfil']=='admin'){ //IF      
 
 $buscar=$connection->real_escape_string($_POST['ventas']);
-	$sql="SELECT * FROM User WHERE name LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' OR idUser LIKE '%".$buscar."%' ORDER BY   	idUser_user desc  ";
+	$sql="SELECT * FROM user WHERE name LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' OR idUser LIKE '%".$buscar."%' ORDER BY   	idUser_user desc  ";
     
 
 }else{//CIERRE IF
    $buscar=$connection->real_escape_string($_POST['ventas']);
-	$sql="SELECT * FROM User WHERE name LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' OR idUser LIKE '%".$buscar."%' WHERE revisado='1' ORDER BY   	idUser_user desc  ";
+	$sql="SELECT * FROM user WHERE name LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' OR idUser LIKE '%".$buscar."%' WHERE revisado='1' ORDER BY   	idUser_user desc  ";
     
 }   
  
@@ -97,7 +97,7 @@ $tabla.='
 
            
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT descuento FROM User WHERE idUser=$contratoid AND idUser_user=$contratoid_unico ";
+                    $sql_contrato = "SELECT descuento FROM user WHERE idUser=$contratoid AND idUser_user=$contratoid_unico ";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
                     $sum_total = 0;
@@ -107,7 +107,7 @@ $tabla.='
 
                 /////////////////////////////////////////COST PLANES//////////////////////////////////
 
-                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$contratoid AND id_user_plan=$contratoid_unico ";
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM user_has_planes WHERE User_idUser=$contratoid AND id_user_plan=$contratoid_unico ";
                     $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
                     $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
                     $sum_total_planes = $row_contrato_planes['value_planes'];
@@ -116,7 +116,7 @@ $tabla.='
                 
                 /////////////////////////////////////////SERVICIOS ADICIONALES//////////////////////////////////
 
-                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$contratoid AND id_user_servicio=$contratoid_unico";
+                    $sql_total_servicio ="SELECT * FROM user_has_servicios_adicionales WHERE User_idUser=$contratoid AND id_user_servicio=$contratoid_unico";
                     $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
                     $sumador_total_servicios=0;
                     while ($row_contrato_servicio = mysqli_fetch_array($resultado_total_servicio)) {
@@ -132,7 +132,7 @@ $tabla.='
                 
                 /////////////////////////////////////////FAMILIARES INDEPENDIENTE//////////////////////////////////
 
-                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $contratoid AND id_User_family_indepen=$contratoid_unico";
+                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM user_family_independent WHERE User_idUser= $contratoid AND id_User_family_indepen=$contratoid_unico";
                     $resultado_total_contrato= mysqli_query($connection, $sql_total_contrato);
                     $row_contrato_familiares = mysqli_fetch_assoc($resultado_total_contrato);
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];

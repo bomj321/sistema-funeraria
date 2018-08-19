@@ -8,13 +8,13 @@ include('header.php');
           <div class="row" id="main" style="margin-top: 100px;">
               <form method="POST" class="col s6 offset-s3"  action="registro_action.php">
                   <div class="row">
-                      <div class="input-field col s12 m12">
+                      <div class="input-field col s12 m12 l12">
                         <input name="usuario"   id="usuario" type="text" class="validate email">
                         <label for="usuario">Ingrese su Usuario</label>                      
                       </div>
                   </div>
                   <div class="row">
-                        <div class="input-field col s12 m12">
+                        <div class="input-field col s12 m12 l12">
                             <input name="password"   id="password" type="password" class="validate password">
                             <label for="password">Password</label>
                         </div>

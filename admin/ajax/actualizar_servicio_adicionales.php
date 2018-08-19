@@ -7,7 +7,7 @@ $id_user_session=$_SESSION["usuarioid"];
 if (isset($_GET['id_servicio_adicionales']))//codigo elimina un elemento del array
 {
     $id_servicio_adicionales=intval($_GET['id_servicio_adicionales']);
-    $sql="UPDATE User_has_Servicios_Adicionales SET entregado ='1' WHERE id_actualizar= ? ";
+    $sql="UPDATE user_has_servicios_adicionales SET entregado ='1' WHERE id_actualizar= ? ";
         $resultado=mysqli_prepare($connection, $sql);
         mysqli_stmt_bind_param($resultado, "i", $id_servicio_adicionales);
         mysqli_stmt_execute($resultado);  
@@ -19,7 +19,7 @@ if (isset($_GET['id_servicio_adicionales']))//codigo elimina un elemento del arr
  <h4 style="text-align: center;">SERVICIOS ADICIONALES</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_user_session AND User_has_Servicios_Adicionales.id_user_servicio=$id_user_unico";
+          $sql_servicios_adicionales = "SELECT * FROM servicios INNER JOIN user_has_servicios_adicionales ON user_has_servicios_adicionales.Servicios_Adicionales_id = servicios.id_servicios && user_has_servicios_adicionales.User_idUser= $id_user_session AND user_has_servicios_adicionales.id_user_servicio=$id_user_unico";
             $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adicionales);
             if (mysqli_num_rows($resultado_servicios_adicionales)==0) {
 ?>

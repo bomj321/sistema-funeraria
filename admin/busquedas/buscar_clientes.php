@@ -6,7 +6,7 @@ if (isset($_GET['id_eliminar']))//codigo elimina un elemento del array
 {
 		$id_cliente=intval($_GET['id_eliminar']);
 		mysqli_set_charset($connection, "utf8");
-		$sql="DELETE FROM Clientes WHERE id_cliente=? ";
+		$sql="DELETE FROM clientes WHERE id_cliente=? ";
 		$resultado=mysqli_prepare($connection, $sql);
 		mysqli_stmt_bind_param($resultado, "i", $id_cliente);
 		$ok=mysqli_stmt_execute($resultado);	
@@ -17,7 +17,7 @@ if (isset($_GET['id_eliminar']))//codigo elimina un elemento del array
 if (isset($_GET['id_activar']))//codigo elimina un elemento del array
 {
 		$id_activar=intval($_GET['id_activar']);
-		$sql="UPDATE Clientes SET activo='1' WHERE id_cliente= ? ";
+		$sql="UPDATE clientes SET activo='1' WHERE id_cliente= ? ";
         $resultado=mysqli_prepare($connection, $sql);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_activar);
         $ok=mysqli_stmt_execute($resultado);	
@@ -28,7 +28,7 @@ if (isset($_GET['id_activar']))//codigo elimina un elemento del array
 if (isset($_GET['id_desactivar']))//codigo elimina un elemento del array
 {
 		$id_desactivar=intval($_GET['id_desactivar']);
-		$sql_activar="UPDATE Clientes SET activo='0' WHERE id_cliente= ? ";
+		$sql_activar="UPDATE clientes SET activo='0' WHERE id_cliente= ? ";
         $resultado=mysqli_prepare($connection, $sql_activar);
         $ok=mysqli_stmt_bind_param($resultado, "i", $id_desactivar);
         $ok=mysqli_stmt_execute($resultado);	
@@ -37,14 +37,14 @@ if (isset($_GET['id_desactivar']))//codigo elimina un elemento del array
 
 
 $tabla="";
-$sql = "SELECT * FROM Clientes ORDER BY  id_cliente desc";
+$sql = "SELECT * FROM clientes ORDER BY  id_cliente desc";
 
 
 ///////// LO QUE OCURRE AL TECLEAR SOBRE EL INPUT DE BUSQUEDA ////////////
 if(isset($_POST['cliente']))
 {
 	$buscar=$connection->real_escape_string($_POST['cliente']);
-	$sql="SELECT * FROM Clientes WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY id_cliente desc ";
+	$sql="SELECT * FROM clientes WHERE nombre LIKE '%".$buscar."%' OR dni LIKE '%".$buscar."%' ORDER BY id_cliente desc ";
 } 
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);

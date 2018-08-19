@@ -8,7 +8,7 @@ $return_arr = array();
 /* If connection to database, run sql statement. */
 if ($connection)
 {
-$busqueda= "SELECT * FROM Clientes WHERE dni LIKE '%".$limpia_variable."%'";
+$busqueda= "SELECT * FROM clientes WHERE dni LIKE '%".$limpia_variable."%'";
 $resultado_busqueda= mysqli_query($connection, $busqueda);
 			  
 	

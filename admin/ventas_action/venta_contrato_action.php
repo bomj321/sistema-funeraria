@@ -36,7 +36,7 @@ require_once('../connect.php');
                 
                 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql_user="INSERT INTO User ( 	idUser,activo,revisado,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento,sexo,tipo_contrato,fecha_contrato) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $sql_user="INSERT INTO user (idUser,activo,revisado,nombre,estado,nacimiento,dni,numero,email,direccion,nombre_familiar,numero_familiar,cuotas,descuento,sexo,tipo_contrato,fecha_contrato) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $resultado_user=mysqli_prepare($connection, $sql_user);
            	mysqli_stmt_bind_param($resultado_user, "iiisssssssssiisss",$idUser,$activo,$revisado,$usu,$estado_civil,$edad,$dni,$numero,$email,$direccion_contrato,$familiar_contrato,$telefono_familiar_contrato,$cuotas_contrato,$descuento_contrato,$genero,$tipo_contrato,$hoy);
             $ok=mysqli_stmt_execute($resultado_user);
@@ -72,7 +72,7 @@ require_once('../connect.php');
 //////////////////////////////////SELECCIONAR ID SERVICIO CIERRO///////////////////////////////////// 
                 $entregado = 0;
                 mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO User_has_Servicios_Adicionales (id_user_servicio,User_idUser,Servicios_Adicionales_id,  cantidad_servicios,costo,entregado) VALUES (?,?,?,?,?,?)";
+                $sql2="INSERT INTO user_has_servicios_adicionales (id_user_servicio,User_idUser,Servicios_Adicionales_id, cantidad_servicios,costo,entregado) VALUES (?,?,?,?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
                 mysqli_stmt_bind_param($resultado2, "iiiiii",$idautogenerado,$idgenerado, $id_servicio,$cantidad_servicio,$precio_servicio,$entregado);
                 $ok2=mysqli_stmt_execute($resultado2);
@@ -107,13 +107,13 @@ require_once('../connect.php');
 //////////////////////////////////SELECCIONAR ID PLANES CIERRO/////////////////////////////////////    
 
                 mysqli_set_charset($connection, "utf8");
-                $sql2="INSERT INTO User_has_planes (id_user_plan,User_idUser, planes_id_planes,precio_total) VALUES (?,?,?,?)";
+                $sql2="INSERT INTO user_has_planes (id_user_plan,User_idUser, planes_id_planes,precio_total) VALUES (?,?,?,?)";
                 $resultado2=mysqli_prepare($connection, $sql2);
                 mysqli_stmt_bind_param($resultado2, "iiii",$idautogenerado,$idgenerado, $id_planes_contrato,$costo_planes_contrato);
                 $ok2=mysqli_stmt_execute($resultado2);
                 mysqli_stmt_close($resultado2);
 ///////////////////////////////////INSERTAR SERVICIOS DEL PLAN/////////////////////////////////////////////////7
-                $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = Servicios.id_servicios && planes_has_services.planes_id_planes=$id_planes_contrato";
+                $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = servicios.id_servicios && planes_has_services.planes_id_planes=$id_planes_contrato";
                   $resultado_servicios= mysqli_query($connection, $sql_servicios);
                   while($fila_servicio =mysqli_fetch_array($resultado_servicios)){              
                     $id_servicios = $fila_servicio['id_servicios'];
@@ -165,7 +165,7 @@ require_once('../connect.php');
 /////////////////////////////////////INSERT PARA LOS FAMILIARES DIRECTOS///////////////////////////////////
 
 
-            $sql_familiardi="INSERT INTO User_family (id_User_family,User_idUser, Parentezco,nombre,edad,identificacion) VALUES (?,?,?,?,?,?)";
+            $sql_familiardi="INSERT INTO user_family (id_User_family,User_idUser, Parentezco,nombre,edad,identificacion) VALUES (?,?,?,?,?,?)";
             $resultado_familiardi=mysqli_prepare($connection, $sql_familiardi);
             mysqli_stmt_bind_param($resultado_familiardi, "iissss",$idautogenerado,$idgenerado, $parentezco_familiares_directo,$nombre_familiares_directo,$edad_familiares_directo,$numerodi);
             $ok_familiardi=mysqli_stmt_execute($resultado_familiardi);
@@ -196,7 +196,7 @@ require_once('../connect.php');
 
 /////////////////////////////////////INSERT PARA LOS FAMILIARES INDIRECTOS/////////////////////////////
 
-            $sql_familiarin="INSERT INTO User_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional,identificacion) VALUES (?,?,?,?,?,?,?)";
+            $sql_familiarin="INSERT INTO user_family_independent (id_User_family_indepen,User_idUser,Parentezco,nombre,edad,costo_adicional,identificacion) VALUES (?,?,?,?,?,?,?)";
                     $resultado_familiarin=mysqli_prepare($connection, $sql_familiarin);   mysqli_stmt_bind_param($resultado_familiarin,"iisssis",$idautogenerado,$idgenerado,$parentezco_familiares_indirecto,$nombre_familiares_indirecto,$edad_familiares_indirecto,$costo_familiares_indirecto,$numeroin);
                     $ok_familiarin=mysqli_stmt_execute($resultado_familiarin);
                     mysqli_stmt_close($resultado_familiarin);
@@ -205,7 +205,7 @@ require_once('../connect.php');
 /////////////////////////////////////INSERT PARA LOS FAMILIARES INDIRECTOS CIERRO//////////////////////////////////
 ///
 ///
- $sql_total_costo ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $idgenerado AND id_User_family_indepen=$idautogenerado" ;
+ $sql_total_costo ="SELECT SUM(costo_adicional) AS value_sum FROM user_family_independent WHERE User_idUser= $idgenerado AND id_User_family_indepen=$idautogenerado" ;
                     $resultado_total_costo= mysqli_query($connection, $sql_total_costo);
                     $row_costo = mysqli_fetch_assoc($resultado_total_costo);
                     $sum_costo = $row_costo['value_sum'] ;
@@ -226,7 +226,7 @@ require_once('../connect.php');
         
        $numero_cuota++;
        $mas_1D = date("d-m-Y",strtotime($hoy."+ 30 days"));  
-            $sql_pagos="INSERT INTO Pagos (id_pagos_user,User_id, pago,fecha,pagado,numero_cuota) VALUES (?,?,?,?,?,?)";
+            $sql_pagos="INSERT INTO pagos (id_pagos_user,User_id, pago,fecha,pagado,numero_cuota) VALUES (?,?,?,?,?,?)";
                     $resultado_pagos=mysqli_prepare($connection, $sql_pagos);
                     mysqli_stmt_bind_param($resultado_pagos, "iiisii",$idautogenerado,$idgenerado, $costo_cuota,$mas_1D,$pagado,$numero_cuota);
                     $ok_pagos=mysqli_stmt_execute($resultado_pagos);

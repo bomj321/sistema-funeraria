@@ -4,24 +4,20 @@ include('header.php');
 include('connect.php');
 $id=$_GET['id_servicio'];
 $id_limpio= mysqli_escape_string($connection,$id);
-$sql = "SELECT * FROM Servicios WHERE id_servicios='$id_limpio'";
+$sql = "SELECT * FROM servicios WHERE id_servicios='$id_limpio'";
 $resultado= mysqli_query($connection, $sql); 
 $fila=mysqli_fetch_array($resultado);
 ?>
 <main>  
         <div class="row">
-                  <div class="col s12 m3" >
                             <?php
                               include('aside.php');
                             ?>
-                </div>
 
                  <div class="col s12 m9">
-                    <div class="row">
                            <?php 
                                 include('advertencias.php');
                             ?>
-                    </div>  
 
                       <div class="row">
                             <h4>Actualizacion del Almacenaje</h4>

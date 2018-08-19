@@ -5,7 +5,7 @@ $sql = "SELECT * FROM stock ORDER BY id desc ";
 $resultado= mysqli_query($connection, $sql);
 $row_cnt = mysqli_num_rows($resultado);   
 
-$sql_servicios = "SELECT * FROM Servicios WHERE servicio_activo='1' ORDER BY id_servicios desc "; 
+$sql_servicios = "SELECT * FROM servicios WHERE servicio_activo='1' ORDER BY id_servicios desc "; 
 $resultado_servicios= mysqli_query($connection, $sql_servicios);
 $row_cnt_servicio = mysqli_num_rows($resultado_servicios);   
 
@@ -25,12 +25,12 @@ $row_cnt_servicio = mysqli_num_rows($resultado_servicios);
                     {
                         while($fila =mysqli_fetch_array($resultado)){ //WHILE                           
                     ?>   
-                    <div class="col s12 m4">
-                          <div class="card " style="margin-bottom:100px; height:30rem;">
+                    <div class="col s12 m6 l4">
+                          <div class="card blue-grey lighten-2" style="margin-bottom:100px; height:40rem;">
                             <div class="card-image">
                               <img style="widht:50px; height:200px;" src="admin/img/<?php echo $fila['image']?>" >
                             </div>
-                            <div class="card-content">
+                            <div class="card-content" style="font-weight: bold; font-size: 18px;">
                                  <hr>
                                   <h4 style="text-align:center;"><?php echo $fila['objeto']?></h4>
                                   <p><?php echo $fila['comentario']?></p>
@@ -57,30 +57,43 @@ $row_cnt_servicio = mysqli_num_rows($resultado_servicios);
                             
                         
                         <div class="row">
-                              <div class="col s12 m6 push-m3">
-                                <ul class="collection with-header">
-                                        <li class="collection-header"><h4 style="color:black; text-align:center;">Servicios Ofrecidos</h4></li>
-                        <?php
-                            if ($row_cnt_servicio > 0)
-                                {                                
+                              <div class="col s12 m12 l12">
+                               <h4 style="text-align:center; color: white;">Servicios Ofrecidos</h4>
+                                <ul class="collapsible" >
+                            <?php 
+                            if ($row_cnt_servicio > 0){       
+                                    $i=1;                         
                                     while($fila_servicio =mysqli_fetch_array($resultado_servicios)){ //WHILE                           
                             ?> 
-                                    <li class="collection-item"><?php echo $fila_servicio['descripcion_servicio'];?> aun precio de <?php echo $fila_servicio['costo'];?> RD$</li>
-                    <?php
+
+                                <li>
+                                  <div class="collapsible-header blue-grey lighten-4" style="font-weight: bold; font-size: 20px;"><i class="material-icons">chevron_right</i>Servicio #<?php echo $i ?></div>
+                                  <div class="collapsible-body light-blue"><span style="color: white; font-size: bold; font-size:20px;"><?php echo $fila_servicio['descripcion_servicio'];?> aun precio de <?php echo $fila_servicio['costo'];?> RD$.</span></div>
+                                </li> 
+                                   
+                               <?php
+                               $i++;
                                 } //CIERRE WHILE
                             ?>
                                 </ul>
                             </div>
                             <?php
-                            }
-
-                                else{
+                            }else{
                             ?>
-                                     <h4>No hay servicios que ofrecer, por favor vuelve mas tarde</h4>
+                            <div class="col s12 m6 l6 push-m3 push-l3">
+                             <ul class="collapsible">
+                                <li>
+                                  <div class="collapsible-header"><i class="material-icons">chevron_right</i>clear</div>
+                                  <div class="collapsible-body"><span>No hay servicios que ofrecer, por favor vuelve mas tarde.</span></div>
+                                </li>
+                              </ul>  
+                            </div>  
 
                         <?php
                             }
-                            ?>                                                      
+                            ?> 
+
+
                         </div>
                 <!--SECCION DE LOS SERVICIOS--> 
   

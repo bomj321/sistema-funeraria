@@ -16,7 +16,7 @@ require_once('../connect.php');
 
 //////////////////////INSERT USUARIO
             mysqli_set_charset($connection, "utf8");
-            $sql="INSERT INTO User_servicios_individuales (nombre,edad,direccion,dni,comentario,numero_telefonico,pagado) VALUES (?,?,?,?,?,?,?)";
+            $sql="INSERT INTO user_servicios_individuales (nombre,edad,direccion,dni,comentario,numero_telefonico,pagado) VALUES (?,?,?,?,?,?,?)";
             $resultado=mysqli_prepare($connection, $sql);
             $ok=mysqli_stmt_bind_param($resultado, "sissssi", $usu,$edad,$direccion_usuario,$dni_usuario,$comentario_usuario,$numero,$pagado_usuario);
             $ok=mysqli_stmt_execute($resultado);        
@@ -39,7 +39,7 @@ require_once('../connect.php');
 
 
 /////////////////////////////////////////////////////////////////////INSERT PARA LOS SERVICIOS
-              $sql_servicios="SELECT * FROM Servicios,tmp_servicios_inviduales WHERE Servicios.id_servicios=tmp_servicios_inviduales.id_servicio AND tmp_servicios_inviduales.session_id='".$session_id."'";
+              $sql_servicios="SELECT * FROM servicios,tmp_servicios_inviduales WHERE servicios.id_servicios=tmp_servicios_inviduales.id_servicio AND tmp_servicios_inviduales.session_id='".$session_id."'";
                  $resultado_servicios= mysqli_query($connection, $sql_servicios);
                  while($row=mysqli_fetch_array($resultado_servicios)) {
                     $id_tmp_servicio=$row["id_servicio"];

@@ -28,18 +28,18 @@ $resultado= $mysqli->query($query);*/
 
 
 
-$sql = "SELECT * FROM User_servicios_individuales WHERE idUser = '$usuarioid'";
+$sql = "SELECT * FROM user_servicios_individuales WHERE idUser = '$usuarioid'";
 			$resultado= mysqli_query($connection, $sql); 
         		$fila =mysqli_fetch_array($resultado);
             
             $planid =$fila['idUser'];
 
-            $sql_servicios = "SELECT * FROM Servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
+            $sql_servicios = "SELECT * FROM servicios INNER JOIN user_has_services ON user_has_services.servicio_id_servicios = servicios.id_servicios && user_has_services.servicios_id_user= $planid ";
                $resultado_servicios= mysqli_query($connection, $sql_servicios);
                $fila_servicio_consulta= mysqli_num_rows($resultado_servicios);
 
 
-             $sql_total_servicios ="SELECT SUM(precio_total) AS value_sum FROM user_has_services INNER JOIN Servicios ON user_has_services.servicio_id_servicios = Servicios.id_servicios && user_has_services.servicios_id_user= $planid";
+             $sql_total_servicios ="SELECT SUM(precio_total) AS value_sum FROM user_has_services INNER JOIN servicios ON user_has_services.servicio_id_servicios = servicios.id_servicios && user_has_services.servicios_id_user= $planid";
                     $resultado_total_servicios= mysqli_query($connection, $sql_total_servicios);
                     $row_servicio = mysqli_fetch_assoc($resultado_total_servicios);
                     $sum_servicio = $row_servicio['value_sum'];

@@ -66,7 +66,7 @@ $tabla.='
             <td><img style="width: 3rem; height: 3rem;" src="img/'.$fila["image"].'"></td>
             <td>';
                 
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = Servicios.id_servicios && planes_has_services.planes_id_planes= $planid ";
+                    $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services ON planes_has_services.servicio_id_servicios = servicios.id_servicios && planes_has_services.planes_id_planes= $planid ";
                     $resultado_servicios= mysqli_query($connection, $sql_servicios);
                     $fila_servicio_consulta= mysqli_num_rows($resultado_servicios);
 
@@ -132,3 +132,18 @@ $tabla.='
 
   mysqli_close($connection);    
  ?>
+
+ <!--MEDIA QUERYS-->
+<style>
+  @media only screen and (max-width: 990px) {
+    th{
+        padding-top: 24px;
+    }
+    td{
+      padding-top: -10px;
+    }
+
+
+}
+</style>
+ <!--MEDIA QUERYS-->

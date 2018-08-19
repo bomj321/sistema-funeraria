@@ -23,14 +23,14 @@ include('header.php');
           <h4 style="text-align: center;">Datos del Usuario</h4>
 <!--CONSULTA PARA LOS DATOS DEL USUARIO-->
       <?php 
-          $sql = "SELECT * FROM User WHERE idUser = '$id_user_session' AND idUser_user='$id_user_unico'";
+          $sql = "SELECT * FROM user WHERE idUser = '$id_user_session' AND idUser_user='$id_user_unico'";
             $resultado= mysqli_query($connection, $sql); 
             $fila =mysqli_fetch_array($resultado);
 
 /////////////////CONSULTA PARA LOS DATOS DEL USUARIO CIERRO
 
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT descuento FROM User WHERE idUser=$id_user_session AND idUser_user=$id_user_unico";
+                    $sql_contrato = "SELECT descuento FROM user WHERE idUser=$id_user_session AND idUser_user=$id_user_unico";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
                     $sum_total = 0;
@@ -40,7 +40,7 @@ include('header.php');
 
                 /////////////////////////////////////////COST PLANES//////////////////////////////////
 
-                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$id_user_session AND id_user_plan=$id_user_unico";
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM user_has_planes WHERE User_idUser=$id_user_session AND id_user_plan=$id_user_unico";
                     $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
                     $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
                     $sum_total_planes = $row_contrato_planes['value_planes'];
@@ -49,7 +49,7 @@ include('header.php');
                 
                 /////////////////////////////////////////COST PLANES CIERRO//////////////////////////////////
 
-                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$id_user_session AND id_user_servicio=$id_user_unico";
+                    $sql_total_servicio ="SELECT * FROM user_has_servicios_adicionales WHERE User_idUser=$id_user_session AND id_user_servicio=$id_user_unico";
                     $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
                     $sumador_total_servicios=0;
                     while ($row_contrato_servicio = mysqli_fetch_array($resultado_total_servicio)) {
@@ -65,7 +65,7 @@ include('header.php');
                 
                 /////////////////////////////////////////DESCUENTO//////////////////////////////////
 
-                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM User_family_independent WHERE User_idUser= $id_user_session AND id_User_family_indepen=$id_user_unico";
+                    $sql_total_contrato ="SELECT SUM(costo_adicional) AS value_sum FROM user_family_independent WHERE User_idUser= $id_user_session AND id_User_family_indepen=$id_user_unico";
                     $resultado_total_contrato= mysqli_query($connection, $sql_total_contrato);
                     $row_contrato_familiares = mysqli_fetch_assoc($resultado_total_contrato);
                     $sum_total_familiares = $row_contrato_familiares['value_sum'];
@@ -102,7 +102,7 @@ if ($fila['tipo_contrato']==1) {
           <h4 style="text-align: center;">FAMILIARES DEPENDIENTES</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_familiaresde = "SELECT * FROM User_family WHERE User_idUser = $id_user_session AND id_User_family=$id_user_unico";
+          $sql_familiaresde = "SELECT * FROM user_family WHERE User_idUser = $id_user_session AND id_User_family=$id_user_unico";
             $resultado_familiaresde= mysqli_query($connection, $sql_familiaresde);
             if (mysqli_num_rows($resultado_familiaresde)==0) {
 ?>    
@@ -153,7 +153,7 @@ if ($fila['tipo_contrato']==1) {
           <h4 style="text-align: center;">FAMILIARES INDEPENDIENTES</h4>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_familiaresin = "SELECT * FROM User_family_independent WHERE User_idUser=$id_user_session AND id_User_family_indepen=$id_user_unico";
+          $sql_familiaresin = "SELECT * FROM user_family_independent WHERE User_idUser=$id_user_session AND id_User_family_indepen=$id_user_unico";
             $resultado_familiaresin= mysqli_query($connection, $sql_familiaresin);
             if (mysqli_num_rows($resultado_familiaresin)==0) {
 ?>
@@ -210,7 +210,7 @@ if ($fila['tipo_contrato']==1) {
 <!--CONSULTA PARA LOS PLANES-->
 <div class="row" >
         <?php 
-            $sql_planes = "SELECT * FROM planes INNER JOIN User_has_planes ON User_has_planes.planes_id_planes = planes.id_planes && User_has_planes.User_idUser= $id_user_session AND User_has_planes.id_user_plan=$id_user_unico";
+            $sql_planes = "SELECT * FROM planes INNER JOIN user_has_planes ON user_has_planes.planes_id_planes = planes.id_planes && user_has_planes.User_idUser= $id_user_session AND user_has_planes.id_user_plan=$id_user_unico";
               $resultado_planes= mysqli_query($connection, $sql_planes);
 
               if (mysqli_num_rows($resultado_planes)==0) {                  
@@ -255,7 +255,7 @@ if ($fila['tipo_contrato']==1) {
                     $_SESSION["planesid"]=$planes_id;
                     $planesid_planes=$_SESSION["planesid"];
 
-                    $sql_servicios = "SELECT * FROM Servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = Servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session 
+                    $sql_servicios = "SELECT * FROM servicios INNER JOIN planes_has_services_delivered ON planes_has_services_delivered.servicio_id_servicios = servicios.id_servicios && planes_has_services_delivered.idUser_services= $id_user_session 
                     AND planes_has_services_delivered.id_user_delivered=$id_user_unico 
                     AND planes_has_services_delivered.planes_id_planes=$planes_id";
                            $resultado_servicios= mysqli_query($connection, $sql_servicios);
@@ -412,7 +412,7 @@ if ($fila['tipo_contrato']==1) {
          ?>
 <!--CONSULTA PARA LOS FAMILIARES DEL USUARIO-->
       <?php 
-          $sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $id_user_session AND User_has_Servicios_Adicionales.id_user_servicio=$id_user_unico";
+          $sql_servicios_adicionales = "SELECT * FROM servicios INNER JOIN user_has_servicios_adicionales ON user_has_servicios_adicionales.Servicios_Adicionales_id = servicios.id_servicios && user_has_servicios_adicionales.User_idUser= $id_user_session AND user_has_servicios_adicionales.id_user_servicio=$id_user_unico";
             $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adicionales);
             if (mysqli_num_rows($resultado_servicios_adicionales)==0) {
 ?>
@@ -489,7 +489,7 @@ if ($fila['tipo_contrato']==1) {
 
           <tbody>
              <?php 
-          $sql_pagos = "SELECT * FROM Pagos WHERE User_id= $id_user_session AND id_pagos_user=$id_user_unico";
+          $sql_pagos = "SELECT * FROM pagos WHERE User_id= $id_user_session AND id_pagos_user=$id_user_unico";
             $resultado_pagos= mysqli_query($connection, $sql_pagos);
 
                while ($fila_pago =mysqli_fetch_array($resultado_pagos)){

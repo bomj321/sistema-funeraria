@@ -23,7 +23,7 @@ include('fpdf_plantilla_contrato.php');
     }
 }*/
 /////////////////////////////////////////DESCUENTO//////////////////////////////////
-                    $sql_contrato = "SELECT * FROM User WHERE idUser = $usuarioid AND idUser_user=$unicoid";
+                    $sql_contrato = "SELECT * FROM user WHERE idUser = $usuarioid AND idUser_user=$unicoid";
                     $resultado_contrato= mysqli_query($connection, $sql_contrato);
                     $row_contrato = mysqli_fetch_assoc($resultado_contrato);
                     $sum_total = 0;
@@ -33,7 +33,7 @@ include('fpdf_plantilla_contrato.php');
 
                 /////////////////////////////////////////COST PLANES//////////////////////////////////
 
-                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM User_has_planes WHERE User_idUser=$usuarioid AND id_user_plan=$unicoid";
+                    $sql_total_planes ="SELECT SUM(precio_total) AS value_planes FROM user_has_planes WHERE User_idUser=$usuarioid AND id_user_plan=$unicoid";
                     $resultado_total_planes= mysqli_query($connection, $sql_total_planes);
                     $row_contrato_planes = mysqli_fetch_assoc($resultado_total_planes);
                     $sum_total_planes = $row_contrato_planes['value_planes'];
@@ -42,7 +42,7 @@ include('fpdf_plantilla_contrato.php');
                 
                 /////////////////////////////////////////SERVICIOS ADICIONALES//////////////////////////////////
 
-                    $sql_total_servicio ="SELECT * FROM User_has_Servicios_Adicionales WHERE User_idUser=$usuarioid AND id_user_servicio=$unicoid";
+                    $sql_total_servicio ="SELECT * FROM user_has_servicios_adicionales WHERE User_idUser=$usuarioid AND id_user_servicio=$unicoid";
                     $resultado_total_servicio= mysqli_query($connection, $sql_total_servicio);
                     $sumador_total_servicios=0;
                     while ($row_contrato_servicio = mysqli_fetch_array($resultado_total_servicio)) {
@@ -82,7 +82,7 @@ $nacimiento= new DateTime($nacimiento);
 $interval = date_diff($nacimiento, $hoy); 
 //////////////////////////////////////////FORMATEO CIERRO
 
-$sql_pagos = "SELECT * FROM Pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
+$sql_pagos = "SELECT * FROM pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
 $resultado_pagos= mysqli_query($connection, $sql_pagos);
 $fila_pago =mysqli_fetch_array($resultado_pagos);
 
@@ -115,7 +115,7 @@ $pdf->Ln(5);
 $pdf->SetTextColor(80,77,208);
 /*************************************SERVICIOS ADICIONALES**********************************************/    			
 
-$sql_servicios_adicionales = "SELECT * FROM Servicios INNER JOIN User_has_Servicios_Adicionales ON User_has_Servicios_Adicionales.Servicios_Adicionales_id = Servicios.id_servicios && User_has_Servicios_Adicionales.User_idUser= $usuarioid AND User_has_Servicios_Adicionales.id_user_servicio=$unicoid";
+$sql_servicios_adicionales = "SELECT * FROM servicios INNER JOIN user_has_servicios_adicionales ON user_has_servicios_adicionales.Servicios_Adicionales_id = servicios.id_servicios && user_has_servicios_adicionales.User_idUser= $usuarioid AND user_has_servicios_adicionales.id_user_servicio=$unicoid";
 $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adicionales);
 /*************************************SERVICIOS ADICIONALES CIERRO**********************************************/ 
        if (mysqli_num_rows($resultado_servicios_adicionales)>0) {
@@ -132,7 +132,7 @@ $resultado_servicios_adicionales= mysqli_query($connection, $sql_servicios_adici
 $pdf->SetTextColor(80,77,208);
 $pdf->Ln(5);
 /*CONSULTA DE LOS PAGOS*/
-$sql_pagos_extra = "SELECT * FROM Pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
+$sql_pagos_extra = "SELECT * FROM pagos WHERE User_id= $usuarioid AND id_pagos_user=$unicoid";
 $resultado_pagos_extra= mysqli_query($connection, $sql_pagos_extra);
 $fila_pago_extra =mysqli_fetch_array($resultado_pagos_extra);
 /*CONSULTA DE LOS PAGOS*/

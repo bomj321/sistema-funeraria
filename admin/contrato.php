@@ -24,7 +24,7 @@ include('header.php');
                         <form method="POST" enctype="multipart/form-data" id="venta_contrato_ventas" action="" onsubmit="ventaDeContratos(); return false" class="col s12 m12">
                           <div class="row">
                                                      
-                           <div class="input-field col s12 m3">
+                           <div class="input-field col s12 m6 l6">
                               <input name="dni_contrato" onkeypress="return solonumeros(event)" id="dni_contrato" type="text" class="validate" required="true">
                               <label for="dni_contrato">Documento de Identidad</label>
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_costo"></p>
@@ -34,16 +34,16 @@ include('header.php');
                             
                             
 
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m6 l6">
                               <input  readonly name="civil_contrato" onkeypress="return sololetras2(event)" id="civil_contrato" type="text" class="validate" required="true">
                               <p style="color: red; font-size: 1rem; margin-bottom: -1rem;" id="mensaje_letra2"></p>
                             </div>
 
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m6 l6">
                               <input  readonly name="edad_contrato" id="edad_contrato" type="text" class="validate" required="true">
                             </div>
                             
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m6 l6">
                               <input  readonly name="genero_contrato" id="genero_contrato" type="text" class="validate" required="true">
                             </div>
                             
@@ -68,21 +68,21 @@ include('header.php');
                           </div>
                           
                           <div class="row">
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m6 l6">
                               <input  readonly name="direccion_contrato" id="direccion_contrato" type="text" class="validate" required="true">
                               
                             </div>
                             
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m6 l6">
                               <input  readonly name="familiar_contrato" onkeypress="return sololetras(event)" id="familiar_contrato" type="text" class="validate" required="true">
                               
                             </div>
 
-                            <div class="input-field col s12 m3">
+                            <div class="input-field col s12 m6 l6">
                               <input  readonly name="telefono_familiar_contrato" onkeypress="return solonumerosolo(event)" id="telefono_familiar_contrato" type="text" class="validate" required="true">
                             </div>
 
-                           <div class="input-field col s12 m3">
+                           <div class="input-field col s12 m6 l6">
                               <select required name="tipo_contrato" onchange="tipocontrato(this.value);">
                                 <option value="" disabled selected>Tipo de Contrato</option>
                                 <option value="1">Contrato tipo 1</option>
